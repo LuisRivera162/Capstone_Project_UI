@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service'
 
 
@@ -14,9 +15,10 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   isLoginMode = true;
 
-  constructor(private authService: AuthService) {
-
-  }
+  constructor(
+    private authService: AuthService, 
+    private router: Router
+    ) {}
 
   onSwitchMode(){
     this.isLoginMode = !this.isLoginMode;
@@ -44,6 +46,7 @@ export class AuthComponent implements OnInit {
           console.log(resData);
           this.isLoading = false;
           this.error = "null"; 
+          this.router.navigate(['/']);
         },
         errorRes => {
           console.log(errorRes);
@@ -58,6 +61,7 @@ export class AuthComponent implements OnInit {
           console.log(resData);
           this.isLoading = false;
           this.error = "null"; 
+          this.router.navigate(['/']);
         },
         errorRes => {
           console.log(errorRes);

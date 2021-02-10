@@ -26,7 +26,7 @@
 </nav> -->
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -41,10 +41,13 @@
       <a class="navbar-brand" href="#">Microlending</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="/auth">Log In</a></li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
+      <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Home</a></li>
+      <li routerLinkActive="active" *ngIf="!isAuthenticated"><a routerLink="/auth">Sign Up</a></li>
+      <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Page 2</a></li>
+      <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Page 3</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li routerLinkActive="active" *ngIf="isAuthenticated"><a (click)="onLogout()">Logout</a></li>
     </ul>
   </div>
 </nav>
