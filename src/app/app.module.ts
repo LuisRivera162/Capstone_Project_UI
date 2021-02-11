@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner/loading-spinner.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     HttpClientModule,
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent},
+      {path: 'home', component: HomeComponent},
       
       // {path: '', redirectTo: '/login', pathMatch: 'full'},
     ]),

@@ -1,0 +1,12 @@
+.spec_div {
+  /* margin: -70px 0 0 -120px; */
+  /* position: absolute; */
+  top: 50%;
+  left: 50%;
+  padding: 200px;
+}
+
+.border { 
+  border:1px solid black;
+  padding: 20px;
+}
