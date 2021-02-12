@@ -2,9 +2,51 @@
 html, body {
     height:100%;
 }
+
 div#form-wrapper {
     position:absolute;
     top:30%;
     right:0;
     left:0;
 }
+
+.border { 
+    /* border:1px solid black; */
+    padding: 10px;
+}
+
+.spec_div {
+    margin-top: 10%;
+    padding: 50px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .pad {
+    margin: 100px; 
+  }   
+
+  .div_pad_bot {
+    text-align: center; 
+    padding-top: 30px;
+  }
+
+  .div_pad_top {
+    text-align: center;  
+    padding-top: 10px;
+  }
+
+  .color {
+    background-color: rgb(255, 255, 255);
+  }
+
+  button:hover {
+    background-color: #db6505;
+    border: none;
+    color: white;
+  }

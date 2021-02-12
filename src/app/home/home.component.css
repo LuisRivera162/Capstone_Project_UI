@@ -9,10 +9,11 @@
     font-size: 40px;
     cursor: pointer;
     text-align: center;
+    color: white;
   }
-
-  .spec_div {
-    top: 50%;
-    left: 50%;
-    padding: 100px;
+  
+  button:hover {
+    background-color: #db6505;
+    border: none;
+    color: white;
   }

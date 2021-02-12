@@ -1,13 +1,14 @@
 <div class="row" id="form-wrapper" style="vertical-align:middle"> 
-    <div class="spec_div">
+    <div>
         <div *ngIf="isLoading" style="text-align: center;">
             <app-loading-spinner></app-loading-spinner>
         </div>
-        <div class="alert alert-danger" *ngIf="error != 'null' && !isLoading">
+        <div class="shadow alert alert-danger" *ngIf="error != 'null' && !isLoading">
             <p>{{error}}</p>
         </div>
-        <h1 style="text-align: center;" *ngIf="isLoginMode && !isLoading">Login</h1>
-        <form class="border" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode && !isLoading">
+        <div class="shadow border" *ngIf="isLoginMode && !isLoading">
+        <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" *ngIf="isLoginMode && !isLoading">Login</h1>
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode && !isLoading">
             <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" class="form-control"
@@ -102,5 +103,6 @@
                 </button>
             </div>
         </form>
+    </div>
     </div>
 </div>
