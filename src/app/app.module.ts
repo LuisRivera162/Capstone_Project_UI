@@ -9,6 +9,8 @@ import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner/loading-spinner.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { HomeComponent } from './home/home.component';
+import { BorrowerPageComponent } from './borrower-page/borrower-page.component';
+import { LenderPageComponent } from './lender-page/lender-page.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { HomeComponent } from './home/home.component';
     AuthComponent,
     LoadingSpinnerComponent,
     NavigationBarComponent,
-    HomeComponent
+    HomeComponent,
+    BorrowerPageComponent,
+    LenderPageComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import { HomeComponent } from './home/home.component';
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent},
       {path: 'home', component: HomeComponent},
+      {path: 'borrower', component: BorrowerPageComponent},
+      {path: 'lender', component: LenderPageComponent},
       
       // {path: '', redirectTo: '/login', pathMatch: 'full'},
     ]),
