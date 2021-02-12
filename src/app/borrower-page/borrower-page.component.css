@@ -1,0 +1,64 @@
+.block {
+    display: inline-block;
+    width: 30%;
+    height: 100px;
+    border-radius: 25px;
+    background-color: #f77307;
+    padding: 14px 28px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+  }
+
+  .block2 {
+    display: inline-block;
+    width: 45%;
+    height: 100px;
+    border-radius: 25px;
+    background-color: #f77307;
+    padding: 14px 28px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+  }
+
+  .block3 {
+    display: inline-block;
+    width: 30%;
+    height: 60px;
+    border-radius: 25px;
+    background-color: #f77307;
+    padding: 14px 28px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+  }
+
+  :active {
+    border: none;
+  }
+
+  .spec_div {
+    top: 50%;
+    left: 50%;
+    width: 1000px;
+    padding: 100px;
+  }
+  
+  button:hover {
+    background-color: #db6505;
+    border: none;
+    color: white;
+  }
