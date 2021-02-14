@@ -11,6 +11,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { HomeComponent } from './home/home.component';
 import { BorrowerPageComponent } from './borrower-page/borrower-page.component';
 import { LenderPageComponent } from './lender-page/lender-page.component';
+import { LoanSearchComponent } from './loan-search/loan-search.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LenderPageComponent } from './lender-page/lender-page.component';
     NavigationBarComponent,
     HomeComponent,
     BorrowerPageComponent,
-    LenderPageComponent
+    LenderPageComponent,
+    LoanSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { LenderPageComponent } from './lender-page/lender-page.component';
       {path: 'home', component: HomeComponent},
       {path: 'borrower', component: BorrowerPageComponent},
       {path: 'lender', component: LenderPageComponent},
+      {path: 'search', component: LoanSearchComponent},
       
       // {path: '', redirectTo: '/login', pathMatch: 'full'},
     ]),
