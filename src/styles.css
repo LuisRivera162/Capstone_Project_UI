@@ -18,7 +18,7 @@ div#form-wrapper {
 .spec_div {
     margin-top: 10%;
     padding: 50px;
-    background-color: rgb(211, 211, 211);
+    background-color: darkgrey;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -28,7 +28,7 @@ div#form-wrapper {
   }
 
   .pad {
-    margin: 100px; 
+    margin-top: 10%; 
   }   
 
   .div_pad_bot {
@@ -50,3 +50,24 @@ div#form-wrapper {
     border: none;
     color: white;
   }
+
+  .middle-div {
+    height: 70vh;
+    border-radius: 10px;
+    background-color: darkgrey;
+ }
+
+ .inside-div {
+    height: 50px;
+    background-color: rgb(51, 51, 51);
+    /* border-radius: 10px; */
+ }
+
+ .auth-div {
+   margin-top: 15%;
+   padding: 50px;
+   height:auto;
+   border-radius: 10px;
+   background-color: darkgrey;
+   margin-bottom: 15%;
+}

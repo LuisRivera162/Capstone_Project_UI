@@ -1,13 +1,14 @@
-<div class="row" id="form-wrapper" style="vertical-align:middle"> 
-    <div>
-        <div *ngIf="isLoading" style="text-align: center;">
-            <app-loading-spinner></app-loading-spinner>
-        </div>
+<div class="row" id="form-wrapper"> 
+    <div *ngIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div class="auth-div" *ngIf="!isLoading">
         <div class="shadow alert alert-danger" *ngIf="error != 'null' && !isLoading">
             <p>{{error}}</p>
         </div>
-        <div class="shadow border" *ngIf="isLoginMode && !isLoading">
-        <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" *ngIf="isLoginMode && !isLoading">Login</h1>
+        <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" *ngIf="isLoginMode && !isLoading">
+            Login
+        </h1>
         <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode && !isLoading">
             <div class="form-group">
                 <label for="email">E-mail</label>
@@ -35,8 +36,8 @@
                 </button>
             </div>
         </form>
-        <h1 style="text-align: center;" *ngIf="!isLoginMode && !isLoading">Register</h1>
-        <form class="border" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode && !isLoading">
+        <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" *ngIf="!isLoginMode && !isLoading">Register</h1>
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode && !isLoading">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="username" id="username" class="form-control"
@@ -103,6 +104,5 @@
                 </button>
             </div>
         </form>
-    </div>
     </div>
 </div>
