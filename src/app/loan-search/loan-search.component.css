@@ -1,0 +1,10 @@
+ .middle-div {
+    height: 70vh;
+    border-radius: 10px;
+    background-color: darkgrey;
+ }
+
+ .inside-div {
+    height: 50px;
+    background-color: rgb(51, 51, 51);
+ }
