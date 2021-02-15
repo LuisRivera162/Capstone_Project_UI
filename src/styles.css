@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 html, body {
     height:100%;
+    margin-top: 10%;
 }
 
 div#form-wrapper {
@@ -15,12 +16,19 @@ div#form-wrapper {
     padding: 10px;
 }
 
-.spec_div {
-    margin-top: 10%;
-    padding: 50px;
+  .spec_div_form {
     background-color: darkgrey;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-bottom: 5px;
+  }
+
+  .spec_div {
+    margin-top: 10%;
+    background-color: darkgrey;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-bottom: 5px;
   }
 
   .shadow {
@@ -70,4 +78,12 @@ div#form-wrapper {
    border-radius: 10px;
    background-color: darkgrey;
    margin-bottom: 15%;
+}
+
+.spec-div-h1 {
+  border-radius: 5px 5px 0 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: white;
+  background-color: black;
 }

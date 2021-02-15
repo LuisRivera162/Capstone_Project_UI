@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
           console.log(resData);
           this.isLoading = false;
           this.error = "null"; 
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         },
         errorRes => {
           console.log(errorRes);
@@ -61,7 +61,7 @@ export class AuthComponent implements OnInit {
           console.log(resData);
           this.isLoading = false;
           this.error = "null"; 
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         },
         errorRes => {
           console.log(errorRes);
