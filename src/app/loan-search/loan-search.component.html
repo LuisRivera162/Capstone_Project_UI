@@ -5,7 +5,7 @@
             <div class="shadow div-card flex" *ngFor="let loan of loans">
                 Loan ID: {{loan.loan_id}} &nbsp;
                 Loan Amount: {{loan.loan_amount}} &nbsp;
-                Interest: {{loan.interest}} &nbsp;
+                Interest: {{loan.interest * 100}}% &nbsp;
                 <!-- <p>Time Frame: {{loan.time_frame}}</p> -->
             </div>
         </div>
