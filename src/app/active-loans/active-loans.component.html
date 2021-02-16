@@ -1,0 +1,13 @@
+<div class="shadow pad middle-div">
+    <div class="pad inside-div">
+        <h3 style="text-align: center; color: white; padding-top: 15px;">Your Active Loans:</h3>
+        <div class="center-div scroll-pane">
+            <div class="shadow div-card flex" *ngFor="let loan of loans">
+                Username: {{loan.username}} &nbsp;
+                Loan Amount: {{loan.loan_amount}} &nbsp;
+                Interest: {{loan.interest * 100}}% &nbsp;
+                <!-- <p>Time Frame: {{loan.time_frame}}</p> -->
+            </div>
+        </div>
+    </div>
+</div>
