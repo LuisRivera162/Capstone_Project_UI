@@ -56,7 +56,6 @@ export class CreateLoanComponent implements OnInit {
       '/api/create-loan',
       {loan_amount: loan_amount, interest: interest, time_frame: time_frame,
       platform: platform, user_id: user_data.id}).subscribe();
-    
   }
 
 }
