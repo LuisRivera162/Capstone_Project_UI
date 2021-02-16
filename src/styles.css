@@ -86,3 +86,14 @@ div#form-wrapper {
   color: white;
   background-color: black;
 }
+
+.center-div {
+  margin: 3px;
+  padding: 10px;
+}
+
+.scroll-pane {
+  overflow:auto;
+  height:64vh; 
+  width: 65wh;
+}
