@@ -1,13 +1,24 @@
-<div class="shadow pad middle-div">
+<div class="shadow pad middle-div" *ngIf="!isLoading">
     <div class="pad inside-div">
         <h3 style="text-align: center; color: white; padding-top: 15px;">Your Active Loans:</h3>
         <div class="center-div scroll-pane">
-            <div class="shadow div-card flex" *ngFor="let loan of loans">
-                Username: {{loan.username}} &nbsp;
+            <div class="div-card flex" 
+            *ngFor="let loan of loans;">
+                User: {{loan.username}} &nbsp;
                 Loan Amount: {{loan.loan_amount}} &nbsp;
                 Interest: {{loan.interest * 100}}% &nbsp;
+                <button class="info-button" [routerLink]="['./loan-info/', loan.loan_id]"
+                [state]="{
+                    loan_id: loan.loan_id,
+                    interest: loan.interest,
+                    loan_amount: loan.loan_amount,
+                    time_frame: loan.time_frame,
+                    username: loan.username
+                }">Edit</button>
                 <!-- <p>Time Frame: {{loan.time_frame}}</p> -->
             </div>
         </div>
     </div>
 </div>
+
+<!-- [routerLink]="['./loan-info/', loan.loan_id]" -->

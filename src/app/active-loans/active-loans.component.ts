@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 interface LoanResponseData {
+  
   Loans: {'username': string,
           'interest': number, 
           'accepted': boolean, 
@@ -30,9 +31,9 @@ export class ActiveLoansComponent implements OnInit {
           'user_id': number
           }[] = []; 
     
-    user_id = this.authService.user.getValue()!.id
+  user_id = this.authService.user.getValue()!.id;  
+          isLoading = false;
 
-    
 
   constructor(
     private authService: AuthService, 
@@ -41,19 +42,18 @@ export class ActiveLoansComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    let headers = new HttpHeaders().append('header', 'value');
+    this.isLoading = true;
     const params = new HttpParams().append('user_id', this.user_id);
     
-
     this.HttpClient.get<LoanResponseData>(
       '/api/user-loans',
       {
-        headers, params
+        params
       }
       ).subscribe(resData => {
       this.loans = resData.Loans;
     });
+    this.isLoading = false;
 
   }
 

@@ -14,6 +14,7 @@ import { LenderPageComponent } from './lender-page/lender-page.component';
 import { LoanSearchComponent } from './loan-search/loan-search.component';
 import { CreateLoanComponent } from './create-loan/create-loan.component';
 import { ActiveLoansComponent } from './active-loans/active-loans.component';
+import { LoanInfoComponent } from './active-loans/loan-info/loan-info.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ActiveLoansComponent } from './active-loans/active-loans.component';
     LenderPageComponent,
     LoanSearchComponent,
     CreateLoanComponent,
-    ActiveLoansComponent
+    ActiveLoansComponent,
+    LoanInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,8 @@ import { ActiveLoansComponent } from './active-loans/active-loans.component';
       {path: 'search', component: LoanSearchComponent},
       {path: 'create', component: CreateLoanComponent},
       {path: 'active-loans', component: ActiveLoansComponent},
+      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent},
+      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent},
       
       
       // {path: '', redirectTo: '/login', pathMatch: 'full'},

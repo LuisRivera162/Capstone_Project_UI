@@ -2,11 +2,18 @@
     <div class="pad inside-div">
         <h3 style="text-align: center; color: white; padding-top: 15px;">Available Loans</h3>
         <div class="center-div scroll-pane">
-            <div class="shadow div-card flex" *ngFor="let loan of loans">
+            <div class="div-card flex" *ngFor="let loan of loans">
                 Loan ID: {{loan.loan_id}} &nbsp;
                 Loan Amount: {{loan.loan_amount}} &nbsp;
                 Interest: {{loan.interest * 100}}% &nbsp;
                 <!-- <p>Time Frame: {{loan.time_frame}}</p> -->
+                <button class="info-button" [routerLink]="['./loan-info/', loan.loan_id]"
+                [state]="{
+                    loan_id: loan.loan_id,
+                    interest: loan.interest,
+                    loan_amount: loan.loan_amount,
+                    time_frame: loan.time_frame
+                }">Check Out</button>
             </div>
         </div>
     </div>

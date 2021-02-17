@@ -1,0 +1,33 @@
+<div class="shadow pad middle-div">
+    <div class="pad inside-div">
+        <h3 style="text-align: center; color: white; padding-top: 15px;">
+            Loan Information: 
+        </h3>
+        <div class="center-div">
+            <div class="div-card" style="border-radius: 10px 10px 0px 0px;">
+                Loaner: {{username}}
+                <button class="info-button" *ngIf="isMyLoan">Edit</button>
+            </div>
+            <div class="div-card">
+                Loan Amount: {{loan_amount}}
+                <button class="info-button" *ngIf="isMyLoan">Edit</button>
+            </div>
+            <div class="div-card">
+                Interest on Loan: {{interest}}%
+                <button class="info-button" *ngIf="isMyLoan">Edit</button>
+            </div>
+            <div class="div-card" style="border-radius: 0px 0px 10px 10px;
+            height: 10vh;">
+                Time Frame: {{time_frame}}
+                <button class="info-button" *ngIf="isMyLoan">Edit</button>
+            </div>
+            <div class="col-md-12 text-center">
+                <div class="btn-group" role="group" aria-label="Basic example" >
+                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Accept Loan</button>
+                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Counter Offer</button>
+                    <button autofocus type="button" class="offer-button btn center" (click)="GoBack()">Go Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
