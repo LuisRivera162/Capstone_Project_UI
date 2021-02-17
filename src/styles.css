@@ -54,7 +54,6 @@ div#form-wrapper {
 
   button:hover {
     background-color: #db6505;
-    border: none;
     color: white;
   }
 
@@ -96,4 +95,9 @@ div#form-wrapper {
   overflow:auto;
   height:64vh; 
   width: 65wh;
+}
+
+.center {
+  margin:0 auto;
+  display: block;
 }

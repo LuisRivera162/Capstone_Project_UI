@@ -43,3 +43,14 @@
   font-weight: bold;
   overflow: hidden;
 }
+
+.info-button {
+  padding-left: 5px;
+  border-radius: 10px;
+  float: right;
+}
+
+button:hover {
+  background-color: #db6505;
+  color: white;
+}
