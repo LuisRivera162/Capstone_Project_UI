@@ -15,6 +15,10 @@ import { LoanSearchComponent } from './loan-search/loan-search.component';
 import { CreateLoanComponent } from './create-loan/create-loan.component';
 import { ActiveLoansComponent } from './active-loans/active-loans.component';
 import { LoanInfoComponent } from './active-loans/loan-info/loan-info.component';
+import { EntryComponent } from './entry/entry.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,15 @@ import { LoanInfoComponent } from './active-loans/loan-info/loan-info.component'
     LoanSearchComponent,
     CreateLoanComponent,
     ActiveLoansComponent,
-    LoanInfoComponent
+    LoanInfoComponent,
+    ActiveLoansComponent,
+    ActiveLoansComponent,
+    LoanInfoComponent,
+    ActiveLoansComponent,
+    EntryComponent,
+    ProfileComponent,
+    SettingsComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +57,20 @@ import { LoanInfoComponent } from './active-loans/loan-info/loan-info.component'
       {path: 'active-loans', component: ActiveLoansComponent},
       {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent},
       {path: 'search/loan-info/:loan_id', component: LoanInfoComponent},
-      
-      
+
+
+
+
+      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent},
+      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent},
+
+
+      {path: 'entry', component: EntryComponent},
+      {path: 'profile', component: ProfileComponent},
+      {path: 'notifications', component: NotificationComponent},
+      {path: 'settings', component: SettingsComponent},
+
+
       // {path: '', redirectTo: '/login', pathMatch: 'full'},
     ]),
   ],
