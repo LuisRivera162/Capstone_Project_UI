@@ -32,7 +32,7 @@ export class ActiveLoansComponent implements OnInit {
           }[] = []; 
     
   user_id = this.authService.user.getValue()!.id;  
-          isLoading = false;
+  isLoading = false;
 
 
   constructor(

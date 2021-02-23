@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActiveLoansComponent } from '../active-loans.component';
+import { NgForm } from '@angular/forms';
 
 interface LoanResponseData {
   
@@ -29,6 +30,8 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
   time_frame: Date | String = this.activatedroute.snapshot.paramMap.get('time_frame')!;
   username: String = this.activatedroute.snapshot.paramMap.get('username')!;
   isMyLoan = false; 
+  editMode = false; 
+  error = "";
   
   constructor(
     private authService: AuthService, 
@@ -39,11 +42,11 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isMyLoan = false;
+    this.editMode = false; 
   }
 
   ngOnInit(): void {
-    const params = new HttpParams().append('loan_id', this.loan_id.toString())
-    .append('user_id', this.user_id.toString());
+    const params = new HttpParams().append('loan_id', this.loan_id.toString());
 
     if (this.loan_id){
       this.HttpClient.get<LoanResponseData>(
@@ -65,7 +68,7 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  GoBack(): void {
+  goBack(): void {
     console.log(this.router.url);
     let url = this.router.url;
 
@@ -75,6 +78,30 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
     else if(url.startsWith('/active-loans')){
       this.router.navigate(['/active-loans']);
     }
+  }
+
+  onSubmit(form: NgForm){
+  
+    if (!form.valid){
+      this.error = "Form is not valid, make sure you fill all fields."
+      return;
+    }
+
+    this.error = "null"; 
+    
+    let loan_amount = form.value.loan_amount;
+    let interest = form.value.interest;
+    let time_frame = form.value.time_frame;
+    let platform = form.value.platform;
+  
+    this.HttpClient.put(
+      '/api/user-loan',
+      {loan_amount: loan_amount, interest: interest, time_frame: time_frame,
+        platform: platform, loan_id: this.loan_id}
+    ).subscribe();
+
+    this.goBack();
+
   }
 
 }
