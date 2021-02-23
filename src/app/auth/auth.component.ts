@@ -37,11 +37,12 @@ export class AuthComponent implements OnInit {
     const last_name = form.value.last_name;
     const conf_password = form.value.conf_password;
     const username = form.value.username;
+    const phone = form.value.phone;
 
     this.isLoading = true;
 
     if (!this.isLoginMode){
-      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age).subscribe(
+      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone).subscribe(
         resData => {
           console.log(resData);
           this.isLoading = false;

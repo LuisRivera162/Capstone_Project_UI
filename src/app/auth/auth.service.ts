@@ -24,11 +24,11 @@ export class AuthService {
     ) {}
   
   signUp(username: string, first_name: string, last_name: string, email: string, password: string,
-    conf_password: string, age: BigInteger) {
+    conf_password: string, age: BigInteger, phone: string) {
     return this.http.post<AuthResponseData>(
       '/api/register',
       {username: username, first_name: first_name, last_name: last_name, email: email, 
-        password: password, conf_password: conf_password, age: age}
+        password: password, conf_password: conf_password, age: age, phone: phone}
       ).pipe(tap(resData => {
         const user = new User(
           resData.email, 
