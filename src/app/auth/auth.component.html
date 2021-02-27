@@ -1,117 +1,66 @@
-<div class="row" id="form-wrapper"> 
-    <div *ngIf="isLoading" style="text-align: center;">
-        <app-loading-spinner></app-loading-spinner>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+<body >
+<div class="loginbox" *ngIf="isLoginMode && !isLoading" style="background-image: url('https://www.designyourway.net/blog/wp-content/uploads/2018/11/paster-blue-goo-700x394.jpg')">
+
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode && !isLoading">
+    <h1>Log In</h1>
+    <hr>
+    <div class="form-group">
+      <label id="icon" for="email" class="icon-user"></label>
+      <input type="email" id="email"  ngModel name="email" placeholder="Email" required/>
     </div>
-    <div class="auth-div" *ngIf="!isLoading">
-        <div class="shadow alert alert-danger" *ngIf="error != 'null' && !isLoading">
-            <p>{{error}}</p>
-        </div>
-        <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" *ngIf="isLoginMode && !isLoading">
-            Login
-        </h1>
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode && !isLoading">
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control"
-                ngModel
-                name="email"
-                required
-                />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control"
-                ngModel
-                name="password"
-                required
-                minlength="6"/>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn btn-primary" type="submit"
-                [disabled]="!authForm.valid">
-                    {{ isLoginMode ? 'Login' : 'Sign Up'}}
-                </button> |
-                <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-                    {{isLoginMode ? 'Sign Up' : 'Login'}}
-                </button>
-            </div>
-        </form>
-        <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" *ngIf="!isLoginMode && !isLoading">Register</h1>
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode && !isLoading">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="username" id="username" class="form-control"
-                ngModel
-                name="username"
-                required
-                />
-            </div>
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="first_name" id="first_name" class="form-control"
-                ngModel
-                name="first_name"
-                required
-                />
-            </div>
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="last_name" id="last_name" class="form-control"
-                ngModel
-                name="last_name"
-                required
-                />
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control"
-                ngModel
-                name="email"
-                required
-                email/>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control"
-                ngModel
-                name="password"
-                required
-                minlength="6"/>
-            </div>
-            <div class="form-group">
-                <label for="conf_password">Confirm Password</label>
-                <input type="password" id="conf_password" class="form-control"
-                ngModel
-                name="conf_password"
-                required
-                minlength="6"/>
-            </div>
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="age" id="age" class="form-control"
-                ngModel
-                name="age"
-                required
-                integer/>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" id="phone" class="form-control"
-                ngModel
-                name="phone"
-                required
-                integer
-                maxlength="10"/>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn btn-primary" type="submit"
-                [disabled]="!authForm.valid">
-                    {{ isLoginMode ? 'Login' : 'Sign Up'}}
-                </button> |
-                <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-                    {{isLoginMode ? 'Sign Up' : 'Login'}}
-                </button>
-            </div>
-        </form>
+    <div class="form-group">
+      <label id="icon" for="password" class="icon-shield"></label>
+      <input type="password" id="password" ngModel name="password" placeholder="Password" required minlength="6"/>
     </div>
+    <hr>
+    <div style="text-align: center;">
+      <button class="btn btn-primary" type="submit"
+              [disabled]="!authForm.valid">
+        {{ isLoginMode ? 'Login' : 'Sign Up'}}
+      </button> |
+      <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+        {{isLoginMode ? 'Sign Up' : 'Login'}}
+      </button>
+    </div>
+  </form>
 </div>
+<div class="registerbox" style="background-image: url('https://www.designyourway.net/blog/wp-content/uploads/2018/11/paster-blue-goo-700x394.jpg')" *ngIf="!isLoginMode && !isLoading" >
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode && !isLoading">
+    <h1>Registration</h1>
+    <hr>
+    <div class="accounttype">
+      <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required/>
+      <label for="BorrowRadio" class="radio">Borrower</label>
+      <input type="radio" value="None" id="LenderRadio" (change)="onItemChange(true)" name="lenderSelect" required/>
+      <label for="LenderRadio" class="radio">Lender</label>
+    </div>
+    <label id="icon" for="username"><i class="icon-user"></i></label>
+    <input type="text" name="username" id="username" ngModel placeholder="Username" required/>
+    <label id="icon" for="first_name"><i class="icon-user"></i></label>
+    <input type="text" name="first_name" id="first_name" ngModel placeholder="First Name" required/>
+    <label id="icon" for="last_name"><i class="icon-user"></i></label>
+    <input type="text" name="last_name" id="last_name" ngModel placeholder="Last Name" required/>
+    <label id="icon" for="age"><i class="icon-user"></i></label>
+    <input type="text" name="age" id="age" ngModel placeholder="Age" required/>
+    <label id="icon" for="phone"><i class="icon-phone "></i></label>
+    <input type="text" name="phone" id="phone" ngModel placeholder="Phone Number" required/>
+    <label id="icon" for="email"><i class="icon-envelope "></i></label>
+    <input type="text" name="email" id="email" ngModel placeholder="Email" required/>
+    <label id="icon" for="password"><i class="icon-shield"></i></label>
+    <input type="password" name="password" id="password" ngModel placeholder="Password" minlength="6" required/>
+    <label id="icon" for="conf_password"><i class="icon-shield"></i></label>
+    <input type="password" name="conf_password" id="conf_password" ngModel placeholder="Confirm Password" minlength="6" required/>
+    <hr>
+    <div style="text-align: center;">
+      <button class="btn btn-primary" type="submit"
+              [disabled]="!authForm.valid">
+        {{ isLoginMode ? 'Login' : 'Sign Up'}}
+      </button> |
+      <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+        {{isLoginMode ? 'Sign Up' : 'Login'}}
+      </button>
+    </div>
+  </form>
+</div>
+</body>

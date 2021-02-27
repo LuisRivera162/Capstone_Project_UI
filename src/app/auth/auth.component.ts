@@ -14,9 +14,10 @@ export class AuthComponent implements OnInit {
   error: string = "null";
   isLoading = false;
   isLoginMode = true;
+  lender = false
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router
     ) {}
 
@@ -29,7 +30,7 @@ export class AuthComponent implements OnInit {
     if (!form.valid){
       return;
     }
-    
+
     const email = form.value.email;
     const password = form.value.password;
     const age = form.value.age;
@@ -39,15 +40,20 @@ export class AuthComponent implements OnInit {
     const username = form.value.username;
     const phone = form.value.phone;
 
+
     this.isLoading = true;
 
     if (!this.isLoginMode){
-      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone).subscribe(
+      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone,this.lender).subscribe(
         resData => {
           console.log(resData);
           this.isLoading = false;
-          this.error = "null"; 
-          this.router.navigate(['/home']);
+          this.error = "null";
+          if(this.lender){
+            this.router.navigate(['/lender']);
+          }else{
+            this.router.navigate(['/borrower']);
+          }
         },
         errorRes => {
           console.log(errorRes);
@@ -61,8 +67,12 @@ export class AuthComponent implements OnInit {
         resData => {
           console.log(resData);
           this.isLoading = false;
-          this.error = "null"; 
-          this.router.navigate(['/home']);
+          this.error = "null";
+          if(resData.lender){
+            this.router.navigate(['/lender']);
+          }else{
+            this.router.navigate(['/borrower']);
+          }
         },
         errorRes => {
           console.log(errorRes);
@@ -78,4 +88,8 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onItemChange(target: boolean) {
+    console.log(target)
+    this.lender = target
+  }
 }

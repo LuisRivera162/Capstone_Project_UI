@@ -4,16 +4,21 @@
     height: 150px;
     border-radius: 25px;
     border: none;
-    background-color: #f77307;
+    background-color: #3a57af;
     padding: 14px 28px;
     font-size: 40px;
     cursor: pointer;
     text-align: center;
     color: white;
   }
-  
+
+.button {
+  background-color: #3a57af;
+
+}
+
   button:hover {
-    background-color: #db6505;
+    background-color: #02e1ff;
     border: none;
     color: white;
   }
