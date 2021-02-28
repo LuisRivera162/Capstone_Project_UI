@@ -40,18 +40,17 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let headers = new HttpHeaders().append('header', 'value');
     const params = new HttpParams().append('user_id', this.user_id);
 
     this.HttpClient.get<UserResponseData>(
       '/api/user',
       {
-        headers, params
+        params
       }
     ).subscribe(resData => {
       this.username = resData.username
       this.firstname = resData.first_name
-      this.lastname=resData.last_name
+      this.lastname = resData.last_name
       this.age = resData.age
       this.phone = resData.phone
     });
