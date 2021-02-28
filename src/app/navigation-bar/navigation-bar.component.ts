@@ -10,6 +10,13 @@ import { AuthService } from '../auth/auth.service';
 export class NavigationBarComponent implements OnInit, OnDestroy {
   isAuthenticated = false; 
   private userSub!: Subscription; 
+  userData: {
+    email: string;
+    id: string;
+    lender: boolean;
+  } = JSON.parse(localStorage.getItem('userData') || '{}');
+
+  lender = this.userData.lender;
 
   constructor(private authService: AuthService) { }
 
