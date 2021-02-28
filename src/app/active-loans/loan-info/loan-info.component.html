@@ -18,8 +18,8 @@
             </div>
             <div class="col-md-12 text-center">
                 <div class="btn-group" role="group" style="margin-top: 16px;" >
-                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Accept Loan</button>
-                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Counter Offer</button>
+                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Apply</button>
+                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Make Offer</button>
                     <button autofocus type="button" class="offer-button btn center" (click)="goBack()">Go Back</button>
                     <button autofocus type="button" class="offer-button btn center" *ngIf="isMyLoan && !editMode" (click)="editMode = true">Edit</button>
                 </div>
