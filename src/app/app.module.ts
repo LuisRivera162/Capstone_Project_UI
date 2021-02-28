@@ -19,6 +19,7 @@ import { EntryComponent } from './entry/entry.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NotificationComponent } from './notification/notification.component';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -49,29 +50,20 @@ import { NotificationComponent } from './notification/notification.component';
     HttpClientModule,
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent},
-      {path: 'home', component: HomeComponent},
-      {path: 'borrower', component: BorrowerPageComponent},
-      {path: 'lender', component: LenderPageComponent},
-      {path: 'search', component: LoanSearchComponent},
-      {path: 'create', component: CreateLoanComponent},
-      {path: 'active-loans', component: ActiveLoansComponent},
-      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent},
-      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent},
-
-
-
-
-      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent},
-      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent},
-
-
-      {path: 'entry', component: EntryComponent},
-      {path: 'profile', component: ProfileComponent},
-      {path: 'notifications', component: NotificationComponent},
-      {path: 'settings', component: SettingsComponent},
-
-
-      // {path: '', redirectTo: '/login', pathMatch: 'full'},
+      {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+      {path: 'borrower', component: BorrowerPageComponent, canActivate: [AuthGuard]},
+      {path: 'lender', component: LenderPageComponent, canActivate: [AuthGuard]},
+      {path: 'search', component: LoanSearchComponent, canActivate: [AuthGuard]},
+      {path: 'create', component: CreateLoanComponent, canActivate: [AuthGuard]},
+      {path: 'active-loans', component: ActiveLoansComponent, canActivate: [AuthGuard]},
+      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
+      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
+      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
+      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
+      {path: 'entry', component: EntryComponent, canActivate: [AuthGuard]},
+      {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+      {path: 'notifications', component: NotificationComponent, canActivate: [AuthGuard]},
+      {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
     ]),
   ],
   providers: [],
