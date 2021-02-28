@@ -46,16 +46,14 @@ export class CreateLoanComponent implements OnInit {
       return; 
     }
 
-    console.log(loan_amount);
-    console.log(interest);
-    console.log(time_frame);
-    console.log(platform);
-    console.log(user_data.id);
+    this.router.navigate(['/search']);
 
     return this.HttpClient.post(
       '/api/create-loan',
       {loan_amount: loan_amount, interest: interest, time_frame: time_frame,
       platform: platform, user_id: user_data.id}).subscribe();
+
+    
   }
 
 }
