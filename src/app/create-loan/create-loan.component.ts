@@ -16,24 +16,35 @@ export class CreateLoanComponent implements OnInit {
 
   error: string = "null";
 
+  loan = {
+    amount: 0,
+    balance: 0,
+    interest: 0.0,
+    months: 0,
+    platform: "",
+    monthly_repayment: 0,
+    est_total_interest: 0.0
+  }
+  
+
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private HttpClient: HttpClient
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
 
-    if (!form.valid){
+    if (!form.valid) {
       this.error = "Form is not valid, make sure you fill all fields."
       return;
     }
 
-    this.error = "null"; 
-    
+    this.error = "null";
+
     let loan_amount = form.value.loan_amount;
     let interest = form.value.interest;
     let time_frame = form.value.time_frame;
@@ -42,18 +53,31 @@ export class CreateLoanComponent implements OnInit {
       email: string;
       id: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
-    if(!user_data.email && !user_data.id){
-      return; 
+    if (!user_data.email && !user_data.id) {
+      return;
     }
 
     this.router.navigate(['/search']);
 
     return this.HttpClient.post(
       '/api/create-loan',
-      {loan_amount: loan_amount, interest: interest, time_frame: time_frame,
-      platform: platform, user_id: user_data.id}).subscribe();
+      {
+        loan_amount: loan_amount, interest: interest, time_frame: time_frame,
+        platform: platform, user_id: user_data.id
+      }).subscribe();
+  }
 
+  recalculateEstimates() {
+    this.loan.monthly_repayment = (((this.loan.interest/100)/12)*this.loan.amount) / (1-(1+((this.loan.interest/100)/12))**(-this.loan.months))
     
+    this.loan.balance = this.loan.amount - this.loan.monthly_repayment
+    this.loan.est_total_interest = ((this.loan.interest/100)/12) * this.loan.amount
+
+    for (var i = 1; i <= this.loan.months; i++) {
+      this.loan.est_total_interest += ((this.loan.interest/100)/12) * this.loan.balance
+      this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest/100)/12) * this.loan.balance)
+    }
+
   }
 
 }

@@ -54,7 +54,7 @@ import { AuthGuard } from './auth/auth.guard';
       {path: 'borrower', component: BorrowerPageComponent, canActivate: [AuthGuard]},
       {path: 'lender', component: LenderPageComponent, canActivate: [AuthGuard]},
       {path: 'search', component: LoanSearchComponent, canActivate: [AuthGuard]},
-      {path: 'create', component: CreateLoanComponent, canActivate: [AuthGuard]},
+      {path: 'create', component: CreateLoanComponent,},
       {path: 'active-loans', component: ActiveLoansComponent, canActivate: [AuthGuard]},
       {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
       {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},

@@ -15,23 +15,25 @@
                     <span class="currency">$</span>
                     <input type="number" id="loan_amount"
                     style="max-width: 100px;"
-                    ngModel
+                    [(ngModel)]="loan.amount"
+                    (change)="recalculateEstimates()"
                     name="loan_amount"
                     required
                     oninput="this.value=this.value.slice(0,this.maxLength)"
-                    maxlength="4"
+                    maxlength="5"
                     step="100"
-                    max="5000"
+                    max="10000"
                     min="100"
                     />
                 </div>
                 <div class="flex">
-                    <label for="time_frame">Repayment Time Frame: </label>
-                    <input type="date" id="time_frame" style="
+                    <label for="time_frame">Repayment Time (Months): </label>
+                    <input type="number" id="time_frame" style="
                     border: 2px solid black;
                     border-radius: 7px;
-                    max-width: 300px;"
-                    ngModel
+                    max-width: 100px;"
+                    [(ngModel)]="loan.months"
+                    (change)="recalculateEstimates()"
                     name="time_frame"
                     required
                     />
@@ -41,8 +43,8 @@
                     <span class="currency">%</span>
                     <input type="number" id="interest"
                     style="max-width: 80px;"
-                    oninput="this.value=this.value.slice(0,this.maxLength)"
-                    ngModel
+                    [(ngModel)]="loan.interest"
+                    (change)="recalculateEstimates()"
                     name="interest"
                     required
                     maxlength="2"
@@ -52,11 +54,15 @@
                 </div>
                 <div class="flex">
                     <label for="platform">Supported Platform: </label>
-                    <select id="platform" name="platform" ngModel>
+                    <select id="platform" name="platform" [(ngModel)]="loan.platform">
                         <option>Venmo</option>
                         <option>ATH Movil</option>
                         <option>Paypal</option>
                     </select>
+                </div>
+                <div id="calculatedEstimates">
+                    <p>Est. Monthly Payment: ${{loan.monthly_repayment | number: '1.0-2'}}</p>
+                    <p>Est. Total Interest: ${{loan.est_total_interest | number: '1.0-2' }}</p>
                 </div>
                 <div style="text-align: center;">
                     <button class="btn btn-primary" type="submit">
