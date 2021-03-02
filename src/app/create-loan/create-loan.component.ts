@@ -68,6 +68,8 @@ export class CreateLoanComponent implements OnInit {
   }
 
   recalculateEstimates() {
+    if (this.loan.interest <= 0 || this.loan.amount < 100 || this.loan.months <=0) return
+    
     this.loan.monthly_repayment = (((this.loan.interest/100)/12)*this.loan.amount) / (1-(1+((this.loan.interest/100)/12))**(-this.loan.months))
     
     this.loan.balance = this.loan.amount - this.loan.monthly_repayment

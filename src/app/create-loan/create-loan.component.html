@@ -19,7 +19,6 @@
                     (change)="recalculateEstimates()"
                     name="loan_amount"
                     required
-                    oninput="this.value=this.value.slice(0,this.maxLength)"
                     maxlength="5"
                     step="100"
                     max="10000"
@@ -36,6 +35,7 @@
                     (change)="recalculateEstimates()"
                     name="time_frame"
                     required
+                    min="1"
                     />
                 </div>
                 <div class="flex">
@@ -49,7 +49,7 @@
                     required
                     maxlength="2"
                     max="99"
-                    min="5"
+                    min="1"
                     />
                 </div>
                 <div class="flex">
