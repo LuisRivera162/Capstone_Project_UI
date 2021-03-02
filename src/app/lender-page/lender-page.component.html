@@ -1,17 +1,40 @@
-<div class="spec_div">
-    <p class="div_pad_top">
-        <button type="button" class="btn btn-secondary block2" routerLink="/active-loans">Active Loans</button>
-        <button type="button" class="btn btn-secondary block2" routerLink="/lender">Closed Loans</button>
-        <button type="button" class="btn btn-secondary block2" routerLink="/lender">Pending Offers</button>
-        <button type="button" class="btn btn-secondary block2" routerLink="/lender">Balance</button>
-        <button type="button" class="btn btn-secondary block3" routerLink="/create">Create Loan</button>
-    </p>
-
-    <p class="div_pad_bot">
-        <button type="button" class="btn btn-secondary block" routerLink="/lender"></button>
-        <button type="button" class="btn btn-secondary block" routerLink="/lender"></button>
-        <button type="button" class="btn btn-secondary block" routerLink="/lender"></button>
-    </p>
+<!-- <div class="spec_div"> -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="upper_panel" class="jumbotron" style="margin-top: 15px;">
+                <div class="row">
+                    <div class="col-2 text-center border-right">
+                        <h2>7</h2>
+                        <a routerLink="/active-loans">Active Loans</a>
+                    </div>
+                    <div class="col-2 text-center border-right">
+                        <h2>5</h2>
+                        <a routerLink="/lender">Closed Loans</a>
+                    </div>
+                    <div class="col-2 text-center border-right">
+                        <h2>2</h2>
+                        <a routerLink="/lender">Pending Offers</a>
+                    </div>
+                    <div class="col-4 text-center border-right">
+                        <h2>$99,999.99</h2>
+                        <a routerLink="/lender">Active Loans Balance</a>
+                    </div>
+                    <div class="col-2 text-center" style="padding: 10px;">
+                        <div class="btn btn-success btn-lg" routerLink="/create">Create Loan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <app-active-loans></app-active-loans>
+        </div>
+        <div class="col-6">
+            <app-latest-payments></app-latest-payments>
+        </div>
+    </div>
 </div>
 
 <!-- needs fix: when I click on buttons there is a border that shows -->

@@ -20,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AuthGuard } from './auth/auth.guard';
+import { LatestPaymentsComponent } from './latest-payments/latest-payments.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AuthGuard } from './auth/auth.guard';
     EntryComponent,
     ProfileComponent,
     SettingsComponent,
-    NotificationComponent
+    NotificationComponent,
+    LatestPaymentsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +54,9 @@ import { AuthGuard } from './auth/auth.guard';
       {path: 'auth', component: AuthComponent},
       {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
       {path: 'borrower', component: BorrowerPageComponent, canActivate: [AuthGuard]},
-      {path: 'lender', component: LenderPageComponent, canActivate: [AuthGuard]},
+      {path: 'lender', component: LenderPageComponent,},
       {path: 'search', component: LoanSearchComponent, canActivate: [AuthGuard]},
-      {path: 'create', component: CreateLoanComponent,},
+      {path: 'create', component: CreateLoanComponent, canActivate: [AuthGuard]},
       {path: 'active-loans', component: ActiveLoansComponent, canActivate: [AuthGuard]},
       {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
       {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
