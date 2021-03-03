@@ -1,4 +1,23 @@
-<!-- <div class="spec_div"> -->
+<div class="modal fade" id="createLoanModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Loan Offering</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-create-loan></app-create-loan>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Review & submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -21,7 +40,7 @@
                         <a routerLink="/lender">Active Loans Balance</a>
                     </div>
                     <div class="col-2 text-center" style="padding: 10px;">
-                        <div class="btn btn-success btn-lg" routerLink="/create">Create Loan</div>
+                        <div class="btn btn-success btn-lg" data-toggle="modal" data-target="#createLoanModal">Create Loan</div>
                     </div>
                 </div>
             </div>
@@ -37,4 +56,6 @@
     </div>
 </div>
 
-<!-- needs fix: when I click on buttons there is a border that shows -->
+<script>
+    $('#createLoanModal').on('shown.bs.modal', function () { })
+</script>

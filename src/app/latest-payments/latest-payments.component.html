@@ -1,17 +1,36 @@
+<div class="modal fade" id="txReceiptModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Transaction Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-tx-receipt></app-tx-receipt>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-header">
         Latest Payments
     </div>
     <!-- <div class="card-body"> -->
     <ul class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="#" data-toggle="modal" data-target="#txReceiptModal" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1 text-success">+$439.81</h5>
                 <small class="text-warning">Awaiting Validation</small>
             </div>
             <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
             <p class="mb-1">
-                <small><b>Loan: </b><a href="#">0x967719e21626d3A45328fFe31a073E521Fee2d90</a></small>
+                <small><b>Loan ID: </b><a href="#" data-toggle="modal" data-target="#txReceiptModal">0x9677...2d90</a></small>
             </p>
             <p class="mb-1">
                 <small>4/21/2021 - 1:10 PM</small>
@@ -24,7 +43,7 @@
             </div>
             <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
             <p class="mb-1">
-                <small><b>Loan: </b><a href="#">0x967719e21626d3A45328fFe31a073E521Fee2d90</a></small>
+                <small><b>Loan ID: </b><a href="#">0x9677...2d90</a></small>
             </p>
             <p class="mb-1">
                 <small>3/20/2021 - 10:55 AM</small>
@@ -37,7 +56,7 @@
             </div>
             <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
             <p class="mb-1">
-                <small><b>Loan: </b><a href="#">0x967719e21626d3A45328fFe31a073E521Fee2d90</a></small>
+                <small><b>Loan ID: </b><a href="#">0x9677...2d90</a></small>
             </p>
             <p class="mb-1">
                 <small>2/21/2021 - 8:35 AM</small>
@@ -70,3 +89,6 @@
         </div>
     </div> -->
 </div>
+<script>
+    $('#txReceiptModal').on('shown.bs.modal', function () { })
+</script>

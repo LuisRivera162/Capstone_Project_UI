@@ -17,13 +17,14 @@ export class CreateLoanComponent implements OnInit {
   error: string = "null";
 
   loan = {
-    amount: 0,
+    amount: 100,
     balance: 0,
-    interest: 0.0,
-    months: 0,
-    platform: "",
+    interest: 1.0,
+    months: 3,
+    platform: 0,
     monthly_repayment: 0,
-    est_total_interest: 0.0
+    est_total_interest: 0.0,
+    est_yield: 0.0
   }
   
 
@@ -34,6 +35,7 @@ export class CreateLoanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.recalculateEstimates();
   }
 
   onSubmit(form: NgForm) {
@@ -79,6 +81,8 @@ export class CreateLoanComponent implements OnInit {
       this.loan.est_total_interest += ((this.loan.interest/100)/12) * this.loan.balance
       this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest/100)/12) * this.loan.balance)
     }
+
+    this.loan.est_yield = this.loan.est_total_interest / this.loan.amount;
 
   }
 
