@@ -21,6 +21,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LatestPaymentsComponent } from './latest-payments/latest-payments.component';
+import { TxReceiptComponent } from './tx-receipt/tx-receipt.component';
+import { LoanDetailComponent } from './loan-detail/loan-detail.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { LatestPaymentsComponent } from './latest-payments/latest-payments.compo
     ProfileComponent,
     SettingsComponent,
     NotificationComponent,
-    LatestPaymentsComponent
+    LatestPaymentsComponent,
+    TxReceiptComponent,
+    LoanDetailComponent
   ],
   imports: [
     BrowserModule,

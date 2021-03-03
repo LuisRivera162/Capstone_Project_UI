@@ -1,5 +1,24 @@
-<div class="shadow pad middle-div" *ngIf="!isLoading">
-    <div class="pad inside-div">
+<div class="card" *ngIf="!isLoading">
+    <div class="card-header">
+        My Loans
+      </div>
+      <!-- <div class="card-body"> -->
+        <ul class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">$5,000.00</h5>
+                  <small class="text-success">Active</small>
+                </div>
+                <!-- <p class="mb-1">Some placeholder content in a paragraph.</p> -->
+                <p class="mb-1">
+                    <span class="badge badge-warning" style="margin-right: 2px;">10.0%</span>
+                    <span class="badge badge-info">12 months</span>
+                </p>
+                <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
+              </a>
+          </ul>
+      <!-- </div> -->
+    <!-- <div class="pad inside-div">
         <h3 style="text-align: center; color: white; padding-top: 15px;">Your Active Loans:</h3>
         <div class="center-div scroll-pane">
             <div class="div-card flex" 
@@ -15,10 +34,10 @@
                     time_frame: loan.time_frame,
                     username: loan.username
                 }">Edit</button>
-                <!-- <p>Time Frame: {{loan.time_frame}}</p> -->
+                <p>Time Frame: {{loan.time_frame}}</p>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <!-- [routerLink]="['./loan-info/', loan.loan_id]" -->
