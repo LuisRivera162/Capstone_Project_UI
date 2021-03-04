@@ -15,6 +15,7 @@ interface LoanResponseData {
     'monthly_repayment': number,
     'balance': number,
     'est_total_interest': number,
+    'username': string
   }[];
 }
 
@@ -36,6 +37,7 @@ export class LoanSearchComponent implements OnInit {
     'monthly_repayment': number,
     'balance': number,
     'est_total_interest': number,
+    'username': string
   }[] = [];
 
   curr_loan: {
@@ -49,6 +51,7 @@ export class LoanSearchComponent implements OnInit {
     'monthly_repayment': number,
     'balance': number,
     'est_total_interest': number,
+    'username': string
   } = {
       'interest': 0,
       'accepted': false,
@@ -60,6 +63,7 @@ export class LoanSearchComponent implements OnInit {
       'monthly_repayment': 0,
       'balance': 0,
       'est_total_interest': 0,
+      'username': ""
     };
 
   constructor(

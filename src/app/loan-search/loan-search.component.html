@@ -23,7 +23,7 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
                     <div class="col-sm-6">
-                        {{curr_loan.interest}}%
+                        {{curr_loan.interest * 100}}%
                     </div>
                 </div>
                 <div class="form-group row">
@@ -61,8 +61,8 @@
         (click)="loadLoanInfo(i)">
             <div class="d-flex">
                 <h5 class="mb-1 align-self-center" style="margin-right: 2px;"> {{loan.amount | currency }}</h5>
-                <small class="align-self-center"><span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest}}%</span></small>
-                <small class="align-self-center"><span class="badge badge-info" style="margin-right: 2px;">1 months</span></small>
+                <small class="align-self-center"><span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest * 100}}%</span></small>
+                <small class="align-self-center"><span class="badge badge-info" style="margin-right: 2px;">{{loan.months}} month(s)</span></small>
 
                 <!-- <button class="btn btn-success ml-auto p-2" data-toggle="modal" data-target="#loanInfoModal"
                     (click)="loadLoanInfo(i)">Request</button> -->
@@ -70,7 +70,7 @@
             <p class="mb-1">
                 <span class="badge badge-success" style="margin-right: 2px;">Available</span>
             </p>
-            <small><b>Lender:</b> Victor M. ({{loan.user_id}})</small>
+            <small><b>Lender:</b> {{loan.username}} ({{loan.user_id}})</small>
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#" >{{loan.eth_address}}</a></small>
             </p>
@@ -81,5 +81,6 @@
 
 
 <script>
-    $('#loanInfoModal').on('shown.bs.modal', function () { })
+    $('#loanInfoModal').on('shown.bs.modal', function () {
+     })
 </script>

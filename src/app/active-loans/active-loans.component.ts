@@ -8,10 +8,14 @@ interface LoanResponseData {
   Loans: {'username': string,
           'interest': number, 
           'accepted': boolean, 
-          'loan_amount': number,
+          'amount': number,
           'loan_id': number,
-          'time_frame': Date,
-          'user_id': number
+          'months': number,
+          'user_id': number,
+          'eth_address': string,
+          'monthly_repayment': number,
+          'balance': number,
+          'est_total_interest': number,
           }[];
 }
 
@@ -25,12 +29,40 @@ export class ActiveLoansComponent implements OnInit {
   loans: {'username': string,
           'interest': number, 
           'accepted': boolean, 
-          'loan_amount': number,
+          'amount': number,
           'loan_id': number,
-          'time_frame': Date,
-          'user_id': number
+          'months': number,
+          'user_id': number,
+          'eth_address': string,
+          'monthly_repayment': number,
+          'balance': number,
+          'est_total_interest': number,
           }[] = []; 
     
+  curr_loan: {
+    'interest': number,
+    'accepted': boolean,
+    'amount': number,
+    'loan_id': number,
+    'months': number,
+    'user_id': number
+    'eth_address': string,
+    'monthly_repayment': number,
+    'balance': number,
+    'est_total_interest': number,
+  } = {
+      'interest': 0,
+      'accepted': false,
+      'amount': 0,
+      'loan_id': 0,
+      'months': 0,
+      'user_id': 0,
+      'eth_address': '0x0',
+      'monthly_repayment': 0,
+      'balance': 0,
+      'est_total_interest': 0,
+    };  
+
   user_id = this.authService.user.getValue()!.id;  
   isLoading = false;
 
@@ -55,6 +87,14 @@ export class ActiveLoansComponent implements OnInit {
     });
     this.isLoading = false;
 
+  }
+
+  loadLoanInfo(index: number): void {
+    this.curr_loan = this.loans[index];
+  }
+
+  isActiveLoansURLAddress(){
+    return this.router.url == '/active-loans'; 
   }
 
 }
