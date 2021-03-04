@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -59,14 +60,14 @@ export class CreateLoanComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/search']);
-
     return this.HttpClient.post(
       '/api/create-loan',
       {
         loan_amount: loan_amount, interest: interest, time_frame: time_frame,
         platform: platform, user_id: user_data.id
-      }).subscribe();
+      }).subscribe((resData) => {
+        this.router.navigate(['/search']);
+      });
   }
 
   recalculateEstimates() {

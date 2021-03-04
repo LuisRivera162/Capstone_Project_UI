@@ -51,4 +51,8 @@
             <h5  class="mb-1 text-success">+${{loan.est_total_interest | number: '1.0-2' }} ({{loan.est_yield*100 | number: '1.0-2' }}%)</h5>
         </div>
     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSubmit(authForm)">Review & submit</button>
+    </div>
 </form>
