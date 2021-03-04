@@ -23,6 +23,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { LatestPaymentsComponent } from './latest-payments/latest-payments.component';
 import { TxReceiptComponent } from './tx-receipt/tx-receipt.component';
 import { LoanDetailComponent } from './loan-detail/loan-detail.component';
+import { CreateOfferComponent } from './offer/create-offer/create-offer.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { LoanDetailComponent } from './loan-detail/loan-detail.component';
     NotificationComponent,
     LatestPaymentsComponent,
     TxReceiptComponent,
-    LoanDetailComponent
+    LoanDetailComponent,
+    CreateOfferComponent
   ],
   imports: [
     BrowserModule,
@@ -56,20 +58,22 @@ import { LoanDetailComponent } from './loan-detail/loan-detail.component';
     HttpClientModule,
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent},
-      {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-      {path: 'borrower', component: BorrowerPageComponent, canActivate: [AuthGuard]},
-      {path: 'lender', component: LenderPageComponent,},
-      {path: 'search', component: LoanSearchComponent, canActivate: [AuthGuard]},
-      {path: 'create', component: CreateLoanComponent, canActivate: [AuthGuard]},
-      {path: 'active-loans', component: ActiveLoansComponent, canActivate: [AuthGuard]},
-      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
-      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
-      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
-      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: [AuthGuard]},
-      {path: 'entry', component: EntryComponent, canActivate: [AuthGuard]},
-      {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-      {path: 'notifications', component: NotificationComponent, canActivate: [AuthGuard]},
-      {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+      {path: 'home', component: HomeComponent, canActivate: []},
+      {path: 'borrower', component: BorrowerPageComponent, canActivate: []},
+      {path: 'lender', component: LenderPageComponent, canActivate: []},
+      {path: 'search', component: LoanSearchComponent, canActivate: []},
+      {path: 'create', component: CreateLoanComponent, canActivate: []},
+      {path: 'active-loans', component: ActiveLoansComponent, canActivate: []},
+      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
+      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
+      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
+      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
+      {path: 'entry', component: EntryComponent, canActivate: []},
+      {path: 'profile', component: ProfileComponent, canActivate: []},
+      {path: 'notifications', component: NotificationComponent, canActivate: []},
+      {path: 'settings', component: SettingsComponent, canActivate: []},
+      {path: 'offer', component: CreateOfferComponent, canActivate: []},
+      
     ]),
   ],
   providers: [],
