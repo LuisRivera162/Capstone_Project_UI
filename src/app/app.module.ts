@@ -27,6 +27,7 @@ import { CreateOfferComponent } from './offer/create-offer/create-offer.componen
 import { ValidatePaymentComponent } from './validate-payment/validate-payment.component';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { NotificationsActionitemsComponent } from './notifications-actionitems/notifications-actionitems.component';
+import { PaymentScheduleComponent } from './payment-schedule/payment-schedule.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { NotificationsActionitemsComponent } from './notifications-actionitems/n
     CreateOfferComponent,
     ValidatePaymentComponent,
     MakePaymentComponent,
-    NotificationsActionitemsComponent
+    NotificationsActionitemsComponent,
+    PaymentScheduleComponent
   ],
   imports: [
     BrowserModule,
