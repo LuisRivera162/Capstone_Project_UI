@@ -4,13 +4,18 @@ import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 
 interface LoanResponseData {
-  Loans: {'interest': number, 
-          'accepted': boolean, 
-          'loan_amount': number,
-          'loan_id': number,
-          'time_frame': number,
-          'user_id': number
-          }[];
+  Loans: {
+    'interest': number,
+    'accepted': boolean,
+    'amount': number,
+    'loan_id': number,
+    'months': number,
+    'user_id': number,
+    'eth_address': string,
+    'monthly_repayment': number,
+    'balance': number,
+    'est_total_interest': number,
+  }[];
 }
 
 @Component({
@@ -20,34 +25,48 @@ interface LoanResponseData {
 })
 export class LoanSearchComponent implements OnInit {
 
-  loans: {'interest': number, 
-          'accepted': boolean, 
-          'loan_amount': number,
-          'loan_id': number,
-          'time_frame': number,
-          'user_id': number
-          }[] = []; 
+  loans: {
+    'interest': number,
+    'accepted': boolean,
+    'amount': number,
+    'loan_id': number,
+    'months': number,
+    'user_id': number,
+    'eth_address': string,
+    'monthly_repayment': number,
+    'balance': number,
+    'est_total_interest': number,
+  }[] = [];
 
-  curr_loan : {'interest': number, 
-              'accepted': boolean, 
-              'loan_amount': number,
-              'loan_id': number,
-              'time_frame': number,
-              'user_id': number
-              } = {
-                'interest': 0, 
-                'accepted': false, 
-                'loan_amount': 0,
-                'loan_id': 0,
-                'time_frame': 0,
-                'user_id': 0
-              };
+  curr_loan: {
+    'interest': number,
+    'accepted': boolean,
+    'amount': number,
+    'loan_id': number,
+    'months': number,
+    'user_id': number
+    'eth_address': string,
+    'monthly_repayment': number,
+    'balance': number,
+    'est_total_interest': number,
+  } = {
+      'interest': 0,
+      'accepted': false,
+      'amount': 0,
+      'loan_id': 0,
+      'months': 0,
+      'user_id': 0,
+      'eth_address': '0x0',
+      'monthly_repayment': 0,
+      'balance': 0,
+      'est_total_interest': 0,
+    };
 
   constructor(
-      private authService: AuthService, 
-      private router: Router,
-      private HttpClient: HttpClient
-    ) {}
+    private authService: AuthService,
+    private router: Router,
+    private HttpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.HttpClient.get<LoanResponseData>('/api/loans').subscribe(resData => {
@@ -55,8 +74,25 @@ export class LoanSearchComponent implements OnInit {
     });
   }
 
-  loadLoanInfo(index: number): void{
-    this.curr_loan = this.loans[index]; 
+  loadLoanInfo(index: number): void {
+    this.curr_loan = this.loans[index];
+  }
+
+  recalculateEstimates() {
+    if (this.curr_loan.interest <= 0 || this.curr_loan.amount < 100 || this.curr_loan.months <= 0) return
+
+    this.curr_loan.monthly_repayment = (((this.curr_loan.interest / 100) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest / 100) / 12)) ** (-this.curr_loan.months))
+
+    this.curr_loan.balance = this.curr_loan.amount - this.curr_loan.monthly_repayment
+    this.curr_loan.est_total_interest = ((this.curr_loan.interest / 100) / 12) * this.curr_loan.amount
+
+    for (var i = 1; i <= this.curr_loan.months; i++) {
+      this.curr_loan.est_total_interest += ((this.curr_loan.interest / 100) / 12) * this.curr_loan.balance
+      this.curr_loan.balance -= (this.curr_loan.monthly_repayment - ((this.curr_loan.interest / 100) / 12) * this.curr_loan.balance)
+    }
+
+    // this.curr_loan.est_total_interest / this.curr_loan.amount;
+
   }
 
 }
