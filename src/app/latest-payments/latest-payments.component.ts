@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-latest-payments',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./latest-payments.component.css']
 })
 export class LatestPaymentsComponent implements OnInit {
+
+  @Input() isLender: boolean = false;
 
   constructor() { }
 

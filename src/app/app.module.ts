@@ -24,6 +24,9 @@ import { LatestPaymentsComponent } from './latest-payments/latest-payments.compo
 import { TxReceiptComponent } from './tx-receipt/tx-receipt.component';
 import { LoanDetailComponent } from './loan-detail/loan-detail.component';
 import { CreateOfferComponent } from './offer/create-offer/create-offer.component';
+import { ValidatePaymentComponent } from './validate-payment/validate-payment.component';
+import { MakePaymentComponent } from './make-payment/make-payment.component';
+import { NotificationsActionitemsComponent } from './notifications-actionitems/notifications-actionitems.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { CreateOfferComponent } from './offer/create-offer/create-offer.componen
     LatestPaymentsComponent,
     TxReceiptComponent,
     LoanDetailComponent,
-    CreateOfferComponent
+    CreateOfferComponent,
+    ValidatePaymentComponent,
+    MakePaymentComponent,
+    NotificationsActionitemsComponent
   ],
   imports: [
     BrowserModule,

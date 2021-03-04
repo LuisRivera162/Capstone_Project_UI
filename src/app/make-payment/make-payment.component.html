@@ -1,0 +1,34 @@
+<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div class="form-group row">
+        <label for="amount" class="col-sm-6 col-form-label">Amount ($)</label>
+        <div class="col-sm-6">
+            <input type="number" class="form-control" id="amount" [(ngModel)]="payment.amount" name="amount" required />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="date" class="col-sm-6 col-form-label">Payment Date</label>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" id="date" [(ngModel)]="payment.date" name="date" required />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="platform" class="col-sm-6 col-form-label">Payment Source</label>
+        <div class="col-sm-6">
+            <select id="source" class="form-control" name="source" [(ngModel)]="payment.source">
+                <option selected disabled value="0">Choose...</option>
+                <option value="1">Venmo</option>
+                <option value="2">ATH Movil</option>
+                <option value="3">Paypal</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="payment.source">
+        <hr>
+        <div class="form-group row">
+            <label for="evidence" class="col-sm-6 col-form-label">Evidence (Transaction ID Hash)</label>
+            <div class="col-sm-6">
+                <input type="string" class="form-control" id="evidence" [(ngModel)]="payment.evidence" name="evidence" required />
+            </div>
+        </div>
+    </div>
+</form>
