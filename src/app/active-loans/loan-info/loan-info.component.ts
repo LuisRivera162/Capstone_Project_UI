@@ -47,7 +47,7 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const params = new HttpParams().append('loan_id', this.loan_id.toString());
-
+    
     if (this.loan_id){
       this.HttpClient.get<LoanResponseData>(
         '/api/user-loan',

@@ -8,7 +8,7 @@ interface LoanResponseData {
           'accepted': boolean, 
           'loan_amount': number,
           'loan_id': number,
-          'time_frame': Date,
+          'time_frame': number,
           'user_id': number
           }[];
 }
@@ -24,9 +24,24 @@ export class LoanSearchComponent implements OnInit {
           'accepted': boolean, 
           'loan_amount': number,
           'loan_id': number,
-          'time_frame': Date,
+          'time_frame': number,
           'user_id': number
           }[] = []; 
+
+  curr_loan : {'interest': number, 
+              'accepted': boolean, 
+              'loan_amount': number,
+              'loan_id': number,
+              'time_frame': number,
+              'user_id': number
+              } = {
+                'interest': 0, 
+                'accepted': false, 
+                'loan_amount': 0,
+                'loan_id': 0,
+                'time_frame': 0,
+                'user_id': 0
+              };
 
   constructor(
       private authService: AuthService, 
@@ -40,6 +55,8 @@ export class LoanSearchComponent implements OnInit {
     });
   }
 
-
+  loadLoanInfo(index: number): void{
+    this.curr_loan = this.loans[index]; 
+  }
 
 }

@@ -1,20 +1,75 @@
-<div class="shadow pad middle-div">
+<!-- <div class="shadow pad middle-div" style="margin-top: 50px;">
     <div class="pad inside-div">
-        <h3 style="text-align: center; color: white; padding-top: 15px;">Available Loans</h3>
-        <div class="center-div scroll-pane">
-            <div class="div-card flex" *ngFor="let loan of loans">
-                Loan ID: {{loan.loan_id}} &nbsp;
-                Loan Amount: {{loan.loan_amount}} &nbsp;
-                Interest: {{loan.interest * 100}}% &nbsp;
-                <!-- <p>Time Frame: {{loan.time_frame}}</p> -->
-                <button class="info-button" [routerLink]="['./loan-info/', loan.loan_id]"
-                [state]="{
-                    loan_id: loan.loan_id,
-                    interest: loan.interest,
-                    loan_amount: loan.loan_amount,
-                    time_frame: loan.time_frame
-                }">Check Out</button>
+        <h3 style="text-align: center; color: white; padding-top: 15px;">Available Loans</h3> -->
+        <div class="card" style="margin-top: 50px; padding-bottom: 10px;">
+            <h3 class="card-header">
+                Available Loans
+            </h3>
+            <div class="overflow-auto middle-div">
+                <div class="scroll-pane card border-dark mx-2" *ngFor="let loan of loans; let i = index">
+                    <div class="card-body">
+                        <h4>
+                            Loan ID: {{loan.loan_id}} &nbsp;
+                            Loan Amount: {{loan.loan_amount}} &nbsp;
+                            Interest: {{loan.interest * 100}}% &nbsp;
+                            Time Frame: {{loan.time_frame}} months
+                            <!-- <button class="btn btn-success"
+                            [routerLink]="['./loan-info/', loan.loan_id]"
+                            style="float: right;"
+                            >Check Out</button> -->
+                            <button class="btn btn-success"
+                            style="float: right;"
+                            data-toggle="modal" 
+                            data-target="#loanInfoModal"
+                            (click)="loadLoanInfo(i)"
+                            >Check Out</button>
+                        </h4>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="modal fade" id="loanInfoModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Loan Information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Loan ID: </label>
+                            <div class="col-sm-6">
+                                {{curr_loan.loan_id}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Loan Amount: </label>
+                            <div class="col-sm-6">
+                                {{curr_loan.loan_amount}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Interest: </label>
+                            <div class="col-sm-6">
+                                {{curr_loan.interest * 100}} %
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Time Frame (months): </label>
+                            <div class="col-sm-6">
+                                {{curr_loan.time_frame}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $('#loanInfoModal').on('shown.bs.modal', function () { })
+        </script>
+    <!-- </div>
+</div> -->

@@ -1,89 +1,83 @@
-<div class="shadow pad middle-div">
-    <div class="pad inside-div">
-        <h3 style="text-align: center; color: white; padding-top: 15px;">
-            {{!editMode ? 'Loan Information: ' : 'Edit Loan: '}} 
-        </h3>
-        <div class="center-div" *ngIf="!editMode">
-            <div class="div-card" style="border-radius: 10px 10px 0px 0px;">
-                Loaner: {{username}}
-            </div>
-            <div class="div-card">
-                Loan Amount: {{loan_amount}}
-            </div>
-            <div class="div-card">
-                Interest on Loan: {{interest}}%
-            </div>
-            <div class="div-card" style="border-radius: 0px 0px 10px 10px;">
-                Time Frame: {{time_frame}}
-            </div>
-            <div class="col-md-12 text-center">
-                <div class="btn-group" role="group" style="margin-top: 16px;" >
-                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Apply</button>
-                    <button type="button" class="offer-button btn center" *ngIf="!isMyLoan">Make Offer</button>
-                    <button autofocus type="button" class="offer-button btn center" (click)="goBack()">Go Back</button>
-                    <button autofocus type="button" class="offer-button btn center" *ngIf="isMyLoan && !editMode" (click)="editMode = true">Edit</button>
-                </div>
+
+<div class="" *ngIf="!editMode">
+    <div class="form-group row" style="border-radius: 10px 10px 0px 0px;">
+        Loaner: {{username}}
+    </div>
+    <div class="form-group row">
+        Loan Amount ($): {{loan_amount}}
+    </div>
+    <div class="form-group row">
+        Interest on Loan (%): {{interest}}
+    </div>
+    <div class="form-group row" style="border-radius: 0px 0px 10px 10px;">
+        Time Frame (Months): {{time_frame}}
+    </div>
+    <div class="col-md-12 text-center">
+        <div class="" role="group" style="margin-top: 16px;" >
+            <button type="button" class="btn btn-primary" *ngIf="!isMyLoan">Apply</button>
+            <button type="button" class="btn btn-primary" *ngIf="!isMyLoan">Make Offer</button>
+            <!-- <button autofocus type="button" class="offer-button btn center" (click)="goBack()">Go Back</button> -->
+            <button autofocus type="button" class="btn btn-primary center" *ngIf="isMyLoan && !editMode" (click)="editMode = true">Edit</button>
+        </div>
+    </div>
+</div>
+<div class="" *ngIf="editMode">
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+        <div class="flex div-card" style="border-radius: 10px 10px 0px 0px;">
+            <label for="loan_amount">Max Loan Amount:</label>
+            <span class="currency">$</span>
+            <input type="number" id="loan_amount"
+            style="max-width: 100px;"
+            ngModel
+            name="loan_amount"
+            required
+            oninput="this.value=this.value.slice(0,this.maxLength)"
+            maxlength="4"
+            step="100"
+            max="5000"
+            min="100"
+            />
+        </div>
+        <div class="flex div-card">
+            <label for="time_frame">Repayment Time Frame: </label>
+            <input type="date" id="time_frame" style="
+            border: 2px solid black;
+            border-radius: 7px;
+            max-width: 300px;"
+            ngModel
+            name="time_frame"
+            required
+            />
+        </div>
+        <div class="flex div-card">
+            <label for="interest">Interest Rate: </label>
+            <span class="currency">%</span>
+            <input type="number" id="interest"
+            style="max-width: 80px;"
+            oninput="this.value=this.value.slice(0,this.maxLength)"
+            ngModel
+            name="interest"
+            required
+            maxlength="2"
+            max="99"
+            min="5"
+            />
+        </div>
+        <div class="flex div-card" style="border-radius: 0px 0px 10px 10px;">
+            <label for="platform">Supported Platform: </label>
+            <select id="platform" name="platform" ngModel required>
+                <option>Venmo</option>
+                <option>ATH Movil</option>
+                <option>Paypal</option>
+            </select>
+        </div>
+        <div class="col-md-12 text-center">
+            <div class="btn-group" role="group" style="margin-top: 16px;" >
+                <button autofocus type="button" class="offer-button btn center" (click)="editMode = false">Cancel</button>
+                <button class="offer-button btn center"  type="submit">
+                    Accept Changes
+                </button>
             </div>
         </div>
-        <div class="center-div" *ngIf="editMode">
-            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-                <div class="flex div-card" style="border-radius: 10px 10px 0px 0px;">
-                    <label for="loan_amount">Max Loan Amount:</label>
-                    <span class="currency">$</span>
-                    <input type="number" id="loan_amount"
-                    style="max-width: 100px;"
-                    ngModel
-                    name="loan_amount"
-                    required
-                    oninput="this.value=this.value.slice(0,this.maxLength)"
-                    maxlength="4"
-                    step="100"
-                    max="5000"
-                    min="100"
-                    />
-                </div>
-                <div class="flex div-card">
-                    <label for="time_frame">Repayment Time Frame: </label>
-                    <input type="date" id="time_frame" style="
-                    border: 2px solid black;
-                    border-radius: 7px;
-                    max-width: 300px;"
-                    ngModel
-                    name="time_frame"
-                    required
-                    />
-                </div>
-                <div class="flex div-card">
-                    <label for="interest">Interest Rate: </label>
-                    <span class="currency">%</span>
-                    <input type="number" id="interest"
-                    style="max-width: 80px;"
-                    oninput="this.value=this.value.slice(0,this.maxLength)"
-                    ngModel
-                    name="interest"
-                    required
-                    maxlength="2"
-                    max="99"
-                    min="5"
-                    />
-                </div>
-                <div class="flex div-card" style="border-radius: 0px 0px 10px 10px;">
-                    <label for="platform">Supported Platform: </label>
-                    <select id="platform" name="platform" ngModel required>
-                        <option>Venmo</option>
-                        <option>ATH Movil</option>
-                        <option>Paypal</option>
-                    </select>
-                </div>
-                <div class="col-md-12 text-center">
-                    <div class="btn-group" role="group" style="margin-top: 16px;" >
-                        <button autofocus type="button" class="offer-button btn center" (click)="editMode = false">Cancel</button>
-                        <button class="offer-button btn center"  type="submit">
-                            Accept Changes
-                        </button>
-                    </div>
-                </div>
-            </form>
-    </div>
-    </div>
+    </form>
 </div>
