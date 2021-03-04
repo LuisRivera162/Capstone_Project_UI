@@ -1,0 +1,71 @@
+<body>
+    <div class="shadow alert alert-danger" *ngIf="error != 'null'"
+    style="text-align: center;
+    margin-right: 350px;
+    margin-left: 350px;">
+        <p>{{error}}</p>
+    </div>
+    <div class="spec_div_form">
+            <h1 style="text-align: center; 
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            class="spec-div-h1">Make Offer</h1>
+            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+                <div class="flex"  style="border-radius: 10px 10px 0px 0px;">
+                    <label for="loan_amount">Max Loan Amount:</label>
+                    <span class="currency">$</span>
+                    <input type="number" id="loan_amount"
+                    style="max-width: 100px;"
+                    ngModel
+                    name="loan_amount"
+                    required
+                    oninput="this.value=this.value.slice(0,this.maxLength)"
+                    maxlength="4"
+                    step="100"
+                    max="5000"
+                    min="100"
+                    placeholder={{prev_loan_amount}}
+                    />
+                </div>
+                <div class="flex">
+                    <label for="time_frame">Repayment Time Frame: </label>
+                    <input type="date" id="time_frame" style="
+                    border: 2px solid black;
+                    border-radius: 7px;
+                    max-width: 300px;"
+                    ngModel
+                    name="time_frame"
+                    required
+                    placeholder={{prev_time_frame}}
+                    />
+                </div>
+                <div class="flex">
+                    <label for="interest">Interest Rate: </label>
+                    <span class="currency">%</span>
+                    <input type="number" id="interest"
+                    style="max-width: 80px;"
+                    oninput="this.value=this.value.slice(0,this.maxLength)"
+                    ngModel
+                    name="interest"
+                    required
+                    maxlength="2"
+                    max="99"
+                    min="5"
+                    placeholder={{prev_interest}}
+                    />
+                </div>
+                <div class="flex" style="border-radius: 0px 0px 10px 10px;"> 
+                    <label for="platform">Supported Platform: </label>
+                    <select id="platform" name="platform" ngModel>
+                        <option>Venmo</option>
+                        <option>ATH Movil</option>
+                        <option>Paypal</option>
+                    </select>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button autofocus class="btn offer-button" type="submit">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+</body>
