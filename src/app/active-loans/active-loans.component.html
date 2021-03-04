@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="loanDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -8,7 +9,41 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-loan-info></app-loan-info>
+                <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Loan ID</label>
+                    <div class="col-sm-6">
+                        <a href="https://kovan.ethersacan.io/address/">{{curr_loan.eth_address}}</a>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Loan Amount</label>
+                    <div class="col-sm-6">
+                        {{curr_loan.amount | currency}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Interest</label>
+                    <div class="col-sm-6">
+                        {{curr_loan.interest * 100}}%
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Repayment Time (months)</label>
+                    <div class="col-sm-6">
+                        {{curr_loan.months}}
+                    </div>
+                </div>
+                <hr>
+                <div id="calculatedEstimates">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Monthly Payment</h5>
+                        <h5  class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Total Interest</h5>
+                        <h5  class="mb-1 text-success">${{curr_loan.est_total_interest | number: '1.0-2' }}</h5>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -17,21 +52,24 @@
     </div>
 </div>
 
+<div style="margin-top: 40px;" *ngIf="isActiveLoansURLAddress()"></div>
 <div class="card" *ngIf="!isLoading">
     <div class="card-header">
         My Loans
     </div>
     <!-- <div class="card-body"> -->
     <ul class="overflow-auto list-group list-group-flush" style="height: 600px;">
-        <a href="#" data-toggle="modal" data-target="#loanDetailsModal" class="list-group-item list-group-item-action" *ngFor="let loan of loans">
+        <a href="#" data-toggle="modal" data-target="#loanDetailsModal" 
+        class="list-group-item list-group-item-action" *ngFor="let loan of loans; let i = index"
+        (click)="loadLoanInfo(i)">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"> ${{loan.loan_amount}}</h5>
+                <h5 class="mb-1"> ${{loan.amount}}</h5>
                 <small class="text-success">Active</small>
             </div>
             <!-- <p class="mb-1">Some placeholder content in a paragraph.</p> -->
             <p class="mb-1">
                 <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest*100}}%</span>
-                <span class="badge badge-info">{{loan.time_frame}} months</span>
+                <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
             <small><b>Borrower:</b> {{loan.username}}</small>
             <p class="mb-1">
