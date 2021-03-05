@@ -68,6 +68,8 @@ export class CreateLoanComponent implements OnInit {
         time_frame: time_frame,
         platform: platform, 
         lender: user_data.id,
+        monthly_repayment: this.loan.monthly_repayment,
+        est_total_interest: this.loan.est_total_interest
       }).subscribe((resData) => {
         this.router.navigate(['/search']);
       });
