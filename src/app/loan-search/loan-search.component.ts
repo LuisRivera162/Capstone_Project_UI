@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 interface LoanResponseData {
   Loans: {
@@ -73,7 +73,12 @@ export class LoanSearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.HttpClient.get<LoanResponseData>('/api/loans').subscribe(resData => {
+    const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
+    this.HttpClient.get<LoanResponseData>(
+      '/api/loans',
+    {
+      params
+    }).subscribe(resData => {
       this.loans = resData.Loans;
     });
   }
