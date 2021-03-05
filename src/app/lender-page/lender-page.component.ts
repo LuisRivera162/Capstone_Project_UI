@@ -51,7 +51,7 @@ export class LenderPageComponent implements OnInit {
       resData.Loans.forEach((loan: Loan) => {
         if (loan.borrower && loan.accepted) {
           this.active_loans++
-          this.active_loans_balance += loan.balance
+          this.active_loans_balance += loan.balance // TODO: Needs balance to be saved in the DB (or blockchain)
         }
         else if (loan.borrower && !loan.accepted) this.pending_offers++
         else this.available_loans++
