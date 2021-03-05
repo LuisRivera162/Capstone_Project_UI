@@ -18,9 +18,9 @@ export class CreateLoanComponent implements OnInit {
   error: string = "null";
 
   loan = {
-    amount: 100,
+    amount: 1000,
     balance: 0,
-    interest: 1.0,
+    interest: .3,
     months: 3,
     platform: 0,
     monthly_repayment: 0,
@@ -76,19 +76,22 @@ export class CreateLoanComponent implements OnInit {
   }
 
   recalculateEstimates() {
-    if (this.loan.interest <= 0 || this.loan.amount < 100 || this.loan.months <= 0) return
+    if (this.loan.interest <= 0 || this.loan.months < 3) return
 
-    this.loan.monthly_repayment = (((this.loan.interest / 100) / 12) * this.loan.amount) / (1 - (1 + ((this.loan.interest / 100) / 12)) ** (-this.loan.months))
+    this.loan.est_total_interest = 0; // reset
+    this.loan.monthly_repayment = 0
+    this.loan.balance = 0
 
-    this.loan.balance = this.loan.amount - this.loan.monthly_repayment
-    this.loan.est_total_interest = ((this.loan.interest / 100) / 12) * this.loan.amount
+    this.loan.monthly_repayment = (((this.loan.interest) / 12) * this.loan.amount) / (1 - (1 + ((this.loan.interest) / 12)) ** (-this.loan.months))
+
+    // this.loan.balance = this.loan.amount - this.loan.monthly_repayment
+    this.loan.balance = this.loan.amount
+    // this.loan.est_total_interest = ((this.loan.interest) / 12) * this.loan.amount
 
     for (var i = 1; i <= this.loan.months; i++) {
-      this.loan.est_total_interest += ((this.loan.interest / 100) / 12) * this.loan.balance
-      this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest / 100) / 12) * this.loan.balance)
+      this.loan.est_total_interest += ((this.loan.interest) / 12) * this.loan.balance
+      this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest) / 12) * this.loan.balance)
     }
-
-    this.loan.est_yield = this.loan.est_total_interest / this.loan.amount;
 
   }
 

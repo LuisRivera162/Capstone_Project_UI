@@ -107,7 +107,11 @@ export class ActiveLoansComponent implements OnInit {
   }
 
   recalculateEstimates() {
-    if (this.curr_loan.interest <= 0 || this.curr_loan.amount < 500 || this.curr_loan.months <= 0) return
+    if (this.curr_loan.interest <= 0 || this.curr_loan.months < 3) return
+
+    this.curr_loan.est_total_interest = 0; // reset
+    this.curr_loan.monthly_repayment = 0
+    this.curr_loan.balance = 0
 
     this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
 
