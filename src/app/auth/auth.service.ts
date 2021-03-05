@@ -68,10 +68,11 @@ export class AuthService {
       lender: boolean;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
     if(!userData.email && !userData.id && !userData.lender){
-      return;
+      return -1;
     }
     const loadedUser = new User(userData.email, userData.id,userData.lender);
     this.user.next(loadedUser);
+    return 0
   }
 
   logout() {

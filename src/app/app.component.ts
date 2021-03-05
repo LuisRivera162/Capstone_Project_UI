@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,16 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  
-  constructor(private authService: AuthService) {}
+
+  constructor(private authService: AuthService,
+  private router: Router) {}
 
   ngOnInit() {
-    this.authService.autoLogin(); 
+    this.router.navigate(['/entry']);
+    if (this.authService.autoLogin() == 0){
+      this.router.navigate(['/home']);
+
+    }
   }
 
 }

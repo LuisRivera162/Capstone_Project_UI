@@ -1,66 +1,44 @@
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-<body >
-<div class="loginbox" *ngIf="isLoginMode && !isLoading" style="background-image: url('https://www.designyourway.net/blog/wp-content/uploads/2018/11/paster-blue-goo-700x394.jpg')">
-
-  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode && !isLoading">
-    <h1>Log In</h1>
-    <hr>
-    <div class="form-group">
-      <label id="icon" for="email" class="icon-user"></label>
-      <input type="email" id="email"  ngModel name="email" placeholder="Email" required/>
+<div class="row">
+  <div class="col-md-6 mx-auto p-0">
+    <div class="card">
+      <div class="login-box">
+        <div class="login-snip"> <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+          <div class="login-space">
+            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+              <div class="login">
+                <hr>
+                <div class="group form-group"> <label for="email" class="label">Email</label> <input id="email" ngModel name="email" type="email" class="input" placeholder="Enter your email"> </div>
+                <div class="group form-group"> <label for="password" class="label">Password</label> <input id="password" ngModel name="password" type="password" class="input" data-type="password" placeholder="Enter your password"> </div>
+                <div class="group form-group"> <input id="check" name="check" type="checkbox" class="check" checked> <label for="check"><span class="icon"></span> Keep me Signed in</label> </div>
+                <div class="group form-group"> <input type="submit" class="btn btn-primary" value="Sign In"> </div>
+                <div class="hr"></div>
+                <div class="foot"> <a href="#">Forgot Password?</a> </div>
+              </div>
+            </form>
+            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+              <div class="sign-up-form">
+                <div class="group form-group"> <label for="first_name" class="label">First Name</label> <input id="first_name" ngModel name="first_name" type="text" class="input" placeholder="Enter your first name"> </div>
+                <div class="group form-group"> <label for="last_name" class="label">last Name</label> <input id="last_name" ngModel name="last_name" type="text" class="input" placeholder="Enter your last name"> </div>
+                <div class="group form-group"> <label for="username" class="label">Username</label> <input id="username" ngModel name="username" type="text" class="input" placeholder="Create your Username"> </div>
+                <div class="group form-group"> <label for="password" class="label">Password</label> <input id="password" ngModel name="password" type="password" class="input" data-type="password" placeholder="Create your password"> </div>
+                <div class="group form-group"> <label for="conf_password" class="label">Repeat Password</label> <input id="conf_password" ngModel name="conf_password" type="password" class="input" data-type="password" placeholder="Repeat your password"> </div>
+                <div class="group form-group"> <label for="email" class="label">Email Address</label> <input id="email" name="email" ngModel type="email" class="input" placeholder="Enter your email address"> </div>
+                <div class="group form-group"> <label for="age" class="label">Age</label> <input id="age" name="age" type="text" ngModel class="input" placeholder="Enter your age"> </div>
+                <div class="group form-group"> <label for="phone" class="label">Phone Number</label> <input id="phone" name="phone" ngModel type="text" class="input" placeholder="Enter your phone number"> </div>
+                <div class="accounttype col-md-6 mx-auto p-0">
+                  <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required/>
+                  <label for="BorrowRadio" class="radio">Borrower</label>  |
+                  <input type="radio" value="None" id="LenderRadio" (change)="onItemChange(true)" name="lenderSelect" required/>
+                  <label for="LenderRadio" class="radio">Lender</label>
+                </div>
+                <div class="group"> <input type="submit" class="btn btn-primary" value="Sign Up"> </div>
+                <hr>
+                <div class="foot"> <label for="tab-1">Already Member?</label> </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label id="icon" for="password" class="icon-shield"></label>
-      <input type="password" id="password" ngModel name="password" placeholder="Password" required minlength="6"/>
-    </div>
-    <hr>
-    <div style="text-align: center;">
-      <button class="btn btn-primary" type="submit"
-              [disabled]="!authForm.valid">
-        {{ isLoginMode ? 'Login' : 'Sign Up'}}
-      </button> |
-      <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-        {{isLoginMode ? 'Sign Up' : 'Login'}}
-      </button>
-    </div>
-  </form>
+  </div>
 </div>
-<div class="registerbox" style="background-image: url('https://www.designyourway.net/blog/wp-content/uploads/2018/11/paster-blue-goo-700x394.jpg')" *ngIf="!isLoginMode && !isLoading" >
-  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode && !isLoading">
-    <h1>Registration</h1>
-    <hr>
-    <div class="accounttype">
-      <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required/>
-      <label for="BorrowRadio" class="radio">Borrower</label>
-      <input type="radio" value="None" id="LenderRadio" (change)="onItemChange(true)" name="lenderSelect" required/>
-      <label for="LenderRadio" class="radio">Lender</label>
-    </div>
-    <label id="icon" for="username"><i class="icon-user"></i></label>
-    <input type="text" name="username" id="username" ngModel placeholder="Username" required/>
-    <label id="icon" for="first_name"><i class="icon-user"></i></label>
-    <input type="text" name="first_name" id="first_name" ngModel placeholder="First Name" required/>
-    <label id="icon" for="last_name"><i class="icon-user"></i></label>
-    <input type="text" name="last_name" id="last_name" ngModel placeholder="Last Name" required/>
-    <label id="icon" for="age"><i class="icon-user"></i></label>
-    <input type="text" name="age" id="age" ngModel placeholder="Age" required/>
-    <label id="icon" for="phone"><i class="icon-phone "></i></label>
-    <input type="text" name="phone" id="phone" ngModel placeholder="Phone Number" required/>
-    <label id="icon" for="email"><i class="icon-envelope "></i></label>
-    <input type="text" name="email" id="email" ngModel placeholder="Email" required/>
-    <label id="icon" for="password"><i class="icon-shield"></i></label>
-    <input type="password" name="password" id="password" ngModel placeholder="Password" minlength="6" required/>
-    <label id="icon" for="conf_password"><i class="icon-shield"></i></label>
-    <input type="password" name="conf_password" id="conf_password" ngModel placeholder="Confirm Password" minlength="6" required/>
-    <hr>
-    <div style="text-align: center;">
-      <button class="btn btn-primary" type="submit"
-              [disabled]="!authForm.valid">
-        {{ isLoginMode ? 'Login' : 'Sign Up'}}
-      </button> |
-      <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-        {{isLoginMode ? 'Sign Up' : 'Login'}}
-      </button>
-    </div>
-  </form>
-</div>
-</body>
