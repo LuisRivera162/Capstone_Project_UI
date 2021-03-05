@@ -99,10 +99,27 @@ export class ActiveLoansComponent implements OnInit {
 
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
+    this.recalculateEstimates();
   }
 
   isActiveLoansURLAddress() {
     return this.router.url == '/active-loans';
+  }
+
+  recalculateEstimates() {
+    if (this.curr_loan.interest <= 0 || this.curr_loan.amount < 500 || this.curr_loan.months <= 0) return
+
+    this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
+
+    // this.curr_loan.balance = this.curr_loan.amount - this.curr_loan.monthly_repayment
+    this.curr_loan.balance = this.curr_loan.amount
+    // this.curr_loan.est_total_interest = ((this.curr_loan.interest) / 12) * this.curr_loan.amount
+
+    for (var i = 1; i <= this.curr_loan.months; i++) {
+      this.curr_loan.est_total_interest += ((this.curr_loan.interest) / 12) * this.curr_loan.balance
+      this.curr_loan.balance -= (this.curr_loan.monthly_repayment - ((this.curr_loan.interest) / 12) * this.curr_loan.balance)
+    }
+
   }
 
 }

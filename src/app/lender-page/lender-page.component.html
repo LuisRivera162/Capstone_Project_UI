@@ -20,23 +20,23 @@
             <div id="upper_panel" class="jumbotron" style="margin-top: 15px;">
                 <div class="row">
                     <div class="col-2 text-center border-right">
-                        <h2>{{loan_num}}</h2>
-                        <a routerLink="/active-loans">Active Loans</a>
+                        <h2>{{active_loans}}</h2>
+                        Active Loans
                     </div>
                     <div class="col-2 text-center border-right">
-                        <h2>5</h2>
-                        <a routerLink="/lender">Closed Loans</a>
+                        <h2>{{available_loans}}</h2>
+                        Available Loans
                     </div>
                     <div class="col-2 text-center border-right">
-                        <h2>2</h2>
-                        <a routerLink="/lender">Pending Offers</a>
+                        <h2>{{pending_offers}}</h2>
+                        Pending Offers
                     </div>
                     <div class="col-4 text-center border-right">
-                        <h2>$99,999.99</h2>
-                        <a routerLink="/lender">Active Loans Balance</a>
+                        <h2>{{active_loans_balance | currency}}</h2>
+                        Active Loans Balance
                     </div>
                     <div class="col-2 text-center" style="padding: 10px;">
-                        <div class="btn btn-success btn-lg" data-toggle="modal" data-target="#createLoanModal">Create Loan</div>
+                        <div class="btn btn-success" data-toggle="modal" data-target="#createLoanModal">Create Loan</div>
                     </div>
                 </div>
             </div>
