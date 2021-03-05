@@ -27,7 +27,7 @@ export class CreateLoanComponent implements OnInit {
     est_total_interest: 0.0,
     est_yield: 0.0
   }
-  
+
 
   constructor(
     private authService: AuthService,
@@ -63,24 +63,27 @@ export class CreateLoanComponent implements OnInit {
     return this.HttpClient.post(
       '/api/create-loan',
       {
-        loan_amount: loan_amount, interest: interest, time_frame: time_frame,
-        platform: platform, user_id: user_data.id
+        loan_amount: loan_amount, 
+        interest: interest, 
+        time_frame: time_frame,
+        platform: platform, 
+        lender: user_data.id,
       }).subscribe((resData) => {
         this.router.navigate(['/search']);
       });
   }
 
   recalculateEstimates() {
-    if (this.loan.interest <= 0 || this.loan.amount < 100 || this.loan.months <=0) return
-    
-    this.loan.monthly_repayment = (((this.loan.interest/100)/12)*this.loan.amount) / (1-(1+((this.loan.interest/100)/12))**(-this.loan.months))
-    
+    if (this.loan.interest <= 0 || this.loan.amount < 100 || this.loan.months <= 0) return
+
+    this.loan.monthly_repayment = (((this.loan.interest / 100) / 12) * this.loan.amount) / (1 - (1 + ((this.loan.interest / 100) / 12)) ** (-this.loan.months))
+
     this.loan.balance = this.loan.amount - this.loan.monthly_repayment
-    this.loan.est_total_interest = ((this.loan.interest/100)/12) * this.loan.amount
+    this.loan.est_total_interest = ((this.loan.interest / 100) / 12) * this.loan.amount
 
     for (var i = 1; i <= this.loan.months; i++) {
-      this.loan.est_total_interest += ((this.loan.interest/100)/12) * this.loan.balance
-      this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest/100)/12) * this.loan.balance)
+      this.loan.est_total_interest += ((this.loan.interest / 100) / 12) * this.loan.balance
+      this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest / 100) / 12) * this.loan.balance)
     }
 
     this.loan.est_yield = this.loan.est_total_interest / this.loan.amount;
