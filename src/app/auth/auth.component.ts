@@ -9,6 +9,7 @@ import { AuthService } from './auth.service'
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
+
 export class AuthComponent implements OnInit {
 
   error: string = "null";
@@ -30,7 +31,6 @@ export class AuthComponent implements OnInit {
     if (!form.valid){
       return;
     }
-
     const email = form.value.email;
     const password = form.value.password;
     const age = form.value.age;
@@ -44,9 +44,8 @@ export class AuthComponent implements OnInit {
     this.isLoading = true;
 
     if (!this.isLoginMode){
-      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone,this.lender).subscribe(
+      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
         resData => {
-          console.log(resData);
           this.isLoading = false;
           this.error = "null";
           if(this.lender){
