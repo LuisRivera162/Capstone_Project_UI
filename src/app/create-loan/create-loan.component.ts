@@ -71,7 +71,7 @@ export class CreateLoanComponent implements OnInit {
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData) => {
-        this.router.navigate(['/lender']);
+        this.router.navigate(['/active-loans']);
       });
   }
 

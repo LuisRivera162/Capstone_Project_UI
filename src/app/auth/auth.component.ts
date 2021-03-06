@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit {
   error: string = "null";
   isLoading = false;
   isLoginMode = true;
-  lender = false
+  lender = false;
 
   constructor(
     private authService: AuthService,
