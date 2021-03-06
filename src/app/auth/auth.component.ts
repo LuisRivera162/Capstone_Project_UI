@@ -23,9 +23,9 @@ export class AuthComponent implements OnInit {
     private router: Router
     ) {}
 
-  onSwitchMode(){
-    this.isLoginMode = !this.isLoginMode;
-    this.loginStyle = !this.isLoginMode ? "825px" : "600px";
+  onSwitchMode(mode: boolean){
+    this.isLoginMode = mode;
+    this.loginStyle = mode ? "825px" : "600px";
   }
 
   onSubmit(form: NgForm){
