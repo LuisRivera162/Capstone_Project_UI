@@ -14,16 +14,18 @@ export class AuthComponent implements OnInit {
 
   error: string = "null";
   isLoading = false;
-  isLoginMode = true;
-  lender = false
+  isLoginMode = false;
+  lender = false;
+  loginStyle = "600px"
 
   constructor(
     private authService: AuthService,
     private router: Router
     ) {}
 
-  onSwitchMode(){
-    this.isLoginMode = !this.isLoginMode;
+  onSwitchMode(mode: boolean){
+    this.isLoginMode = mode;
+    this.loginStyle = mode ? "825px" : "600px";
   }
 
   onSubmit(form: NgForm){
@@ -40,10 +42,10 @@ export class AuthComponent implements OnInit {
     const username = form.value.username;
     const phone = form.value.phone;
 
-
     this.isLoading = true;
 
-    if (!this.isLoginMode){
+    if (this.isLoginMode){
+
       this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
         resData => {
           this.isLoading = false;
