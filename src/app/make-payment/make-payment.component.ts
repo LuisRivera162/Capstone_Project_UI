@@ -31,8 +31,11 @@ export class MakePaymentComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
+    console.log("form sent..")
+
     if (!form.valid) {
       this.error = "Form is not valid, make sure you fill all fields."
+      console.log(this.error)
       return;
     }
 
@@ -51,12 +54,12 @@ export class MakePaymentComponent implements OnInit {
     }
 
     return this.HttpClient.post(
-      '/api/create-loan',
+      '/api/send-payment',
       {
         loan_amount: loan_amount, interest: interest, time_frame: time_frame,
         platform: platform, user_id: user_data.id
       }).subscribe((resData) => {
-        this.router.navigate(['/search']);
+        console.log(resData)
       });
   }
 

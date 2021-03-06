@@ -67,7 +67,7 @@
             </div>
             <!-- <p class="mb-1">Some placeholder content in a paragraph.</p> -->
             <p class="mb-1">
-                <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent}}</span>
+                <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
             <small *ngIf="loan.borrower"><b>Borrower:</b> {{loan.borrower}}</small>

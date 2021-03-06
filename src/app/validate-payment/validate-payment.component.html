@@ -1,9 +1,28 @@
-<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-    <div class="form-group row">
-        <label for="evidence" class="col-sm-6 col-form-label">Evidence (Transaction ID Hash)</label>
-        <div class="col-sm-6">
-            <input type="string" class="form-control" id="evidence" [(ngModel)]="payment.evidence" name="evidence"
-                required />
+<div class="modal fade" id="validateModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Validate Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #validationForm="ngForm" (ngSubmit)="onSubmit(validationForm)">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="evidenceHash" class="col-sm-6 col-form-label">Evidence Hash</label>
+                        <div class="col-sm-6">
+                            <input type="string" class="form-control" id="evidenceHash"
+                                [(ngModel)]="validationPayload.evidenceHash" name="evidenceHash" required />
+                                <p class="text-success" *ngIf="validationPayload.isvalid"><i class="bi bi-check-circle-fill"></i> Payment Validated!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" *ngIf="!validationPayload.isvalid">Validate</button>
+                    <button class="btn btn-secondary" *ngIf="validationPayload.isvalid"  data-dismiss="modal">Dismiss</button>
+                </div>
+            </form>
         </div>
     </div>
-</form>
+</div>

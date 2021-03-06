@@ -19,11 +19,11 @@ export class ValidatePaymentComponent implements OnInit {
     private HttpClient: HttpClient
   ) { }
 
-  payment = {
-    amount: 0,
-    date: Date.now(),
-    source: 0,
-    evidence: "",
+  validationPayload = {
+    paymentNumber: 0,
+    contractHash: "",
+    evidenceHash: "",
+    isvalid: false
   }
 
   ngOnInit(): void {
@@ -38,10 +38,10 @@ export class ValidatePaymentComponent implements OnInit {
 
     this.error = "null";
 
-    let loan_amount = form.value.loan_amount;
-    let interest = form.value.interest;
-    let time_frame = form.value.time_frame;
-    let platform = form.value.platform;
+    let evidenceHash = form.value.evidenceHash;
+
+    console.log(evidenceHash);
+    
     let user_data: {
       email: string;
       id: string;
@@ -51,12 +51,10 @@ export class ValidatePaymentComponent implements OnInit {
     }
 
     return this.HttpClient.post(
-      '/api/create-loan',
-      {
-        loan_amount: loan_amount, interest: interest, time_frame: time_frame,
-        platform: platform, user_id: user_data.id
-      }).subscribe((resData) => {
-        this.router.navigate(['/search']);
+      '/api/validate-payment',
+      this.validationPayload
+      ).subscribe((resData: any) => {
+        if (resData.isvalid) this.validationPayload.isvalid = true;
       });
   }
 

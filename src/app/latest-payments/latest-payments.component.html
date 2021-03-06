@@ -17,6 +17,8 @@
     </div>
 </div>
 
+<app-validate-payment></app-validate-payment>
+
 <div class="card">
     <div class="card-header">
         Latest Payments
@@ -49,10 +51,10 @@
                 <small>3/20/2021 - 10:55 AM</small>
             </p>
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#validateModal">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1 text-danger">-$5000.00</h5>
-                <small class="text-success">Validated</small>
+                <small class="text-danger">Validation Required</small>
             </div>
             <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
             <p class="mb-1">
@@ -91,4 +93,5 @@
 </div>
 <script>
     $('#txReceiptModal').on('shown.bs.modal', function () { })
+
 </script>
