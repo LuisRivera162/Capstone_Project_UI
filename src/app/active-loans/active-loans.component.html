@@ -15,6 +15,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Borrower</label>
+                    <div class="col-sm-6">
+                        {{curr_loan.borrower}}
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Loan Amount</label>
                     <div class="col-sm-6">
                         {{curr_loan.amount | currency}}
@@ -44,8 +50,10 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-footer" *ngIf="!curr_loan.borrower">
+                <button type="button" class="btn btn-primary">Edit Parameters</button>
+                <button type="button" class="btn btn-danger">Withdraw Loan?</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button> -->
             </div>
         </div>
     </div>
