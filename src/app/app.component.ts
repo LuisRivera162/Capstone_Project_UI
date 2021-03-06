@@ -13,11 +13,13 @@ export class AppComponent implements OnInit {
   private router: Router) {}
 
   ngOnInit() {
-    this.router.navigate(['/entry']);
-    if (this.authService.autoLogin() == 0){
-      this.router.navigate(['/home']);
-
-    }
+    this.authService.autoLogin();
+    // if (this.authService.autoLogin() == 0){
+    //   this.router.navigate(['/home']);
+    // }
+    // else{
+    //   this.router.navigate(['/entry']);
+    // }
   }
 
 }
