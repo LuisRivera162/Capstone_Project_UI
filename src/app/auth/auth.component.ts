@@ -14,7 +14,7 @@ export class AuthComponent implements OnInit {
 
   error: string = "null";
   isLoading = false;
-  isLoginMode = true;
+  isLoginMode = false;
   lender = false;
   loginStyle = "600px"
 
@@ -44,7 +44,7 @@ export class AuthComponent implements OnInit {
 
     this.isLoading = true;
 
-    if (!this.isLoginMode){
+    if (this.isLoginMode){
 
       this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
         resData => {
