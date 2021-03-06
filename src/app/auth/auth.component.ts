@@ -16,6 +16,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   isLoginMode = true;
   lender = false;
+  loginStyle = "600px"
 
   constructor(
     private authService: AuthService,
@@ -24,6 +25,7 @@ export class AuthComponent implements OnInit {
 
   onSwitchMode(){
     this.isLoginMode = !this.isLoginMode;
+    this.loginStyle = !this.isLoginMode ? "825px" : "600px";
   }
 
   onSubmit(form: NgForm){
