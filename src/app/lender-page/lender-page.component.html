@@ -1,19 +1,4 @@
-<div class="modal fade" id="createLoanModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">New Loan Offering</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <app-create-loan></app-create-loan>
-            </div>
-        </div>
-    </div>
-</div>
-
+<app-create-loan></app-create-loan>
 <!-- <div class="container"> -->
     <div class="row">
         <div class="col">
@@ -46,6 +31,11 @@
         <div class="col-6">
             <app-active-loans></app-active-loans>
         </div>
+        <div class="col-6">
+            <app-notifications-actionitems></app-notifications-actionitems>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
         <div class="col-6">
             <app-latest-payments [isLender]="true"></app-latest-payments>
         </div>
