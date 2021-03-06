@@ -74,6 +74,7 @@ export class CreateOfferComponent implements OnInit {
         ).subscribe(resData => {
           console.log(resData)
           form.reset(); 
+          this.router.navigate(['/pending-offers'])
       });
     }
 
@@ -81,6 +82,4 @@ export class CreateOfferComponent implements OnInit {
       console.log('fail');
     }
   }
-  
-  
 }

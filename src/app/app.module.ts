@@ -28,6 +28,7 @@ import { ValidatePaymentComponent } from './validate-payment/validate-payment.co
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { NotificationsActionitemsComponent } from './notifications-actionitems/notifications-actionitems.component';
 import { PaymentScheduleComponent } from './payment-schedule/payment-schedule.component';
+import { PendingOffersComponent } from './offer/pending-offers/pending-offers.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { PaymentScheduleComponent } from './payment-schedule/payment-schedule.co
     ValidatePaymentComponent,
     MakePaymentComponent,
     NotificationsActionitemsComponent,
-    PaymentScheduleComponent
+    PaymentScheduleComponent,
+    PendingOffersComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,8 @@ import { PaymentScheduleComponent } from './payment-schedule/payment-schedule.co
       {path: 'notifications', component: NotificationComponent, canActivate: []},
       {path: 'settings', component: SettingsComponent, canActivate: []},
       {path: 'offer', component: CreateOfferComponent, canActivate: []},
+      {path: 'pending-offers', component: PendingOffersComponent, canActivate: []},
+      
       
     ]),
   ],
