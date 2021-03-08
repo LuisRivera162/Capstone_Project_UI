@@ -36,7 +36,10 @@
                         {{get_validation_message(payment.validated, payment.validation_hash)}}
                     </small>
                 </div>
-                <small><b>Borrower:</b> need to add username to payment return (0x2FCF...192f)</small>
+                <small>
+                    <b>{{user_id == payment.receiver_id ? 'Borrower' : 'Lender'}}:</b>
+                     {{payment.receiver_username}} (0x2FCF...192f)
+                </small>
                 <p class="mb-1">
                     <small><b>Loan ID: </b><a href="#" data-toggle="modal" data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
                 </p>
