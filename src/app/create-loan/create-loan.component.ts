@@ -55,8 +55,9 @@ export class CreateLoanComponent implements OnInit {
     let user_data: {
       email: string;
       id: string;
+      wallet: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
-    if (!user_data.email && !user_data.id) {
+    if (!user_data.email && !user_data.id && !user_data.wallet) {
       return;
     }
 
@@ -68,6 +69,7 @@ export class CreateLoanComponent implements OnInit {
         time_frame: time_frame,
         platform: platform, 
         lender: user_data.id,
+        lender_eth: user_data.wallet,
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData) => {

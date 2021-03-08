@@ -88,6 +88,7 @@ export class ProfileComponent implements OnInit {
     const user = new User(
       email,
       this.authService.user.getValue()!.id,
+      this.authService.user.getValue()!.wallet,
       this.authService.user.getValue()!.lender
     );
     localStorage.setItem('userData', JSON.stringify(user));

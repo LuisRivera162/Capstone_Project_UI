@@ -9,6 +9,7 @@ interface AuthResponseData {
   email: string;
   localId: string;
   status?: string;
+  wallet: string;
   lender: boolean;
 }
 
@@ -34,6 +35,7 @@ export class AuthService {
         const user = new User(
           resData.email,
           resData.localId,
+          "0x0000000000000000000000000000000000000000",
           resData.lender
           );
           this.user.next(user);
@@ -53,6 +55,7 @@ export class AuthService {
       const user = new User(
         resData.email,
         resData.localId,
+        resData.wallet,
         resData.lender
         );
         this.user.next(user);
@@ -65,12 +68,13 @@ export class AuthService {
     const userData: {
       email: string;
       id: string;
+      wallet: string;
       lender: boolean;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
     if(!userData.email && !userData.id && !userData.lender){
       return -1;
     }
-    const loadedUser = new User(userData.email, userData.id,userData.lender);
+    const loadedUser = new User(userData.email, userData.id, userData.wallet, userData.lender);
     this.user.next(loadedUser);
     return 0
   }
