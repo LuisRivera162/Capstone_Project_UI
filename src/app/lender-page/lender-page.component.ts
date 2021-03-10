@@ -59,6 +59,15 @@ export class LenderPageComponent implements OnInit {
       
     });
 
+    this.HttpClient.get<any>(
+      '/api/total-offers',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      console.log(resData);
+      this.pending_offers = resData.result;
+    });
 
   }
 

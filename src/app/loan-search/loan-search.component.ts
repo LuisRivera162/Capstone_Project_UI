@@ -5,17 +5,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 interface LoanResponseData {
   Loans: {
-    'interest': number,
-    'accepted': boolean,
-    'amount': number,
     'loan_id': number,
+    'lender': number,
+    'borrower': number,
+    'amount': number,
     'months': number,
-    'user_id': number,
+    'interest': number,
+    'created_on': Date,
+    'accepted': boolean,
     'eth_address': string,
     'monthly_repayment': number,
     'balance': number,
-    'est_total_interest': number,
-    'username': string
+    'est_total_interest': number
   }[];
 }
 
@@ -27,43 +28,33 @@ interface LoanResponseData {
 export class LoanSearchComponent implements OnInit {
 
   loans: {
-    'interest': number,
-    'accepted': boolean,
-    'amount': number,
     'loan_id': number,
+    'lender': number,
+    'borrower': number,
+    'amount': number,
     'months': number,
-    'user_id': number,
+    'interest': number,
+    'created_on': Date,
+    'accepted': boolean,
     'eth_address': string,
     'monthly_repayment': number,
     'balance': number,
-    'est_total_interest': number,
-    'username': string
-  }[] = [];
+    'est_total_interest': number
+  }[] | any;
 
-  curr_loan: {
-    'interest': number,
-    'accepted': boolean,
-    'amount': number,
-    'loan_id': number,
-    'months': number,
-    'user_id': number
-    'eth_address': string,
-    'monthly_repayment': number,
-    'balance': number,
-    'est_total_interest': number,
-    'username': string
-  } = {
-      'interest': 0,
-      'accepted': false,
-      'amount': 0,
+  curr_loan = {
       'loan_id': 0,
+      'lender': 0,
+      'borrower': 0,
+      'amount': 0,
       'months': 0,
-      'user_id': 0,
-      'eth_address': '0x0',
+      'interest': 0,
+      'created_on': "",
+      'accepted': false,
+      'eth_address': "",
       'monthly_repayment': 0,
       'balance': 0,
-      'est_total_interest': 0,
-      'username': ""
+      'est_total_interest': 0
     };
 
   constructor(
