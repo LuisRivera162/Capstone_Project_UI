@@ -4,19 +4,6 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 
-interface LoanResponseData {
-  
-  Loan: { 'username': string,
-          'interest': number, 
-          'accepted': boolean, 
-          'loan_amount': number,
-          'loan_id': number,
-          'time_frame': Date,
-          'user_id': number
-        };
-
-}
-
 @Component({
   selector: 'app-create-offer',
   templateUrl: './create-offer.component.html',
@@ -26,6 +13,7 @@ export class CreateOfferComponent implements OnInit {
   @Input() loan_id: number = -1;
   @Input() offer_id = -1; 
   @Input() isEdit = false; 
+  @Input() lender_id = -1; 
   user_id: number | String = this.authService.user.getValue()!.id;  
   error: string = "null";
   loan = {
@@ -42,8 +30,7 @@ export class CreateOfferComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private HttpClient: HttpClient,
-    private activatedroute: ActivatedRoute
+    private HttpClient: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -85,13 +72,15 @@ export class CreateOfferComponent implements OnInit {
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
       let platform = form.value.platform;
+      console.log(this.lender_id);
 
       this.HttpClient.post(
         '/api/create-offer',
         {
           loan_id: this.loan_id, loan_amount: loan_amount, 
           interest: interest, time_frame: time_frame,
-          platform: platform, borrower_id: this.user_id
+          platform: platform, borrower_id: this.user_id,
+          lender_id: this.lender_id
         }
         ).subscribe(resData => {
           form.reset(); 

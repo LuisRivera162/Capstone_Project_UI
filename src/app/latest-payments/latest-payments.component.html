@@ -24,7 +24,7 @@
         Latest Payments
     </div>
     <!-- <div class="card-body"> -->
-    <ul class="overflow-auto list-group list-group-flush" style="height: 50vh;">
+    <ul class="overflow-auto list-group list-group-flush" style="max-height: 50vh;">
         <div *ngFor="let payment of payments;  let i = index">
             <a href="#" data-toggle="modal" [attr.data-target]="get_modal(payment.validated, payment.validation_hash)" 
             class="list-group-item list-group-item-action">
@@ -48,36 +48,6 @@
                 </p>
             </a>
         </div>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 text-success">+$439.81</h5>
-                <small class="text-success">Validated</small>
-            </div>
-            <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
-            <p class="mb-1">
-                <small><b>Loan ID: </b><a href="#">0x9677...2d90</a></small>
-            </p>
-            <p class="mb-1">
-                <small>3/20/2021 - 10:55 AM</small>
-            </p>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#validateModal">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 text-danger">-$5000.00</h5>
-                <small class="text-danger">Validation Required</small>
-            </div>
-            <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
-            <p class="mb-1">
-                <small><b>Loan ID: </b><a href="#">0x9677...2d90</a></small>
-            </p>
-            <p class="mb-1">
-                <small>2/21/2021 - 8:35 AM</small>
-            </p>
-            <p class="mb-1">
-                <span class="badge badge-info">Loan Started</span>
-            </p>
-            
-        </a>
     </ul>
     <!-- </div> -->
     <!-- <div class="pad inside-div">
