@@ -35,18 +35,18 @@
               <div class="card-body">
                 <div class="form-group">
                   <label class="form-label">Username</label>
-                  <input type="text" class="form-control mb-1" value="{{username}}">
+                  <input type="text" class="form-control mb-1" ngModel name="username" id="username" value="{{username}}">
                 </div>
                 <div class="form-group">
                   <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" value="{{firstname}}">
+                  <input type="text" class="form-control" ngModel name="firstname" id="firstname" value="{{firstname}}">
                   <label class="form-label"> Last Name</label>
-                  <input type="text" class="form-control" value="{{lastname}}">
+                  <input type="text" class="form-control" ngModel name="lastname" id="lastname" value="{{lastname}}">
 
                 </div>
                 <div class="form-group">
                   <label class="form-label">E-mail</label>
-                  <input type="text" class="form-control mb-1" value="{{user_email}}">
+                  <input type="text" class="form-control mb-1" ngModel name="email" id="email" value="{{user_email}}">
                   <div class="alert alert-warning mt-3">
                     Your email is not confirmed. Please check your inbox.<br>
                     <a href="javascript:void(0)">Resend confirmation</a>
@@ -63,17 +63,17 @@
 
                 <div class="form-group">
                   <label class="form-label">Current password</label>
-                  <input type="password" class="form-control">
+                  <input type="password" ngModel name="password" id="password" class="form-control">
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">New password</label>
-                  <input type="password" class="form-control">
+                  <input type="password" ngModel name="newpass" id="newpass" class="form-control">
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">Repeat new password</label>
-                  <input type="password" class="form-control">
+                  <input type="password" ngModel name="newpass_conf" id="newpass_conf" class="form-control">
                 </div>
                 <div type="submit" (click)="onSaveChanges(authForm, 'password')" class="btn btn-primary">Save Changes</div>
               </div>
@@ -89,14 +89,14 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label">Birthday</label>
-                  <input type="text" class="form-control" value="Jan 5, 1999">
+                  <input type="text" class="form-control" ngModel name="birthday" id="birthday" value="Jan 5, 1999">
                 </div>
               </div>
               <div class="card-body pb-2">
 
                 <div class="form-group">
                   <label class="form-label">Phone</label>
-                  <input type="text" class="form-control" value="{{phone}}">
+                  <input type="text" class="form-control" ngModel name="phone" id="phone" value="{{phone}}">
                 </div>
 
               </div>
