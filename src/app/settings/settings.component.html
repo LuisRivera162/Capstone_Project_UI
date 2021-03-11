@@ -34,19 +34,8 @@
             <form #authForm="ngForm" (ngSubmit)="onSaveChanges(authForm, 'profile')">
               <div class="card-body">
                 <div class="form-group">
-                  <label class="form-label">Username</label>
-                  <input type="text" class="form-control mb-1" ngModel name="username" id="username" value="{{username}}">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" ngModel name="firstname" id="firstname" value="{{firstname}}">
-                  <label class="form-label"> Last Name</label>
-                  <input type="text" class="form-control" ngModel name="lastname" id="lastname" value="{{lastname}}">
-
-                </div>
-                <div class="form-group">
                   <label class="form-label">E-mail</label>
-                  <input type="text" class="form-control mb-1" ngModel name="email" id="email" value="{{user_email}}">
+                  <input type="text" class="form-control mb-1" ngModel name="email" id="email" value="{{email}}" contenteditable="false">
                   <div class="alert alert-warning mt-3">
                     Your email is not confirmed. Please check your inbox.<br>
                     <a href="javascript:void(0)">Resend confirmation</a>

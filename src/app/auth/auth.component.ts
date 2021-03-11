@@ -24,6 +24,8 @@ export class AuthComponent implements OnInit {
   isLoginMode = false;
   lender = false;
   loginStyle = "600px"
+  errorOnUsername = false
+  errorOnEmail = false
 
   constructor(
     private authService: AuthService,
@@ -33,11 +35,13 @@ export class AuthComponent implements OnInit {
 
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
-    this.loginStyle = mode ? "825px" : "600px";
+    this.loginStyle = mode ? "870px" : "600px";
   }
 
   check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
     const params = new HttpParams().append('email', email).append("username",username);
+    this.errorOnEmail = false
+    this.errorOnUsername = false
     this.HttpClient.get<ResultData>(
       '/api/check-emails_user',
       {
@@ -51,9 +55,11 @@ export class AuthComponent implements OnInit {
       }else{
         if (resData.Result1){
           console.log("cant register this user as the email already exist")
+          this.errorOnEmail = true
         }
         if (resData.Result2) {
           console.log("cant register this user as the username already exist")
+          this.errorOnUsername = true
         }
       }
     });
@@ -80,7 +86,6 @@ export class AuthComponent implements OnInit {
     else{
       this.authService.login(email, password).subscribe(
         resData => {
-          console.log(resData);
           this.isLoading = false;
           this.error = "null";
           if(resData.lender){

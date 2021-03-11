@@ -35,13 +35,15 @@ export class ProfileComponent implements OnInit {
 
   check: string = "True";
   user_id = this.authService.user.getValue()!.id;
-  user_email = this.authService.user.getValue()!.email;
+  email = this.authService.user.getValue()!.email;
   username = ""
   firstname = ""
   lastname = ""
   age = ""
   phone = ""
   editMode = false
+  errorOnEmail = false
+  errorOnUsername = false
 
   ngOnInit(): void {
 
@@ -63,10 +65,12 @@ export class ProfileComponent implements OnInit {
 
 
   onSaveProfile(form: NgForm){
+    this.errorOnEmail = false;
+    this.errorOnUsername = false;
     let email = form.value.email;
-    let needToCheckEmail = true
+    let needToCheckEmail = true;
     if(email.empty){
-      email = this.user_email
+      email = this.email
       needToCheckEmail = false
     }else{
       needToCheckEmail = true
@@ -100,7 +104,6 @@ export class ProfileComponent implements OnInit {
           params
         }
       ).subscribe(resData => {
-        console.log(resData)
         this.check = ((resData.Result1) || (resData.Result2))
 
         if(!this.check){
@@ -109,19 +112,24 @@ export class ProfileComponent implements OnInit {
 
         }else{
           if (resData.Result1){
+
             console.log("cant update this user as the email already exist")
+            this.errorOnEmail = true
             if (!resData.Result2){
-              this.updateUser(username,this.authService.user.getValue()!.email,first_name,last_name,phone)
+              this.updateUser(username,this.email,first_name,last_name,phone)
               this.username = username
             }
+
           }
           if (resData.Result2){
+            console.log("cant update this user as the username already exist")
+            this.errorOnUsername = true
             if (!resData.Result1){
               this.updateUser(this.username,email,first_name,last_name,phone)
-              this.user_email = email
+              this.email = email
             }
-            console.log("cant update this user as the username already exist")
           }
+          this.editMode = false
 
         }
       });
@@ -129,6 +137,8 @@ export class ProfileComponent implements OnInit {
       this.updateUser(username,email,first_name,last_name,phone)
       this.editMode = false
     }
+    this.username = username
+    this.email = email
 
   }
 
