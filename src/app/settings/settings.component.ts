@@ -14,6 +14,13 @@ interface UserResponseData {
   'phone': string
 }
 
+interface ResponseInterface {
+  'email': number
+  'localId': string
+  'status': string
+
+}
+
 
 @Component({
   selector: 'app-settings',
@@ -33,6 +40,8 @@ export class SettingsComponent implements OnInit {
   email = ""
   age = ""
   phone = ""
+  passwordError = false
+  passwordChanged = false
 
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
@@ -43,7 +52,6 @@ export class SettingsComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      console.log(resData)
       this.email = resData.email
       this.age = resData.age
       this.phone = resData.phone
@@ -51,13 +59,37 @@ export class SettingsComponent implements OnInit {
   }
 
   onSaveChanges(form: NgForm, type: any) {
+    let user_id = this.user_id
     let email = form.value.email;
     let phone = form.value.phone;
+    let old_password = form.value.password;
+    let new_password = form.value.newpass;
+    let newpass_conf = form.value.newpass_conf;
 
     if (type == 'profile'){
 
     }else if (type == 'password'){
+      this.passwordError = false
+      this.passwordChanged = false
+      if (new_password != newpass_conf){
+        this.passwordError = true
+        console.log("not matching")
+      }else{
+        console.log("matching")
 
+        this.HttpClient.put<ResponseInterface>(
+          '/api/editpass',
+          {user_id: user_id, email: this.email, old_password : old_password, new_password: new_password }
+        ).subscribe(resData => {
+          console.log(resData.status)
+          if (resData.status == "fail"){
+            this.passwordError = true
+          }else if (resData.status == "success"){
+            this.passwordChanged = true
+
+          }
+        });
+      }
     }else {
 
     }

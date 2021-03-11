@@ -14,6 +14,7 @@
                 <div class="group form-group">
                   <label for="email" class="label">Email</label>
                   <input id="email" ngModel name="email" type="email" class="input" placeholder="Enter your email">
+                  <span class="popuptext" id="myPopupL" *ngIf="errorOnLogin">Email or Password is wrong.</span>
                 </div>
                 <div class="group form-group">
                   <label for="password" class="label">Password</label>
