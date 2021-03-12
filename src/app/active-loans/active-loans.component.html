@@ -10,11 +10,11 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Loan ID</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="word-wrap: break-word;">
                         <a href="https://kovan.ethersacan.io/address/">{{curr_loan.eth_address}}</a>
                     </div>
                 </div>
-                <div class="form-group row" *ngIf="curr_loan.borrower">
+                <div class="form-group row" style="word-wrap: break-word;" *ngIf="curr_loan.borrower">
                     <label class="col-sm-6 col-form-label">Borrower</label>
                     <div class="col-sm-6">
                         {{curr_loan.borrower}}
