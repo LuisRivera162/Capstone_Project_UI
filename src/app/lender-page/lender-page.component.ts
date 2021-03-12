@@ -5,8 +5,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 interface Loan {
   loan_id: number,
-  lender: string,
-  borrower: string,
+  lender: number,
+  borrower: number,
+  lender_eth: string,
+  borrower_eth: string,
   amount: number,
   months: number,
   eth_address: string,
@@ -16,6 +18,18 @@ interface Loan {
   monthly_repayment: number,
   balance: number,
   est_total_interest: number,
+}
+
+interface Loan2 {
+  amount: number,
+  borrower: string,
+  created_on: Date,
+  eth_address: string,
+  interest: number,
+  lender: string,
+  months: number,
+  paymentNumber: number,
+  state: number
 }
 
 @Component({
@@ -30,6 +44,8 @@ export class LenderPageComponent implements OnInit {
   active_loans = 0;
   active_loans_balance = 0;
   pending_offers = 0;
+
+  loans: Loan2[] = []
 
   user_id = this.authService.user.getValue()!.id;
 
@@ -48,13 +64,17 @@ export class LenderPageComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      resData.Loans.forEach((loan: Loan) => {
-        if (loan.borrower && loan.accepted) {
-          this.active_loans++
-          this.active_loans_balance += loan.balance // TODO: Needs balance to be saved in the DB (or blockchain)
-        }
-        else if (loan.borrower && !loan.accepted) this.pending_offers++
-        else this.available_loans++
+      resData.forEach((loan: Loan2) => {
+        this.loans.push(loan);
+
+        // if (loan.borrower && loan.accepted) {
+        //   this.active_loans++
+        //   this.active_loans_balance += loan.balance
+        // }
+        // else if (loan.borrower && !loan.accepted) this.pending_offers++
+        // else this.available_loans++
+
+
       });
       
     });
@@ -65,7 +85,7 @@ export class LenderPageComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      console.log(resData);
+      // console.log(resData);
       this.pending_offers = resData.result;
     });
 

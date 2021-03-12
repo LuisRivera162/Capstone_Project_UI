@@ -13,7 +13,7 @@ export class LatestPaymentsComponent implements OnInit {
   @Input() isLender: boolean = false;
 
   user_id = this.authService.user.getValue()!.id;
-  payments: any; 
+  payments: any[] = []; 
 
   constructor(
     private authService: AuthService, 
@@ -29,8 +29,7 @@ export class LatestPaymentsComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      this.payments = resData.Payments; 
-      console.log(this.payments);
+      this.payments = resData.Payments;
     });
   }
 

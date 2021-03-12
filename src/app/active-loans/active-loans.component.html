@@ -14,7 +14,7 @@
                         <a href="https://kovan.ethersacan.io/address/">{{curr_loan.eth_address}}</a>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" *ngIf="curr_loan.borrower">
                     <label class="col-sm-6 col-form-label">Borrower</label>
                     <div class="col-sm-6">
                         {{curr_loan.borrower}}
@@ -42,18 +42,17 @@
                 <div id="calculatedEstimates">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
-                        <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5>
+                        <!-- <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5> -->
                     </div>
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Yield</h5>
-                        <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5>
+                        <!-- <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5> -->
                     </div>
                 </div>
             </div>
             <div class="modal-footer" *ngIf="!curr_loan.borrower">
                 <button type="button" class="btn btn-primary">Edit Parameters</button>
                 <button type="button" class="btn btn-danger">Withdraw Loan?</button>
-                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button> -->
             </div>
         </div>
     </div>
@@ -66,12 +65,21 @@
     </div>
     <!-- <div class="card-body"> -->
     <ul class="overflow-auto list-group list-group-flush">
+        <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
+            No loans available...
+        </a>
         <a href="#" data-toggle="modal" data-target="#loanDetailsModal" class="list-group-item list-group-item-action"
             *ngFor="let loan of loans; let i = index" (click)="loadLoanInfo(i)">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"> {{loan.amount | currency}}</h5>
-                <small *ngIf="loan.borrower" class="text-success">Active</small>
-                <small *ngIf="!loan.borrower" class="text-info">Available</small>
+                <small *ngIf="loan.state == 0" class="text-info">Available</small>
+                <small *ngIf="loan.state == 1 || loan.state == 2" class="text-warning">In Offer Proccess</small>
+                <small *ngIf="loan.state == 3" class="text-warning">Borrower Confirmed</small>
+                <small *ngIf="loan.state == 4" class="text-success">Active</small>
+                <small *ngIf="loan.state == 5" class="text-warning">Active - Waiting Validation</small>
+                <small *ngIf="loan.state == 6" class="text-danger">Delinquent</small>
+                <small *ngIf="loan.state == 7" class="text-secondary">Terminated</small>
+                <small *ngIf="loan.state == 8" class="text-secondary">Withdrawn</small>
             </div>
             <!-- <p class="mb-1">Some placeholder content in a paragraph.</p> -->
             <p class="mb-1">
@@ -80,31 +88,10 @@
             </p>
             <small *ngIf="loan.borrower"><b>Borrower:</b> {{loan.borrower}}</small>
             <p class="mb-1">
-                <small>Loan ID: <a href="#">{{ loan.eth_address }}</a></small>
+                <small><b>Loan ID: </b><a href="#">{{ loan.eth_address }}</a></small>
             </p>
         </a>
     </ul>
-    <!-- </div> -->
-    <!-- <div class="pad inside-div">
-        <h3 style="text-align: center; color: white; padding-top: 15px;">Your Active Loans:</h3>
-        <div class="center-div scroll-pane">
-            <div class="div-card flex" 
-            *ngFor="let loan of loans;">
-                User: {{loan.username}} &nbsp;
-                Loan Amount: {{loan.loan_amount}} &nbsp;
-                Interest: {{loan.interest * 100}}% &nbsp;
-                <button class="info-button" [routerLink]="['./loan-info/', loan.loan_id]"
-                [state]="{
-                    loan_id: loan.loan_id,
-                    interest: loan.interest,
-                    loan_amount: loan.loan_amount,
-                    time_frame: loan.time_frame,
-                    username: loan.username
-                }">Edit</button>
-                <p>Time Frame: {{loan.time_frame}}</p>
-            </div>
-        </div>
-    </div> -->
 </div>
 <script>
     $('#loanDetailsModal').on('shown.bs.modal', function () { })

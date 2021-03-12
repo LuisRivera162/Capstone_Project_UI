@@ -3,22 +3,45 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-interface LoanResponseData {
+interface Loan {
+  loan_id: number,
+  lender: number,
+  borrower: number,
+  lender_eth: string,
+  borrower_eth: string,
+  amount: number,
+  months: number,
+  eth_address: string,
+  interest: number,
+  accepted: boolean,
+  created_on: Date,
+  monthly_repayment: number,
+  balance: number,
+  est_total_interest: number,
+}
 
-  Loans: {
-    'loan_id': number,
-    'lender': string,
-    'borrower': string,
-    'amount': number,
-    'months': number,
-    'eth_address': string,
-    'interest': number,
-    'accepted': boolean,
-    'created_on': Date,
-    'monthly_repayment': number,
-    'balance': number,
-    'est_total_interest': number,
-  }[];
+enum StateType {
+  Available,
+  OfferPlaced,
+  LenderAccepted,
+  Confirmed,
+  Active,
+  AwaitingValidation,
+  Delinquent,
+  Terminated,
+  Withdrawn
+}
+
+interface Loan2 {
+  amount: number,
+  borrower: string,
+  created_on: Date,
+  eth_address: string,
+  interest: number,
+  lender: string,
+  months: number,
+  paymentNumber: number,
+  state: number
 }
 
 @Component({
@@ -28,48 +51,9 @@ interface LoanResponseData {
 })
 export class ActiveLoansComponent implements OnInit {
 
-  loans: {
-    'loan_id': number,
-    'lender': string,
-    'borrower': string,
-    'amount': number,
-    'months': number,
-    'eth_address': string,
-    'interest': number,
-    'accepted': boolean,
-    'created_on': Date,
-    'monthly_repayment': number,
-    'balance': number,
-    'est_total_interest': number,
-  }[] = [];
+  @Input() loans: Loan2[] = [];
 
-  curr_loan: {
-    'loan_id': number,
-    'lender': string,
-    'borrower': string,
-    'amount': number,
-    'months': number,
-    'eth_address': string,
-    'interest': number,
-    'accepted': boolean,
-    'created_on': Date,
-    'monthly_repayment': number,
-    'balance': number,
-    'est_total_interest': number,
-  } = {
-      'loan_id': 0,
-      'lender': '',
-      'borrower': '',
-      'amount': 0,
-      'months': 0,
-      'eth_address': '',
-      'interest': 0,
-      'accepted': false,
-      'created_on': new Date(),
-      'monthly_repayment': 0,
-      'balance': 0,
-      'est_total_interest': 0,
-    };
+  curr_loan: Loan2 = {} as Loan2
 
   user_id = this.authService.user.getValue()!.id;
   isLoading = false;
@@ -82,48 +66,35 @@ export class ActiveLoansComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    const params = new HttpParams().append('user_id', this.user_id);
-
-    this.HttpClient.get<LoanResponseData>(
-      '/api/user-loans',
-      {
-        params
-      }
-    ).subscribe(resData => {
-      this.loans = resData.Loans;
-    });
-    this.isLoading = false;
-
   }
 
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
-    this.recalculateEstimates();
+    // this.recalculateEstimates();
   }
 
   isActiveLoansURLAddress() {
     return this.router.url == '/active-loans';
   }
 
-  recalculateEstimates() {
-    if (this.curr_loan.interest <= 0 || this.curr_loan.months < 3) return
+  // recalculateEstimates() {
+  //   if (this.curr_loan.interest <= 0 || this.curr_loan.months < 3) return
 
-    this.curr_loan.est_total_interest = 0; // reset
-    this.curr_loan.monthly_repayment = 0
-    this.curr_loan.balance = 0
+  //   this.curr_loan.est_total_interest = 0; // reset
+  //   this.curr_loan.monthly_repayment = 0
+  //   this.curr_loan.balance = 0
 
-    this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
+  //   this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
 
-    // this.curr_loan.balance = this.curr_loan.amount - this.curr_loan.monthly_repayment
-    this.curr_loan.balance = this.curr_loan.amount
-    // this.curr_loan.est_total_interest = ((this.curr_loan.interest) / 12) * this.curr_loan.amount
+  //   // this.curr_loan.balance = this.curr_loan.amount - this.curr_loan.monthly_repayment
+  //   this.curr_loan.balance = this.curr_loan.amount
+  //   // this.curr_loan.est_total_interest = ((this.curr_loan.interest) / 12) * this.curr_loan.amount
 
-    for (var i = 1; i <= this.curr_loan.months; i++) {
-      this.curr_loan.est_total_interest += ((this.curr_loan.interest) / 12) * this.curr_loan.balance
-      this.curr_loan.balance -= (this.curr_loan.monthly_repayment - ((this.curr_loan.interest) / 12) * this.curr_loan.balance)
-    }
+  //   for (var i = 1; i <= this.curr_loan.months; i++) {
+  //     this.curr_loan.est_total_interest += ((this.curr_loan.interest) / 12) * this.curr_loan.balance
+  //     this.curr_loan.balance -= (this.curr_loan.monthly_repayment - ((this.curr_loan.interest) / 12) * this.curr_loan.balance)
+  //   }
 
-  }
+  // }
 
 }

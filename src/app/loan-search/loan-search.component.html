@@ -23,7 +23,7 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
                     <div class="col-sm-6">
-                        {{curr_loan.interest * 100}}%
+                        {{curr_loan.interest | percent}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -38,15 +38,11 @@
                         <h5 class="mb-1">Est. Monthly Payment</h5>
                         <h5  class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5>
                     </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Est. Total Interest</h5>
-                        <h5  class="mb-1 text-success">${{curr_loan.est_total_interest | number: '1.0-2' }}</h5>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#createOfferModal">Make Offer</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" data-toggle="modal" data-target="#createOfferModal">Make Offer?</button>
+                <button type="button" class="btn btn-primary" (click)="requestLoan()">Request Loan</button>
             </div>
         </div>
     </div>
@@ -68,7 +64,7 @@
     </div>
 </div>
 
-<div class="card" style="margin-top: 50px; padding-bottom: 10px;">
+<div class="card" style="margin-top: 50px;">
     <h3 class="card-header">
         Available Loans
     </h3>
@@ -77,16 +73,11 @@
         (click)="loadLoanInfo(i)">
             <div class="d-flex">
                 <h5 class="mb-1 align-self-center" style="margin-right: 2px;"> {{loan.amount | currency }}</h5>
-                <small class="align-self-center"><span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest * 100}}%</span></small>
-                <small class="align-self-center"><span class="badge badge-info" style="margin-right: 2px;">{{loan.months}} month(s)</span></small>
-
-                <!-- <button class="btn btn-success ml-auto p-2" data-toggle="modal" data-target="#loanInfoModal"
-                    (click)="loadLoanInfo(i)">Request</button> -->
+                <span class="badge badge-warning align-self-center" style="margin-right: 2px;">{{loan.interest | percent}}</span>
+                <span class="badge badge-info align-self-center" style="margin-right: 2px;">{{loan.months}} month(s)</span>
+                <span class="badge badge-success align-self-center">Available</span>
             </div>
-            <p class="mb-1">
-                <span class="badge badge-success" style="margin-right: 2px;">Available</span>
-            </p>
-            <small><b>Lender:</b> {{loan.username}} ({{loan.user_id}})</small>
+            <!-- <small><b>Lender:</b> {{loan.username}}</small> -->
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#" >{{loan.eth_address}}</a></small>
             </p>
@@ -97,6 +88,5 @@
 
 
 <script>
-    $('#loanInfoModal').on('shown.bs.modal', function () {
-     })
+    $('#loanInfoModal').on('shown.bs.modal', function () {})
 </script>

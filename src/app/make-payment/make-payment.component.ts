@@ -21,6 +21,18 @@ interface Loan {
   est_total_interest: number,
 }
 
+interface Loan2 {
+  amount: number,
+  borrower: string,
+  created_on: Date,
+  eth_address: string,
+  interest: number,
+  lender: string,
+  months: number,
+  paymentNumber: number,
+  state: number
+}
+
 @Component({
   selector: 'app-make-payment',
   templateUrl: './make-payment.component.html',
@@ -31,7 +43,7 @@ export class MakePaymentComponent implements OnInit {
 
   error: string = "null";
 
-  @Input() loan: Loan = {} as Loan;
+  @Input() loan: Loan2 = {} as Loan2;
 
   constructor(
     private authService: AuthService,
@@ -45,7 +57,6 @@ export class MakePaymentComponent implements OnInit {
     source: 0,
     paymentNumber: 0,
     evidence: "",
-    contractHash: "",
   }
 
   ngOnInit(): void {
@@ -75,13 +86,10 @@ export class MakePaymentComponent implements OnInit {
     return this.HttpClient.post(
       '/api/payment/send',
       {
-        sender: user_data.id,
-        receiver: this.loan.borrower,
         sender_eth: user_data.wallet,
-        receiver_eth: this.loan.borrower_eth, 
         amount: this.payment.amount,
         paymentNumber: this.payment.paymentNumber, 
-        contractHash: this.payment.contractHash, 
+        contractHash: this.loan.eth_address, 
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
         console.log(resData)
