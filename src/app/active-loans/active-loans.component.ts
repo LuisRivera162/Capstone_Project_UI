@@ -40,7 +40,7 @@ interface Loan2 {
   interest: number,
   lender: string,
   months: number,
-  paymentNumber: number,
+  balance: number,
   state: number
 }
 
@@ -71,6 +71,48 @@ export class ActiveLoansComponent implements OnInit {
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
     // this.recalculateEstimates();
+  }
+
+  confirm() {
+    if (this.user_id) {
+      this.HttpClient.post<any>(
+        '/api/eth/accept-loan-request',
+        {
+          sender: this.authService.user.getValue()!.wallet,
+          contractHash: this.curr_loan.eth_address
+        }
+      ).subscribe(resData => {
+        console.log("lender accepted, do something here...");
+      });
+    }
+  }
+
+  reject() {
+    if (this.user_id) {
+      this.HttpClient.post<any>(
+        '/api/eth/reject-loan-request',
+        {
+          sender: this.authService.user.getValue()!.wallet,
+          contractHash: this.curr_loan.eth_address
+        }
+      ).subscribe(resData => {
+        console.log("lender rejected, do something here...");
+      });
+    }
+  }
+
+  withdraw() {
+    if (this.user_id) {
+      this.HttpClient.post<any>(
+        '/api/eth/withdraw-loan',
+        {
+          sender: this.authService.user.getValue()!.wallet,
+          contractHash: this.curr_loan.eth_address
+        }
+      ).subscribe(resData => {
+        console.log("lender withdrew loan, do something here...");
+      });
+    }
   }
 
   isActiveLoansURLAddress() {

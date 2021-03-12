@@ -28,7 +28,7 @@ interface Loan2 {
   interest: number,
   lender: string,
   months: number,
-  paymentNumber: number,
+  balance: number,
   state: number
 }
 
@@ -43,7 +43,7 @@ export class LenderPageComponent implements OnInit {
   available_loans = 0;
   active_loans = 0;
   active_loans_balance = 0;
-  pending_offers = 0;
+  pending_loans = 0;
 
   loans: Loan2[] = []
 
@@ -67,26 +67,20 @@ export class LenderPageComponent implements OnInit {
       resData.forEach((loan: Loan2) => {
         this.loans.push(loan);
 
-        // if (loan.borrower && loan.accepted) {
-        //   this.active_loans++
-        //   this.active_loans_balance += loan.balance
-        // }
-        // else if (loan.borrower && !loan.accepted) this.pending_offers++
-        // else this.available_loans++
+        if (loan.state == 0) {
+          this.available_loans++;
+          
+        } else if (loan.state >= 1 && loan.state <= 3) {
+          this.pending_loans++
+        }
+        else if (loan.state == 4) {
+          this.active_loans++
+          this.active_loans_balance += loan.balance
+        }
 
 
       });
       
-    });
-
-    this.HttpClient.get<any>(
-      '/api/total-offers',
-      {
-        params
-      }
-    ).subscribe(resData => {
-      // console.log(resData);
-      this.pending_offers = resData.result;
     });
 
   }

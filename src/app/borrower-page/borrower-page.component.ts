@@ -38,19 +38,20 @@ interface Loan2 {
   styleUrls: ['./borrower-page.component.css']
 })
 export class BorrowerPageComponent implements OnInit {
+  user_id = this.authService.user.getValue()!.id;
 
   currentLoan: Loan2 = {} as Loan2;
-  user_id = this.authService.user.getValue()!.id;
   total_loan_balance = 0;
   payment_due = 0;
   payment_due_date = new Date();
 
+  latestActivity: any[] = []
 
   constructor(
-      private authService: AuthService, 
-      private router: Router,
-      private HttpClient: HttpClient
-    ) { }
+    private authService: AuthService,
+    private router: Router,
+    private HttpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
@@ -59,16 +60,9 @@ export class BorrowerPageComponent implements OnInit {
       {
         params
       }
-    ).subscribe(resData => {
-      resData.forEach((loan: Loan2) => {
-        // if (loan.borrower && loan.accepted) {
-        //   this.total_loan_balance += loan.balance // TODO: Needs balance to be saved in the DB (or blockchain)
-        //   this.currentLoan = loan;
-        // }
-      });
+    ).subscribe(userLoans => {
+      
     });
   }
-
-  
 
 }

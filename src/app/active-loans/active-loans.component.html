@@ -50,9 +50,13 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" *ngIf="!curr_loan.borrower">
+            <div class="modal-footer" *ngIf="curr_loan.state == 0">
+                <button type="button" class="btn btn-outline-danger" (click)="withdraw()">Withdraw Loan?</button>
                 <button type="button" class="btn btn-primary">Edit Parameters</button>
-                <button type="button" class="btn btn-danger">Withdraw Loan?</button>
+            </div>
+            <div class="modal-footer" *ngIf="curr_loan.state == 3">
+                <button type="button" class="btn btn-outline-danger" (click)="reject()">Reject Request</button>
+                <button type="button" class="btn btn-primary" (click)="confirm()">Confirm Request</button>
             </div>
         </div>
     </div>
@@ -86,7 +90,7 @@
                 <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
-            <small *ngIf="loan.borrower"><b>Borrower:</b> {{loan.borrower}}</small>
+            <small *ngIf="loan.borrower != '0x0000000000000000000000000000000000000000'"><b>Borrower:</b> {{loan.borrower}}</small>
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#">{{ loan.eth_address }}</a></small>
             </p>
