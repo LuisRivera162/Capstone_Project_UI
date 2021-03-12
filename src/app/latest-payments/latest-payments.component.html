@@ -21,16 +21,16 @@
 
 <div class="card">
     <div class="card-header">
-        Latest Payments
+        Latest Activity
     </div>
     <!-- <div class="card-body"> -->
-    <ul class="overflow-auto list-group list-group-flush" style="height: 50vh;">
-        <div *ngFor="let payment of payments;  let i = index">
-            <a href="#" data-toggle="modal" [attr.data-target]="get_modal(payment.validated, payment.validation_hash)" 
+    <ul class="overflow-auto list-group list-group-flush">
+        <!-- <div> -->
+            <a  *ngFor="let payment of payments;  let i = index" href="#" data-toggle="modal" [attr.data-target]="get_modal(payment.validated, payment.validation_hash)" 
             class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
-                        {{this.user_id == payment.receiver_id ? '+' : '-'}}${{payment.amount}}
+                        {{this.user_id == payment.receiver_id ? '+' : '-'}}{{payment.amount | currency}}
                     </h5>
                     <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
                         {{get_validation_message(payment.validated, payment.validation_hash)}}
@@ -38,7 +38,7 @@
                 </div>
                 <small>
                     <b>{{user_id == payment.receiver_id ? 'Borrower' : 'Lender'}}:</b>
-                     {{payment.receiver_username}} (0x2FCF...192f)
+                     {{payment.receiver_username}}
                 </small>
                 <p class="mb-1">
                     <small><b>Loan ID: </b><a href="#" data-toggle="modal" data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
@@ -47,59 +47,8 @@
                     <small>{{payment.payment_date}}</small>
                 </p>
             </a>
-        </div>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 text-success">+$439.81</h5>
-                <small class="text-success">Validated</small>
-            </div>
-            <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
-            <p class="mb-1">
-                <small><b>Loan ID: </b><a href="#">0x9677...2d90</a></small>
-            </p>
-            <p class="mb-1">
-                <small>3/20/2021 - 10:55 AM</small>
-            </p>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#validateModal">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 text-danger">-$5000.00</h5>
-                <small class="text-danger">Validation Required</small>
-            </div>
-            <small><b>Borrower:</b> John, W. (0x2FCF...192f)</small>
-            <p class="mb-1">
-                <small><b>Loan ID: </b><a href="#">0x9677...2d90</a></small>
-            </p>
-            <p class="mb-1">
-                <small>2/21/2021 - 8:35 AM</small>
-            </p>
-            <p class="mb-1">
-                <span class="badge badge-info">Loan Started</span>
-            </p>
-            
-        </a>
+        <!-- </div> -->
     </ul>
-    <!-- </div> -->
-    <!-- <div class="pad inside-div">
-        <h3 style="text-align: center; color: white; padding-top: 15px;">Your Active Loans:</h3>
-        <div class="center-div scroll-pane">
-            <div class="div-card flex" 
-            *ngFor="let loan of loans;">
-                User: {{loan.username}} &nbsp;
-                Loan Amount: {{loan.loan_amount}} &nbsp;
-                Interest: {{loan.interest * 100}}% &nbsp;
-                <button class="info-button" [routerLink]="['./loan-info/', loan.loan_id]"
-                [state]="{
-                    loan_id: loan.loan_id,
-                    interest: loan.interest,
-                    loan_amount: loan.loan_amount,
-                    time_frame: loan.time_frame,
-                    username: loan.username
-                }">Edit</button>
-                <p>Time Frame: {{loan.time_frame}}</p>
-            </div>
-        </div>
-    </div> -->
 </div>
 <script>
     $('#txReceiptModal').on('shown.bs.modal', function () { })

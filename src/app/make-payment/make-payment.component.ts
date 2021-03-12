@@ -1,17 +1,37 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+
+interface Loan {
+  loan_id: number,
+  lender: number,
+  lender_eth: string,
+  borrower: number,
+  borrower_eth: string,
+  amount: number,
+  months: number,
+  eth_address: string,
+  interest: number,
+  accepted: boolean,
+  created_on: Date,
+  monthly_repayment: number,
+  balance: number,
+  est_total_interest: number,
+}
 
 @Component({
   selector: 'app-make-payment',
   templateUrl: './make-payment.component.html',
   styleUrls: ['./make-payment.component.css']
 })
+
 export class MakePaymentComponent implements OnInit {
 
   error: string = "null";
+
+  @Input() loan: Loan = {} as Loan;
 
   constructor(
     private authService: AuthService,
@@ -23,7 +43,9 @@ export class MakePaymentComponent implements OnInit {
     amount: 0,
     date: Date.now(),
     source: 0,
+    paymentNumber: 0,
     evidence: "",
+    contractHash: "",
   }
 
   ngOnInit(): void {
@@ -41,23 +63,26 @@ export class MakePaymentComponent implements OnInit {
 
     this.error = "null";
 
-    let loan_amount = form.value.loan_amount;
-    let interest = form.value.interest;
-    let time_frame = form.value.time_frame;
-    let platform = form.value.platform;
     let user_data: {
       email: string;
       id: string;
+      wallet: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
-    if (!user_data.email && !user_data.id) {
+    if (!user_data.email && !user_data.id && !user_data.wallet) {
       return;
     }
 
     return this.HttpClient.post(
-      '/api/send-payment',
+      '/api/payment/send',
       {
-        loan_amount: loan_amount, interest: interest, time_frame: time_frame,
-        platform: platform, user_id: user_data.id
+        sender: user_data.id,
+        receiver: this.loan.borrower,
+        sender_eth: user_data.wallet,
+        receiver_eth: this.loan.borrower_eth, 
+        amount: this.payment.amount,
+        paymentNumber: this.payment.paymentNumber, 
+        contractHash: this.payment.contractHash, 
+        evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
         console.log(resData)
       });
