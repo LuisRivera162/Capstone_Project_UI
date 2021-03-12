@@ -25,9 +25,10 @@
             </div>
             <div class="btn btn-primary" *ngIf="!editMode" (click)="editMode=true">Edit Profile</div>
           </div>
+          <span class="popuptext" ngModel id="myPopupU" name="myPopupU" style="color: red" *ngIf="errorOnUsername">Username Already in use.</span>
+          <span class="popuptext" ngModel name="myPopupE" id="myPopupE" style="color: red" *ngIf="errorOnEmail">Email already in use.</span>
         </div>
       </div>
-
 
       <div class="col-md-8">
         <form #authForm="ngForm" (ngSubmit)="onSaveProfile(authForm)">
@@ -49,40 +50,31 @@
                   <input id="last_name" class="form-control" name="last_name" ngModel type="text" [(ngModel)]="lastname"
                     *ngIf="editMode">
                 </div>
-
-
               </div>
               <hr>
               <div class="row form-group">
                 <div class="col-sm-3" *ngIf="!editMode">
                   <h6 class="mb-0">Username</h6>
                 </div>
-                <div class="col-sm-9 text-secondary" *ngIf="!editMode">
-                  {{username}}
-                </div>
+                <div class="col-sm-9 text-secondary" *ngIf="!editMode">{{username}}</div>
                 <div class="col-sm-10 input-group" *ngIf="editMode">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Username</span>
                   </div>
-                  <input id="username" class="form-control" name="username" [(ngModel)]="username" ngModel type="text"
-                    *ngIf="editMode">
+                  <input id="username" class="form-control" name="username" [(ngModel)]="username" ngModel type="text" *ngIf="editMode">
                 </div>
-
               </div>
               <hr>
               <div class="row form-group">
                 <div class="col-sm-3" *ngIf="!editMode">
                   <h6 class="mb-0">Email</h6>
                 </div>
-                <div class="col-sm-9 text-secondary" *ngIf="!editMode">
-                  {{user_email}}
-                </div>
+                <div class="col-sm-9 text-secondary" *ngIf="!editMode">{{email}}</div>
                 <div class="col-sm-10 input-group" *ngIf="editMode">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Email</span>
                   </div>
-                  <input id="email" class="form-control" name="email" [(ngModel)]="user_email" ngModel type="text"
-                    *ngIf="editMode">
+                  <input id="email" class="form-control" name="email" [(ngModel)]="email" ngModel type="text" *ngIf="editMode">
                 </div>
 
               </div>
@@ -103,7 +95,7 @@
 
               </div>
               <hr>
-              <div type="submit" (click)="onSaveProfile(authForm)" class="btn btn-primary" *ngIf="editMode">Save Profile</div>
+              <div type="submit" (click)="onSaveProfile(authForm)" data-toggle="modal" data-target="#myModal" class="btn btn-primary" *ngIf="editMode">Save Profile</div>
               <div class="btn btn-secondary" (click)="editMode=false" *ngIf="editMode">Discard Changes</div>
             </div>
           </div>

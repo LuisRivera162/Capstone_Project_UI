@@ -34,19 +34,8 @@
             <form #authForm="ngForm" (ngSubmit)="onSaveChanges(authForm, 'profile')">
               <div class="card-body">
                 <div class="form-group">
-                  <label class="form-label">Username</label>
-                  <input type="text" class="form-control mb-1" value="{{username}}">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" value="{{firstname}}">
-                  <label class="form-label"> Last Name</label>
-                  <input type="text" class="form-control" value="{{lastname}}">
-
-                </div>
-                <div class="form-group">
                   <label class="form-label">E-mail</label>
-                  <input type="text" class="form-control mb-1" value="{{user_email}}">
+                  <input type="text" class="form-control mb-1" ngModel name="email" id="email" value="{{email}}" contenteditable="false">
                   <div class="alert alert-warning mt-3">
                     Your email is not confirmed. Please check your inbox.<br>
                     <a href="javascript:void(0)">Resend confirmation</a>
@@ -57,30 +46,31 @@
             </form>
           </div>
           <div class="tab-pane fade" id="account-change-password">
-            <form #authForm="ngForm" (ngSubmit)="onSaveChanges(authForm, 'password')">
+            <form #authForm1="ngForm" (ngSubmit)="onSaveChanges(authForm1, 'password')">
 
               <div class="card-body pb-2">
-
+                <span class="popuptext" id="myPopupP" style="color: red" *ngIf="passwordError">Passwords dont match or Current Password is wrong</span>
+                <span class="popuptext" id="myPopupP" style="color: green" *ngIf="passwordChanged">Password changed succesfully</span>
                 <div class="form-group">
                   <label class="form-label">Current password</label>
-                  <input type="password" class="form-control">
+                  <input type="password" ngModel name="password" id="password" class="form-control">
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">New password</label>
-                  <input type="password" class="form-control">
+                  <input type="password" ngModel name="newpass" id="newpass" class="form-control">
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">Repeat new password</label>
-                  <input type="password" class="form-control">
+                  <input type="password" ngModel name="newpass_conf" id="newpass_conf" class="form-control">
                 </div>
-                <div type="submit" (click)="onSaveChanges(authForm, 'password')" class="btn btn-primary">Save Changes</div>
+                <div type="submit" (click)="onSaveChanges(authForm1, 'password')" class="btn btn-primary">Save Changes</div>
               </div>
             </form>
           </div>
           <div class="tab-pane fade" id="account-info">
-            <form #authForm="ngForm" (ngSubmit)="onSaveChanges(authForm, 'info')">
+            <form #authForm2="ngForm" (ngSubmit)="onSaveChanges(authForm2, 'info')">
 
               <div class="card-body pb-2">
                 <div class="form-group">
@@ -89,18 +79,18 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label">Birthday</label>
-                  <input type="text" class="form-control" value="Jan 5, 1999">
+                  <input type="text" class="form-control" ngModel name="birthday" id="birthday" value="Jan 5, 1999">
                 </div>
               </div>
               <div class="card-body pb-2">
 
                 <div class="form-group">
                   <label class="form-label">Phone</label>
-                  <input type="text" class="form-control" value="{{phone}}">
+                  <input type="text" class="form-control" ngModel name="phone" id="phone" value="{{phone}}">
                 </div>
 
               </div>
-              <div type="submit" (click)="onSaveChanges(authForm, 'info')" class="btn btn-primary">Save Changes</div>
+              <div type="submit" (click)="onSaveChanges(authForm2, 'info')" class="btn btn-primary">Save Changes</div>
             </form>
           </div>
           <div class="tab-pane fade" id="account-notifications">
@@ -180,5 +170,4 @@
       </div>
     </div>
   </div>
-
 </div>

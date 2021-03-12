@@ -24,9 +24,9 @@
         Latest Activity
     </div>
     <!-- <div class="card-body"> -->
-    <ul class="overflow-auto list-group list-group-flush">
-        <!-- <div> -->
-            <a  *ngFor="let payment of payments;  let i = index" href="#" data-toggle="modal" [attr.data-target]="get_modal(payment.validated, payment.validation_hash)" 
+    <ul class="overflow-auto list-group list-group-flush" style="max-height: 50vh;">
+        <div *ngFor="let payment of payments;  let i = index">
+            <a href="#" data-toggle="modal" [attr.data-target]="get_modal(payment.validated, payment.validation_hash)" 
             class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
@@ -47,7 +47,7 @@
                     <small>{{payment.payment_date}}</small>
                 </p>
             </a>
-        <!-- </div> -->
+        </div>
     </ul>
 </div>
 <script>

@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service'
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {tokenReference} from "@angular/compiler";
 
+interface ResultData {
+  'Result1': string
+  'Result2': string
+}
 
 @Component({
   selector: 'app-auth',
@@ -13,19 +19,51 @@ import { AuthService } from './auth.service'
 export class AuthComponent implements OnInit {
 
   error: string = "null";
+  check: string = "True";
   isLoading = false;
   isLoginMode = false;
   lender = false;
   loginStyle = "600px"
+  errorOnUsername = false
+  errorOnEmail = false
+  errorOnLogin = false
 
   constructor(
     private authService: AuthService,
-    private router: Router
-    ) {}
+    private router: Router,
+    private HttpClient: HttpClient
+  ) {}
 
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
-    this.loginStyle = mode ? "825px" : "600px";
+    this.loginStyle = mode ? "870px" : "600px";
+  }
+
+  check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
+    const params = new HttpParams().append('email', email).append("username",username);
+    this.errorOnEmail = false
+    this.errorOnUsername = false
+    this.HttpClient.get<ResultData>(
+      '/api/check-emails_user',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      this.check = ((resData.Result1) || (resData.Result2))
+      console.log(resData)
+      if(!this.check){
+        this.sign_up(email,password,age,first_name,last_name,conf_password,username,phone)
+      }else{
+        if (resData.Result1){
+          console.log("cant register this user as the email already exist")
+          this.errorOnEmail = true
+        }
+        if (resData.Result2) {
+          console.log("cant register this user as the username already exist")
+          this.errorOnUsername = true
+        }
+      }
+    });
   }
 
   onSubmit(form: NgForm){
@@ -41,32 +79,15 @@ export class AuthComponent implements OnInit {
     const conf_password = form.value.conf_password;
     const username = form.value.username;
     const phone = form.value.phone;
-
     this.isLoading = true;
 
     if (this.isLoginMode){
-
-      this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
-        resData => {
-          this.isLoading = false;
-          this.error = "null";
-          if(this.lender){
-            this.router.navigate(['/lender']);
-          }else{
-            this.router.navigate(['/borrower']);
-          }
-        },
-        errorRes => {
-          console.log(errorRes);
-          this.isLoading = false;
-          this.error = "An error has occured.";
-        }
-      );
+      this.check_email(email,password,age,first_name,last_name,conf_password,username,phone)
     }
     else{
+      this.errorOnLogin = false
       this.authService.login(email, password).subscribe(
         resData => {
-          console.log(resData);
           this.isLoading = false;
           this.error = "null";
           if(resData.lender){
@@ -77,6 +98,7 @@ export class AuthComponent implements OnInit {
         },
         errorRes => {
           console.log(errorRes);
+          this.errorOnLogin = true
           this.isLoading = false;
           this.error = "The username or password entered is incorrect.";
           // need to check where in the response is the message sent from the back end
@@ -92,5 +114,24 @@ export class AuthComponent implements OnInit {
   onItemChange(target: boolean) {
     console.log(target)
     this.lender = target
+  }
+
+  private sign_up(email: any, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any) {
+    this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
+      resData => {
+        this.isLoading = false;
+        this.error = "null";
+        if(this.lender){
+          this.router.navigate(['/lender']);
+        }else{
+          this.router.navigate(['/borrower']);
+        }
+      },
+      errorRes => {
+        console.log(errorRes);
+        this.isLoading = false;
+        this.error = "An error has occured.";
+      }
+    );
   }
 }

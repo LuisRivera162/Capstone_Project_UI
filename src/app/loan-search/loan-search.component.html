@@ -62,7 +62,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-create-offer [loan_id]="curr_loan.loan_id"></app-create-offer>
+                <app-create-offer [loan_id]="curr_loan.loan_id" [lender_id]="curr_loan.lender"></app-create-offer>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
     <h3 class="card-header">
         Available Loans
     </h3>
-    <ul class="overflow-auto list-group list-group-flush" style="height: 80vh;">
+    <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
         <a class="list-group-item list-group-item-action" *ngFor="let loan of loans;  let i = index" data-toggle="modal" data-target="#loanInfoModal"
         (click)="loadLoanInfo(i)">
             <div class="d-flex">
