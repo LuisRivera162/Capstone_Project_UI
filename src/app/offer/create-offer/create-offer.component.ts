@@ -11,11 +11,25 @@ import { NgForm } from '@angular/forms';
 })
 export class CreateOfferComponent implements OnInit {
   @Input() loan_id: number = -1;
-  @Input() offer_id = -1; 
-  @Input() isEdit = false; 
   @Input() lender_id = -1; 
+  @Input() isEdit = false; 
+  @Input() curr_offer = {
+    'offer_id': -1,
+    'loan_id': 0,
+    'borrower_id': 0,
+    'lender_id': 0,
+    'amount': 0,
+    'months': 0,
+    'interest': 0,
+    'accepted': false,
+    'expiration_date': "",
+    'username': "",
+    'eth_address': ""
+  }; 
+
   user_id: number | String = this.authService.user.getValue()!.id;  
   error: string = "null";
+
   loan = {
     amount: 0,
     balance: 0,
@@ -54,7 +68,7 @@ export class CreateOfferComponent implements OnInit {
       this.HttpClient.put(
         '/api/create-offer',
         {
-          offer_id: this.offer_id, loan_amount: loan_amount, 
+          offer_id: this.curr_offer.offer_id, loan_amount: loan_amount, 
           interest: interest, time_frame: time_frame,
           platform: platform, borrower_id: this.user_id
         }

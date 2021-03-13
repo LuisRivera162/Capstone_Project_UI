@@ -35,7 +35,6 @@
                         {{curr_offer.months}} month(s)
                     </div>
                 </div>
-                <hr>
                 <!-- <div id="calculatedEstimates">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
@@ -70,7 +69,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-create-offer [isEdit]="true" [offer_id]="this.curr_offer.offer_id"></app-create-offer>
+                <app-create-offer [isEdit]="true" [curr_offer]="this.curr_offer"></app-create-offer>
             </div>
             <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -94,7 +93,7 @@
                 </h5>
                 <small class="align-self-center">
                     <span class="badge badge-warning" style="margin-right: 2px;">
-                        {{offer.interest}}%
+                        {{offer.interest * 100}}%
                     </span>
                 </small>
                 <small class="align-self-center">
