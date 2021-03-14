@@ -56,6 +56,8 @@ export class BorrowerPageComponent implements OnInit {
   payment_due = 0;
   payment_due_date = new Date();
 
+  pending_offers = 0;
+
   latestActivity: any[] = []
 
   constructor(
@@ -91,8 +93,8 @@ export class BorrowerPageComponent implements OnInit {
       {
         params
       }
-    ).subscribe(pendingOffers => {
-      
+    ).subscribe((pendingOffers: any) => {
+      this.pending_offers = pendingOffers.Offers.length
     });
   }
 

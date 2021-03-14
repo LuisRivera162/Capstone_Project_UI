@@ -4,6 +4,20 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 
+interface Offer {
+  offer_id: number,
+  loan_id: number,
+  borrower_id: number,
+  lender_id: number,
+  amount: number,
+  months: number,
+  interest: number,
+  accepted: boolean,
+  expiration_date: Date
+  username: string,
+  eth_address: string
+};
+
 @Component({
   selector: 'app-create-offer',
   templateUrl: './create-offer.component.html',
@@ -13,19 +27,7 @@ export class CreateOfferComponent implements OnInit {
   @Input() loan_id: number = -1;
   @Input() lender_id = -1; 
   @Input() isEdit = false; 
-  @Input() curr_offer = {
-    'offer_id': -1,
-    'loan_id': 0,
-    'borrower_id': 0,
-    'lender_id': 0,
-    'amount': 0,
-    'months': 0,
-    'interest': 0,
-    'accepted': false,
-    'expiration_date': "",
-    'username': "",
-    'eth_address': ""
-  }; 
+  @Input() curr_offer: Offer = {} as Offer;
 
   user_id: number | String = this.authService.user.getValue()!.id;  
   error: string = "null";

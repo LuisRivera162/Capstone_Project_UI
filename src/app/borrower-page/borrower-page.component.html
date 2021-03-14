@@ -10,7 +10,7 @@
                 </button>
             </div>
             <!-- <div class="modal-body"> -->
-                <app-payment-schedule></app-payment-schedule>
+            <app-payment-schedule></app-payment-schedule>
             <!-- </div> -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
@@ -20,51 +20,63 @@
 </div>
 
 <!-- <div class="container"> -->
-    <div class="row" *ngIf="currentLoan.eth_address">
-        <div class="col">
-            <div class="jumbotron" style="margin-top: 30px;">
-                <div class="row">
-                    <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
-                        <small><b>Payment Due</b></small>
-                        <h1>{{ payment_due | currency}}</h1>
-                        <div class="btn btn-outline-primary mt-auto p-2" data-toggle="modal" data-target="#paymentScheduleModal">View Payment Schedule</div>
-                    </div>
-                    <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
-                        <small ><b>Your Payment is Due On</b></small>
-                        <h1>{{ payment_due_date | date: 'MMMM d'}}</h1>
-                        <div class="btn btn-primary mt-auto p-2" data-toggle="modal" data-target="#makePaymentModal">Make Payment</div>
-                    </div>
-                    <div class="col-4 text-center d-flex flex-column" style="height: 13vh;">
-                        <small><b>Total Balance</b></small>
-                        <h1>{{ total_loan_balance | currency}}</h1>
-                        <div class="mt-auto p-2"><small>You will not be able to request another loan until this balance is fully paid off <i class="bi bi-info-circle"></i></small></div>
-                    </div>
+<div class="row" *ngIf="currentLoan.eth_address">
+    <div class="col">
+        <div class="jumbotron" style="margin-top: 30px;">
+            <div class="row">
+                <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
+                    <small><b>Payment Due</b></small>
+                    <h1>{{ payment_due | currency}}</h1>
+                    <div class="btn btn-outline-primary mt-auto p-2" data-toggle="modal"
+                        data-target="#paymentScheduleModal">View Payment Schedule</div>
+                </div>
+                <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
+                    <small><b>Your Payment is Due On</b></small>
+                    <h1>{{ payment_due_date | date: 'MMMM d'}}</h1>
+                    <div class="btn btn-primary mt-auto p-2" data-toggle="modal" data-target="#makePaymentModal">Make
+                        Payment</div>
+                </div>
+                <div class="col-4 text-center d-flex flex-column" style="height: 13vh;">
+                    <small><b>Total Balance</b></small>
+                    <h1>{{ total_loan_balance | currency}}</h1>
+                    <div class="mt-auto p-2"><small>You will not be able to request another loan until this balance is
+                            fully paid off <i class="bi bi-info-circle"></i></small></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="!currentLoan.eth_address" style="margin-top: 30px;">
-        <div class="col-8">
-            <div class="jumbotron" >
-                <h1>Hello {{firstname}}! Looking for a loan?</h1>
-                Check out the latest loan offers from our lenders <a href="">here</a>
-            </div>
-        </div>
-        <div class="col-4 text-center">
-            <div class="jumbotron" >
-                <h1>0</h1>
-                Pending Offers
+</div>
+<div class="row" *ngIf="!currentLoan.eth_address" style="margin-top: 30px;">
+    <div class="col-12">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-8  border-right">
+                    <h1>Hello {{firstname}}! Looking for a loan?</h1>
+                    Check out the latest loan offers from our lenders <a href="/search">here</a>
+                </div>
+                <div class="col-4 text-center">
+                    <h1>{{ pending_offers }}</h1>
+                    Pending Offers
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <app-latest-payments [isLender]="false"></app-latest-payments>
-        </div>
-        <div class="col-6">
-            <app-notifications-actionitems [isLender]="false"></app-notifications-actionitems>
-        </div>
+    
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-pending-offers></app-pending-offers>
     </div>
+    <div class="col-6">
+        <app-notifications-actionitems [isLender]="false"></app-notifications-actionitems>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-latest-payments [isLender]="false"></app-latest-payments>
+    </div>
+
+</div>
 <!-- </div> -->
 
 <script>
