@@ -11,10 +11,10 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Loan ID</label>
                     <div class="col-sm-6" style="word-wrap: break-word;">
-                        <a href="https://kovan.ethersacan.io/address/">{{curr_loan.eth_address}}</a>
+                        <a href="https://kovan.etherscan.io/address/">{{curr_loan.eth_address}}</a>
                     </div>
                 </div>
-                <div class="form-group row" style="word-wrap: break-word;" *ngIf="curr_loan.borrower">
+                <div class="form-group row" style="word-wrap: break-word;" *ngIf="curr_loan.borrower != '0x0000000000000000000000000000000000000000'">
                     <label class="col-sm-6 col-form-label">Borrower</label>
                     <div class="col-sm-6">
                         {{curr_loan.borrower}}
@@ -76,6 +76,10 @@
             *ngFor="let loan of loans; let i = index" (click)="loadLoanInfo(i)">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"> {{loan.amount | currency}}</h5>
+                <small *ngIf="loan.state == -1" class="text-warning">
+                    Submitted - Waiting for Blockchain Confirmation
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </small>
                 <small *ngIf="loan.state == 0" class="text-info">Available</small>
                 <small *ngIf="loan.state == 1 || loan.state == 2" class="text-warning">In Offer Proccess</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Borrower Confirmed</small>

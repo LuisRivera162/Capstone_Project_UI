@@ -20,7 +20,7 @@
 </div>
 
 <!-- <div class="container"> -->
-    <div class="row">
+    <div class="row" *ngIf="currentLoan.eth_address">
         <div class="col">
             <div class="jumbotron" style="margin-top: 30px;">
                 <div class="row">
@@ -40,6 +40,20 @@
                         <div class="mt-auto p-2"><small>You will not be able to request another loan until this balance is fully paid off <i class="bi bi-info-circle"></i></small></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!currentLoan.eth_address" style="margin-top: 30px;">
+        <div class="col-8">
+            <div class="jumbotron" >
+                <h1>Hello {{firstname}}! Looking for a loan?</h1>
+                Check out the latest loan offers from our lenders <a href="">here</a>
+            </div>
+        </div>
+        <div class="col-4 text-center">
+            <div class="jumbotron" >
+                <h1>0</h1>
+                Pending Offers
             </div>
         </div>
     </div>

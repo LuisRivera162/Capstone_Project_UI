@@ -32,6 +32,16 @@ interface Loan2 {
   state: number
 }
 
+interface UserResponseData {
+  'user_id': number
+  'username': string
+  'first_name': string
+  'last_name': string
+  'email': string
+  'age': string
+  'phone': string
+}
+
 @Component({
   selector: 'app-borrower-page',
   templateUrl: './borrower-page.component.html',
@@ -39,6 +49,7 @@ interface Loan2 {
 })
 export class BorrowerPageComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
+  firstname = '';
 
   currentLoan: Loan2 = {} as Loan2;
   total_loan_balance = 0;
@@ -55,12 +66,32 @@ export class BorrowerPageComponent implements OnInit {
 
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
+    
+    this.HttpClient.get<UserResponseData>(
+      '/api/user',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      this.firstname = resData.first_name
+    });
+
     this.HttpClient.get<any>(
       '/api/user-loans',
       {
         params
       }
     ).subscribe(userLoans => {
+      // populate a pending/negotiated loan table
+      // if an active loan is found, hide table and show active loan dashboard..
+    });
+
+    this.HttpClient.get<any>(
+      '/api/pending-offers',
+      {
+        params
+      }
+    ).subscribe(pendingOffers => {
       
     });
   }
