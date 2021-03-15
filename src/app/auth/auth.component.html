@@ -1,85 +1,81 @@
-<div class="row">
-  <div class="col-md-6 mx-auto p-0">
-    <div class="card"  [ngStyle]="{'height': loginStyle}">
-      <div class="login-box"  [ngStyle]="{'height': loginStyle}">
-        <div class="login-snip" [ngStyle]="{'height': loginStyle}">
-          <input id="tab-1" type="radio" name="tab" class="sign-in" checked (click)="onSwitchMode(false)">
-          <label for="tab-1" class="tab">Login</label>
-          <input id="tab-2" type="radio" name="tab" class="sign-up" (click)="onSwitchMode(true)">
-          <label for="tab-2" class="tab">Sign Up</label>
-          <div class="login-space">
-            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-              <div class="login">
-                <hr>
-                <div class="group form-group">
-                  <label for="email" class="label">Email</label>
-                  <input id="email" ngModel name="email" type="email" class="input" placeholder="Enter your email">
-                  <span class="popuptext" id="myPopupL" *ngIf="errorOnLogin">Email or Password is wrong.</span>
-                </div>
-                <div class="group form-group">
-                  <label for="password" class="label">Password</label>
-                  <input id="password" ngModel name="password" type="password" class="input" data-type="password" placeholder="Enter your password">
-                </div>
-                <div class="group form-group">
-                  <input id="check" name="check" type="checkbox" class="check" checked>
-                  <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                </div>
-                <div class="group form-group">
-                  <input type="submit" class="btn btn-primary" value="Sign In">
-                </div>
-                <div class="hr"></div>
-                <div class="foot">
-                  <a href="#">Forgot Password?</a>
-                </div>
-              </div>
-            </form>
-            <form #signForm="ngForm" (ngSubmit)="onSubmit(signForm)">
-              <div class="sign-up-form">
-                <div class="group form-group">
-                  <label for="first_name" class="label">First Name</label>
-                  <input id="first_name" ngModel name="first_name" type="text" class="input" placeholder="Enter your first name">
-                </div>
-                <div class="group form-group">
-                  <label for="last_name" class="label">last Name</label>
-                  <input id="last_name" ngModel name="last_name" type="text" class="input" placeholder="Enter your last name">
-                </div>
-                <div class="group form-group">
-                  <label for="username" class="label">Username</label>
-                  <input id="username" ngModel name="username" type="text" class="input" placeholder="Create your Username" >
-                  <span class="popuptext" id="myPopupU" *ngIf="errorOnUsername">Username Already in use.</span>
-                </div>
-                <div class="group form-group">
-                  <label for="password" class="label">Password</label>
-                  <input id="password" ngModel name="password" type="password" class="input" data-type="password" placeholder="Create your password">
-                </div>
-                <div class="group form-group">
-                  <label for="conf_password" class="label">Repeat Password</label>
-                  <input id="conf_password" ngModel name="conf_password" type="password" class="input" data-type="password" placeholder="Confirm your password">
-                </div>
-                <div class="group form-group popup">
-                  <label for="email" class="label">Email Address</label>
-                  <input id="email" name="email" ngModel type="email" class="input" placeholder="Enter your email address">
-                  <span class="popuptext" id="myPopupE" *ngIf="errorOnEmail">Email Already in use.</span>
-                </div>
-                <div class="group form-group">
-                  <label for="age" class="label">Age</label>
-                  <input id="age" name="age" type="text" ngModel class="input" placeholder="Enter your age">
-                </div>
-                <div class="group form-group">
-                  <label for="phone" class="label">Phone Number</label> <input id="phone" name="phone" ngModel type="text" class="input" placeholder="Enter your phone number"> </div>
-                <div class="accounttype col-md-6 mx-auto p-0">
-                  <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required/>
-                  <label for="BorrowRadio" class="radio">Borrower</label>  |
-                  <input type="radio" value="None" id="LenderRadio" (change)="onItemChange(true)" name="lenderSelect" required/>
-                  <label for="LenderRadio" class="radio">Lender</label>
-                </div>
-                <div class="group"> <input type="submit" class="btn btn-primary" value="Sign Up"> </div>
-                <hr>
-                <div class="foot"> <label for="tab-1">Already Member?</label> </div>
-              </div>
-            </form>
+<div class="d-flex justify-content-center" style="margin-top: 10px;">
+  <div class="login-box"  [ngStyle]="{'height': loginStyle}">
+    <div class="login-snip" [ngStyle]="{'height': loginStyle}">
+      <input id="tab-1" type="radio" name="tab" class="sign-in" checked (click)="onSwitchMode(false)">
+      <label for="tab-1" class="tab">Login</label>
+      <input id="tab-2" type="radio" name="tab" class="sign-up" (click)="onSwitchMode(true)">
+      <label for="tab-2" class="tab">Sign Up</label>
+      <div class="login-space">
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+          <div class="login">
+            <hr>
+            <div class="group form-group">
+              <label for="email" class="label">Email</label>
+              <input id="email" ngModel name="email" type="email" class="input" placeholder="Enter your email">
+              <span class="popuptext" id="myPopupL" *ngIf="errorOnLogin">Email or Password is wrong.</span>
+            </div>
+            <div class="group form-group">
+              <label for="password" class="label">Password</label>
+              <input id="password" ngModel name="password" type="password" class="input" data-type="password" placeholder="Enter your password">
+            </div>
+            <div class="group form-group">
+              <input id="check" name="check" type="checkbox" class="check" checked>
+              <label for="check"><span class="icon"></span> Keep me Signed in</label>
+            </div>
+            <div class="group form-group">
+              <input type="submit" class="btn btn-primary" value="Sign In">
+            </div>
+            <div class="hr"></div>
+            <div class="foot">
+              <a href="#">Forgot Password?</a>
+            </div>
           </div>
-        </div>
+        </form>
+        <form #signForm="ngForm" (ngSubmit)="onSubmit(signForm)">
+          <div class="sign-up-form">
+            <div class="group form-group">
+              <label for="first_name" class="label">First Name</label>
+              <input id="first_name" ngModel name="first_name" type="text" class="input" placeholder="Enter your first name">
+            </div>
+            <div class="group form-group">
+              <label for="last_name" class="label">last Name</label>
+              <input id="last_name" ngModel name="last_name" type="text" class="input" placeholder="Enter your last name">
+            </div>
+            <div class="group form-group">
+              <label for="username" class="label">Username</label>
+              <input id="username" ngModel name="username" type="text" class="input" placeholder="Create your Username" >
+              <span class="popuptext" id="myPopupU" *ngIf="errorOnUsername">Username Already in use.</span>
+            </div>
+            <div class="group form-group">
+              <label for="password" class="label">Password</label>
+              <input id="password" ngModel name="password" type="password" class="input" data-type="password" placeholder="Create your password">
+            </div>
+            <div class="group form-group">
+              <label for="conf_password" class="label">Repeat Password</label>
+              <input id="conf_password" ngModel name="conf_password" type="password" class="input" data-type="password" placeholder="Confirm your password">
+            </div>
+            <div class="group form-group popup">
+              <label for="email" class="label">Email Address</label>
+              <input id="email" name="email" ngModel type="email" class="input" placeholder="Enter your email address">
+              <span class="popuptext" id="myPopupE" *ngIf="errorOnEmail">Email Already in use.</span>
+            </div>
+            <div class="group form-group">
+              <label for="age" class="label">Age</label>
+              <input id="age" name="age" type="text" ngModel class="input" placeholder="Enter your age">
+            </div>
+            <div class="group form-group">
+              <label for="phone" class="label">Phone Number</label> <input id="phone" name="phone" ngModel type="text" class="input" placeholder="Enter your phone number"> </div>
+            <div class="accounttype col-md-6 mx-auto p-0">
+              <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required/>
+              <label for="BorrowRadio" class="radio">Borrower</label>  |
+              <input type="radio" value="None" id="LenderRadio" (change)="onItemChange(true)" name="lenderSelect" required/>
+              <label for="LenderRadio" class="radio">Lender</label>
+            </div>
+            <div class="group"> <input type="submit" class="btn btn-primary" value="Sign Up"> </div>
+            <hr>
+            <div class="foot"> <label for="tab-1">Already Member?</label> </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   isLoginMode = false;
   lender = false;
-  loginStyle = "600px"
+  loginStyle = "440px"
   errorOnUsername = false
   errorOnEmail = false
   errorOnLogin = false
@@ -36,7 +36,7 @@ export class AuthComponent implements OnInit {
 
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
-    this.loginStyle = mode ? "870px" : "600px";
+    this.loginStyle = mode ? "750px" : "440px";
   }
 
   check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
