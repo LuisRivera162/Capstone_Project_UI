@@ -62,5 +62,14 @@ Capstone_Project_UI            # Root directory
 |-- validate-payment/          # Component responsible for handling payment validation input.
 ```
 
+## Preliminary Page Images: 
 
+![front_end1](front_end1.PNG)
 
+![front_end2](front_end2.PNG)
+
+![front_end3](front_end3.PNG)
+
+![front_end4](front_end4.PNG)
+
+![front_end5](front_end5.PNG)
