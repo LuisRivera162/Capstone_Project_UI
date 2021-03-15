@@ -73,3 +73,9 @@ Capstone_Project_UI            # Root directory
 ![front_end4](images/front_end4.PNG)
 
 ![front_end5](images/front_end5.PNG)
+
+## Credits
+
+### Luis G. Rivera Gonzalez (luis.rivera162@upr.edu) 
+### Hector A. Rodriguez  (hector.rodriguez49@upr.edu) 
+### Josian A. Velez (josian.velez@upr.edu) 
