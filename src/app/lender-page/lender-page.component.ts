@@ -5,23 +5,6 @@ import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 interface Loan {
-  loan_id: number,
-  lender: number,
-  borrower: number,
-  lender_eth: string,
-  borrower_eth: string,
-  amount: number,
-  months: number,
-  eth_address: string,
-  interest: number,
-  accepted: boolean,
-  created_on: Date,
-  monthly_repayment: number,
-  balance: number,
-  est_total_interest: number,
-}
-
-interface Loan2 {
   amount: number,
   borrower: string,
   created_on: Date,
@@ -48,7 +31,7 @@ export class LenderPageComponent implements OnInit {
 
   error: string = "null";
 
-  loans: Loan2[] = []
+  loans: Loan[] = []
   loans_processing = 0;
 
   loan = {
@@ -79,7 +62,7 @@ export class LenderPageComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      resData.forEach((loan: Loan2) => {
+      resData.forEach((loan: Loan) => {
         this.loans.push(loan);
 
         if (loan.state == 0) {
@@ -122,7 +105,7 @@ export class LenderPageComponent implements OnInit {
       return;
     }
 
-    let newLoan = {} as Loan2
+    let newLoan = {} as Loan
     newLoan.lender = user_data.wallet;
     newLoan.amount = loan_amount;
     newLoan.interest = interest/100;
