@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -43,5 +44,17 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   load_notifications(){
     this.notifications = this.notificationService.get_notifications(); 
   }
+  
+  dateAsYYYYMMDDHHNNSS(date: Date): string {
+    const datepipe: DatePipe = new DatePipe('en-US');
+    let formattedDate = datepipe.transform(date, 'M/d/yy, h:mm a');
+    return String(formattedDate);
+  }
+  
+  leftpad(val: any, resultLength = 2, leftpadChar = '0'): string {
+    return (String(leftpadChar).repeat(resultLength)
+          + String(val)).slice(String(val).length);
+  }
+
 
 }

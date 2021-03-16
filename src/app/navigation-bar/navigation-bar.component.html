@@ -4,26 +4,23 @@
   <a class="navbar-brand h1" *ngIf="!isAuthenticated" routerLink="/entry">DecentraLoan</a>
   <a class="navbar-brand h1" *ngIf="isAuthenticated" routerLink="/home">DecentraLoan</a>
   <!-- </div> -->
-  <div class="collapse navbar-collapse d-flex flex-row-reverse">
+  <div class="collapse navbar-collapse d-flex flex-row">
     <ul class="navbar-nav">
-      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
+      <!-- <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" routerLink="/home">Home</a>
-      </li>
-      <li routerLinkActive="active" class="nav-item" *ngIf="!isAuthenticated">
-        <a class="nav-link" routerLink="/auth">Sign
-          Up</a>
-      </li>
+      </li> -->
       <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated && !lender">
         <a class="nav-link" routerLink="/search">Search</a>
       </li>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse d-flex flex-row-reverse">
+    <ul class="navbar-nav">
+      <li routerLinkActive="active" class="nav-item" *ngIf="!isAuthenticated">
+        <a class="nav-link" routerLink="/auth">Sign Up</a>
+      </li>
       <!-- <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Page 2</a></li>
       <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Page 3</a></li> -->
-      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link" (click)="onLogout()">Logout</a>
-      </li>
-      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link" routerLink="/settings">Settings</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" (click)="load_notifications()"
           id="navbardrop" 
@@ -31,17 +28,30 @@
           *ngIf="isAuthenticated">
           Notifications
         </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" style="width: 10px;" href="#"  *ngIf="!notifications.length">
+        <div class="dropdown-menu dropdown-menu-right dropdown-style overflow-auto">
+          <a class="dropdown-item" href="#"  *ngIf="!notifications.length">
             No Notifications available...
           </a>
-          <a class="dropdown-item" href="#" *ngFor="let notification of notifications" >
-            {{notification.message}}
+          <a class="dropdown-item" href="#" *ngFor="let notification of notifications">
+            <div class="row">
+              <div class="col-sm-9" style="margin-top: 10px;">
+                {{notification.message}} 
+              </div>
+              <div class="col-sm-3 d-flex justify-content-end date-format">
+                {{this.dateAsYYYYMMDDHHNNSS(notification.created_on)}}
+              </div>
+            </div>
           </a>
         </div>
       </li>
       <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/settings">Settings</a>
+      </li>
+      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" routerLink="/profile">Profile</a>
+      </li>
+      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" (click)="onLogout()">Logout</a>
       </li>
     </ul>
   </div>
