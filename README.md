@@ -74,6 +74,14 @@ Capstone_Project_UI            # Root directory
 
 ![front_end5](images/front_end5.PNG)
 
+![front_end6](images/front_end6.PNG)
+
+![front_end7](images/front_end7.PNG)
+
+![front_end8](images/front_end8.PNG)
+
+![front_end9](images/front_end9.PNG)
+
 ## Credits
 
 ### Luis G. Rivera Gonzalez (luis.rivera162@upr.edu) 
