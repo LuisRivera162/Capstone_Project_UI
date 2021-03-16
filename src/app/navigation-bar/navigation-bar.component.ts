@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -9,6 +10,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class NavigationBarComponent implements OnInit, OnDestroy {
   isAuthenticated = false; 
+  notifications:any = [] as any; 
+  
   private userSub!: Subscription; 
   userData: {
     email: string;
@@ -18,12 +21,14 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
 
   lender = this.userData.lender;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private notificationService: NotificationComponent) { }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     }); 
+    this.notifications = this.notificationService.get_notifications(); 
   }
 
   ngOnDestroy(): void {
@@ -33,7 +38,10 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   onLogout() {
     this.authService.logout(); 
     this.isAuthenticated = false; 
-    console.log();
+  }
+
+  load_notifications(){
+    this.notifications = this.notificationService.get_notifications(); 
   }
 
 }

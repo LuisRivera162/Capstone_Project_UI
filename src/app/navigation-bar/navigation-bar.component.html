@@ -24,8 +24,21 @@
       <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" routerLink="/settings">Settings</a>
       </li>
-      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link" routerLink="/notifications">Notifications</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" (click)="load_notifications()"
+          id="navbardrop" 
+          data-toggle="dropdown"
+          *ngIf="isAuthenticated">
+          Notifications
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" style="width: 10px;" href="#"  *ngIf="!notifications.length">
+            No Notifications available...
+          </a>
+          <a class="dropdown-item" href="#" *ngFor="let notification of notifications" >
+            {{notification.message}}
+          </a>
+        </div>
       </li>
       <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" routerLink="/profile">Profile</a>
