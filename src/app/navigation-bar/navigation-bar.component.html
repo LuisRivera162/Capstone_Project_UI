@@ -2,20 +2,20 @@
   <!-- <div class="container-fluid"> -->
   <!-- <div class="navbar-header"> -->
   <a class="navbar-brand h1" *ngIf="!isAuthenticated" routerLink="/entry">DecentraLoan</a>
-  <a class="navbar-brand h1" *ngIf="isAuthenticated" routerLink="/home">DecentraLoan</a>
+  <a class="navbar-brand h1" *ngIf="isAuthenticated" routerLink="/home" style="margin: auto;">DecentraLoan</a>
   <!-- </div> -->
   <div class="collapse navbar-collapse d-flex flex-row">
     <ul class="navbar-nav">
       <!-- <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" routerLink="/home">Home</a>
       </li> -->
-      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated && !lender">
-        <a class="nav-link" routerLink="/search">Search</a>
-      </li>
     </ul>
   </div>
   <div class="collapse navbar-collapse d-flex flex-row-reverse">
     <ul class="navbar-nav">
+      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated && !lender">
+        <a class="nav-link" routerLink="/search">Search</a>
+      </li>
       <li routerLinkActive="active" class="nav-item" *ngIf="!isAuthenticated">
         <a class="nav-link" routerLink="/auth">Sign Up</a>
       </li>
