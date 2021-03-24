@@ -15,6 +15,11 @@ export class EntryComponent implements OnInit {
   { }
 
     ngOnInit(): void {
+      window.onbeforeunload = function () {
+        window.scrollTo(0,0);
+    };
   }
+
+  
 
 }

@@ -1,34 +1,6 @@
-body {
-  background: url("https://www.primafelicitas.com/wp-content/uploads/2018/01/bigstock-Blockchain-technology-futurist-216835081-1-1170x655.jpg") no-repeat;
-  overflow: hidden;
-  background-size: cover;
-  width: 100%;
-  min-height: 100vh;
-}
-
-P.blocktext {
-  text-align: center;
-  font-size: 32pt;
-
-}
-Div.blocktext {
-  text-align: center;
-  font-size: 21pt;
-}
-.block {
-  display: block;
-  width: 16em;
-  background-color: #1161ee;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 32px;
-  cursor: pointer;
-  text-align: center;
-  color: white;
-}
-
-button:hover {
-  background-color: #377ef8;
-  border: none;
-  color: white;
+html,
+body,
+header,
+#intro {
+    height: 85%;
 }
