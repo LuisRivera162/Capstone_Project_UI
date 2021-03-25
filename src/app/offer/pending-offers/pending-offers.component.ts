@@ -51,4 +51,8 @@ export class PendingOffersComponent implements OnInit {
     this.curr_offer = this.offers[index];
   }
 
+  getURL(){
+    return this.router.url == '/pending-offers'
+  }
+
 }

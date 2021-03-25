@@ -4,23 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 interface Loan {
-  loan_id: number,
-  lender: number,
-  borrower: number,
-  lender_eth: string,
-  borrower_eth: string,
-  amount: number,
-  months: number,
-  eth_address: string,
-  interest: number,
-  accepted: boolean,
-  created_on: Date,
-  monthly_repayment: number,
-  balance: number,
-  est_total_interest: number,
-}
-
-interface Loan2 {
   amount: number,
   borrower: string,
   created_on: Date,
@@ -51,7 +34,7 @@ export class BorrowerPageComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   firstname = '';
 
-  currentLoan: Loan2 = {} as Loan2;
+  currentLoan: Loan = {} as Loan;
   total_loan_balance = 0;
   payment_due = 0;
   payment_due_date = new Date();

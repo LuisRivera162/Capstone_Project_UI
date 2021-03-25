@@ -68,6 +68,9 @@
     <h3 class="card-header">
         Available Loans
     </h3>
+    <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
+        No available loans at this time.
+    </a>
     <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
         <a class="list-group-item list-group-item-action" *ngFor="let loan of loans;  let i = index" data-toggle="modal" data-target="#loanInfoModal"
         (click)="loadLoanInfo(i)">

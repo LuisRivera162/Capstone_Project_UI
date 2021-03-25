@@ -47,7 +47,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   
   dateAsYYYYMMDDHHNNSS(date: Date): string {
     const datepipe: DatePipe = new DatePipe('en-US');
-    let formattedDate = datepipe.transform(date, 'M/d/yy, h:mm a');
+    let formattedDate = datepipe.transform(date, 'M/d/yy - h:mm a');
     return String(formattedDate);
   }
   
