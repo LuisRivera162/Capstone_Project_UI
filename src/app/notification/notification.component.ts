@@ -20,6 +20,28 @@ interface Notification {
   providedIn: 'root'
 })
 export class NotificationComponent implements OnInit {
+  
+  // Notification Types: 
+  // 1. Loan Created 
+  // 2. Accepted 
+  // 3. Loan Started 
+  // 4. Payment Sent 
+  // 5. Payment Validated 
+  // 6. Loan Closed/Withdrawn
+  notificationMessage = [
+    'Your Loan was successfully created!',
+    'Your Offer was successfully created!',
+    'One of your loans was accepted by a Borrower!',
+    'One of your offers was accepted by a Lender!',
+    'Your Loan term has now started!',
+    'Your Offer term has now started!',
+    'Your payment was sent and waiting for validation.',
+    'Your payment was successfully validated!',
+    'You have a new pending offer!',
+    'A payment was made towards one of your loan terms!',
+    'Your Loan has been closed.',
+    'Your Loan has been withdrawn.'
+  ]; 
 
   notifications: Notification[] = [];
 
@@ -43,6 +65,12 @@ export class NotificationComponent implements OnInit {
       this.notifications = resData.Notifications; 
     });
     return this.notifications;
+  }
+
+  insert_nofitication(notificationType: String){
+
+
+
   }
 
 }
