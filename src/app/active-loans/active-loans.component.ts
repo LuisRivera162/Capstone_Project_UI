@@ -3,23 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-interface Loan {
-  loan_id: number,
-  lender: number,
-  borrower: number,
-  lender_eth: string,
-  borrower_eth: string,
-  amount: number,
-  months: number,
-  eth_address: string,
-  interest: number,
-  accepted: boolean,
-  created_on: Date,
-  monthly_repayment: number,
-  balance: number,
-  est_total_interest: number,
-}
-
 enum StateType {
   Available,
   OfferPlaced,
@@ -32,7 +15,7 @@ enum StateType {
   Withdrawn
 }
 
-interface Loan2 {
+interface Loan {
   amount: number,
   borrower: string,
   created_on: Date,
@@ -41,7 +24,8 @@ interface Loan2 {
   lender: string,
   months: number,
   balance: number,
-  state: number
+  state: number,
+  offers: any[]
 }
 
 @Component({
@@ -51,9 +35,9 @@ interface Loan2 {
 })
 export class ActiveLoansComponent implements OnInit {
 
-  @Input() loans: Loan2[] = [];
+  @Input() loans: Loan[] = [];
 
-  curr_loan: Loan2 = {} as Loan2
+  curr_loan: Loan = {} as Loan
 
   user_id = this.authService.user.getValue()!.id;
   isLoading = false;

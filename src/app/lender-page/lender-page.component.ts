@@ -13,7 +13,8 @@ interface Loan {
   lender: string,
   months: number,
   balance: number,
-  state: number
+  state: number,
+  offers: any[]
 }
 
 @Component({
@@ -65,20 +66,16 @@ export class LenderPageComponent implements OnInit {
       resData.forEach((loan: Loan) => {
         this.loans.push(loan);
 
+        if (loan.offers.length) { this.pending_loans += loan.offers.length }
+
         if (loan.state == 0) {
           this.available_loans++;
-          
-        } else if (loan.state >= 1 && loan.state <= 3) {
-          this.pending_loans++
         }
         else if (loan.state == 4) {
           this.active_loans++
           this.active_loans_balance += loan.balance
         }
-
-
       });
-      
     });
 
   }

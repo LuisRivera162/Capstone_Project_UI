@@ -49,8 +49,10 @@
                         <!-- <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5> -->
                     </div>
                 </div>
+                
             </div>
             <div class="modal-footer" *ngIf="curr_loan.state == 0">
+                <!-- <button type="button" *ngIf="curr_loan.offers" class="btn btn-outline-warning">View Offers</button> -->
                 <button type="button" class="btn btn-outline-danger" (click)="withdraw()">Withdraw Loan?</button>
                 <button type="button" class="btn btn-primary">Edit Parameters</button>
             </div>
@@ -80,9 +82,9 @@
                     Submitted - Waiting for Blockchain Confirmation
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
-                <small *ngIf="loan.state == 0" class="text-info">Available</small>
-                <small *ngIf="loan.state == 1 || loan.state == 2" class="text-warning">In Offer Proccess</small>
-                <small *ngIf="loan.state == 3" class="text-warning">Borrower Confirmed</small>
+                <small *ngIf="loan.state == 0 && !loan.offers" class="text-info">Available</small>
+                <small *ngIf="loan.offers" class="text-warning">{{ loan.offers.length }} Pending Offer(s)</small>
+                <small *ngIf="loan.state == 3" class="text-warning">Borrower Requested - Action Required</small>
                 <small *ngIf="loan.state == 4" class="text-success">Active</small>
                 <small *ngIf="loan.state == 5" class="text-warning">Active - Waiting Validation</small>
                 <small *ngIf="loan.state == 6" class="text-danger">Delinquent</small>

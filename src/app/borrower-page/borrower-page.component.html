@@ -66,19 +66,12 @@
 </div>
 <div class="row">
     <div class="col-6">
-        <app-pending-offers></app-pending-offers>
-    </div>
-    <div class="col-6">
-        <app-notifications-actionitems [isLender]="false"></app-notifications-actionitems>
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
         <app-latest-payments [isLender]="false"></app-latest-payments>
     </div>
-
+    <div class="col-6">
+        <app-pending-offers></app-pending-offers>
+    </div>
 </div>
-<!-- </div> -->
 
 <script>
     $('#makePaymentModal').on('shown.bs.modal', function () { })
