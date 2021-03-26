@@ -12,7 +12,24 @@ interface Loan {
   lender: string,
   months: number,
   paymentNumber: number,
-  state: number
+  state: number,
+}
+
+interface Offer {
+  offer_id: number,
+  loan_id: number,
+  borrower_id: number,
+  lender_id: number,
+  amount: number,
+  months: number,
+  interest: number,
+  accepted: number,
+  expiration_date: Date,
+  username: string,
+  eht_address: string,
+  amount_orig: number,
+  months_orig: number,
+  interest_orig: number
 }
 
 interface UserResponseData {
@@ -39,7 +56,7 @@ export class BorrowerPageComponent implements OnInit {
   payment_due = 0;
   payment_due_date = new Date();
 
-  pending_offers = 0;
+  pending_offers: Offer[] = [];
 
   latestActivity: any[] = []
 
@@ -77,7 +94,9 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe((pendingOffers: any) => {
-      this.pending_offers = pendingOffers.Offers.length
+      this.pending_offers = pendingOffers.Offers
+
+      console.log(this.pending_offers)
     });
   }
 

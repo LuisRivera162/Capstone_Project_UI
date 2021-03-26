@@ -87,7 +87,56 @@
     </div>
     <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
         <a class="list-group-item list-group-item-action" *ngIf="!offers.length">
-            No Pending offers at this.
+            No pending offers at this time.
+        </a>
+        <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#offerInfoModal"
+            *ngFor="let offer of offers;  let i = index" (click)="loadOfferInfo(i)">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="d-flex">
+                <h5 class="mb-1 align-self-center" style="margin-right: 2px;">
+                    {{offer.amount | currency}}
+                </h5>
+                <small class="align-self-center">
+                    <span class="badge badge-warning" style="margin-right: 2px;">
+                        {{offer.interest | percent: '1.0-2'}}
+                    </span>
+                </small>
+                <small class="align-self-center">
+                    <span class="badge badge-info" style="margin-right: 2px;">
+                        {{offer.months }} month(s)
+                    </span>
+                </small>
+
+                <!-- <button class="btn btn-success ml-auto p-2" data-toggle="modal" data-target="#loanInfoModal"
+                    (click)="loadLoanInfo(i)">Request</button> -->
+            </div>
+            <small class="text-info">Waiting for Lender Response</small>
+            </div>
+            
+            <!-- <p class="mb-1">
+                <span class="badge badge-success" style="margin-right: 2px;">Available</span>
+            </p> -->
+            <!-- <small>
+                <b>
+                    Lender: {{offer.username}}
+                </b>
+            </small> -->
+            <p class="mb-1">
+                <small><b>Loan ID: </b><a href="#">
+                        {{offer.eth_address}}
+                    </a></small>
+            </p>
+        </a>
+    </ul>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Rejected Offers
+    </div>
+    <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
+        <a class="list-group-item list-group-item-action" *ngIf="!offers.length">
+            No offers to display...
         </a>
         <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#offerInfoModal"
             *ngFor="let offer of offers;  let i = index" (click)="loadOfferInfo(i)">
