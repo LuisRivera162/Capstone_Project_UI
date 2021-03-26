@@ -32,13 +32,13 @@ export class NotificationComponent implements OnInit {
   notificationMessage = [
     'Your loan was successfully created!', // 0
     'Your offer was successfully created!', //1
-    'One of your offers was rejected.',
-    'One of your loans was accepted by a Borrower!',
-    'One of your offers was accepted by a Lender!',
-    'Your Loan term has now started!',
-    'Your Offer was successfully withdrawn!',
-    'Your Offer was successfully edited!',
-    'Your Loan was successfully withdrawn!',
+    'One of your offers was rejected.', //2
+    'One of your loans was accepted by a Borrower!', //3
+    'One of your offers was accepted by a Lender!', //4
+    'Your Loan term has now started!', //5
+    'Your Offer was successfully withdrawn!', //6
+    'Your Offer was successfully edited!', //7 
+    'Your Loan was successfully withdrawn!', //8
     'Your payment was sent and waiting for validation.',
     'Your payment was successfully validated!',
     'Your loan request has been sent to the lender!',
