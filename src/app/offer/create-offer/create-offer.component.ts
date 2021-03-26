@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { NotificationComponent } from 'src/app/notification/notification.component';
 
 interface Offer {
   offer_id: number,
@@ -46,7 +47,8 @@ export class CreateOfferComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +80,7 @@ export class CreateOfferComponent implements OnInit {
           form.reset(); 
           window.location.reload(); 
           this.isEdit = false; 
+          this.notificationService.insert_nofitication(this.authService.user_id, 7); 
       });
       return;
     }
@@ -100,6 +103,7 @@ export class CreateOfferComponent implements OnInit {
         }
         ).subscribe(resData => {
           form.reset(); 
+          this.notificationService.insert_nofitication(this.authService.user_id, 1); 
           this.router.navigate(['/pending-offers']);
       });
     }

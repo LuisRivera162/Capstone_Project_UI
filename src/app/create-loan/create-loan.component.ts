@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-create-loan',
@@ -32,7 +33,8 @@ export class CreateLoanComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +75,7 @@ export class CreateLoanComponent implements OnInit {
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData) => {
+        console.log()
         this.router.navigate(['/active-loans']);
       });
   }

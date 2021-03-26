@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { NotificationComponent } from '../notification/notification.component';
 
 interface Loan {
   loan_id: number,
@@ -33,7 +34,8 @@ export class LoanSearchComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) { }
 
   ngOnInit(): void {
