@@ -18,7 +18,7 @@ interface AuthResponseData {
 })
 export class AuthService {
   user = new BehaviorSubject<null | User>(null);
-  uid: number = -1;
+  user_id: string = '';
 
   constructor(
     private http: HttpClient,
@@ -76,6 +76,7 @@ export class AuthService {
     }
     const loadedUser = new User(userData.email, userData.id, userData.wallet, userData.lender);
     this.user.next(loadedUser);
+    this.user_id =  this.user.getValue()!.id;
     return 0
   }
 
