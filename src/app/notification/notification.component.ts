@@ -8,7 +8,8 @@ interface Notification {
   user_id: number,
   message: string,
   created_on: Date,
-  dismissed: boolean
+  dismissed: boolean,
+  notification_type: number
 };
 
 @Component({
@@ -29,18 +30,21 @@ export class NotificationComponent implements OnInit {
   // 5. Payment Validated 
   // 6. Loan Closed/Withdrawn
   notificationMessage = [
-    'Your Loan was successfully created!',
-    'Your Offer was successfully created!',
+    'Your loan was successfully created!', // 0
+    'Your offer was successfully created!', //1
+    'One of your offers was rejected.',
     'One of your loans was accepted by a Borrower!',
     'One of your offers was accepted by a Lender!',
     'Your Loan term has now started!',
-    'Your Offer term has now started!',
+    'Your Offer was successfully withdrawn!',
+    'Your Offer was successfully edited!',
+    'Your Loan was successfully withdrawn!',
     'Your payment was sent and waiting for validation.',
     'Your payment was successfully validated!',
+    'Your loan request has been sent to the lender!',
     'You have a new pending offer!',
     'A payment was made towards one of your loan terms!',
-    'Your Loan has been closed.',
-    'Your Loan has been withdrawn.'
+    'Your Loan has been closed.'
   ]; 
 
   notifications: Notification[] = [];
@@ -67,9 +71,18 @@ export class NotificationComponent implements OnInit {
     return this.notifications;
   }
 
-  insert_nofitication(notificationType: String){
-
-
+  insert_nofitication(userID: string, notificationType: number){
+    console.log(userID);
+    console.log(notificationType);
+    return this.HttpClient.post(
+    '/api/notifications',
+    {
+      user_id: userID, 
+      message: this.notificationMessage[notificationType], 
+      notification_type: notificationType
+    }).subscribe((resData) => {
+      
+    });
 
   }
 
