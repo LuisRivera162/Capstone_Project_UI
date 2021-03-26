@@ -29,10 +29,10 @@
           Notifications
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-style overflow-auto">
-          <a class="dropdown-item" href="#"  *ngIf="!notifications.length">
+          <a class="dropdown-item" *ngIf="!notifications.length">
             No Notifications available...
           </a>
-          <a class="dropdown-item" href="#" *ngFor="let notification of notifications">
+          <a class="dropdown-item" *ngFor="let notification of notifications">
             <div class="row">
               <div class="col-sm-9" style="margin-top: 10px;">
                 {{notification.message}} 
