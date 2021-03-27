@@ -22,17 +22,22 @@
       <!-- <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Page 2</a></li>
       <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/#">Page 3</a></li> -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" (click)="load_notifications()"
+        <a class="nav-link dropdown-toggle"
           id="navbardrop" 
           data-toggle="dropdown"
-          *ngIf="isAuthenticated">
-          Notifications
+          *ngIf="isAuthenticated"
+          (click)="load_notifications()">
+          Notifications 
+          <span class="badge badge-primary badge-pill align-self-center" 
+          *ngIf="!!notificationService.notifications.length">
+            {{notificationService.notifications.length}}
+          </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-style overflow-auto">
-          <a class="dropdown-item" *ngIf="!notifications.length">
+          <a class="dropdown-item" *ngIf="!notificationService.notifications.length">
             No Notifications available...
           </a>
-          <a class="dropdown-item" *ngFor="let notification of notifications">
+          <a class="dropdown-item" *ngFor="let notification of notificationService.notifications">
             <div class="row">
               <div class="col-sm-9" style="margin-top: 10px;">
                 {{notification.message}} 

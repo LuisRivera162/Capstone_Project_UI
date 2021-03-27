@@ -23,13 +23,13 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   lender = this.userData.lender;
 
   constructor(private authService: AuthService,
-              private notificationService: NotificationComponent) { }
+              public notificationService: NotificationComponent) { }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     }); 
-    this.notifications = this.notificationService.get_notifications(); 
+    this.load_notifications()
   }
 
   ngOnDestroy(): void {
