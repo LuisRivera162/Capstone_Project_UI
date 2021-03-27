@@ -18,6 +18,23 @@ interface Loan {
   offers: any[]
 }
 
+interface Offer {
+  offer_id: number,
+  loan_id: number,
+  borrower_id: number,
+  lender_id: number,
+  amount: number,
+  months: number,
+  interest: number,
+  accepted: number,
+  expiration_date: Date,
+  username: string,
+  eth_address: string,
+  amount_orig: number,
+  months_orig: number,
+  interest_orig: number
+}
+
 @Component({
   selector: 'app-lender-page',
   templateUrl: './lender-page.component.html',
@@ -33,7 +50,9 @@ export class LenderPageComponent implements OnInit {
 
   error: string = "null";
 
-  loans: Loan[] = []
+  loans: Loan[] = [];
+  pending_offers: Offer[] = [];
+
   loans_processing = 0;
 
   loan = {
@@ -68,10 +87,6 @@ export class LenderPageComponent implements OnInit {
       resData.forEach((loan: Loan) => {
         this.loans.push(loan);
 
-        if (loan.offers.length) { 
-          this.pending_loans += loan.offers.length 
-        }
-
         if (loan.state == 0) {
           this.available_loans++;
         }
@@ -80,6 +95,17 @@ export class LenderPageComponent implements OnInit {
           this.active_loans_balance += loan.balance
         }
       });
+    });
+
+    this.HttpClient.get<any>(
+      '/api/pending-offers',
+      {
+        params
+      }
+    ).subscribe((pendingOffers: any) => {
+      this.pending_offers = pendingOffers.Offers
+
+      console.log(this.pending_offers)
     });
 
   }

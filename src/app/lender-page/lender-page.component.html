@@ -74,6 +74,57 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="pendingOffersModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pending Offers</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- <div class="modal-body"> -->
+                <ul class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action" *ngFor="let p_offer of pending_offers; index as i">
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Loan ID: </b>{{ p_offer.eth_address.substring(0, 4) }}...{{ p_offer.eth_address.substring(p_offer.eth_address.length - 4, p_offer.eth_address.length) }}
+                            </div>
+                            <div class="col-6 text-right">
+                                <small class="text-warning">Action Required</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <del>{{ p_offer.amount_orig | currency }}</del> <b> {{p_offer.amount | currency}}</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <del>{{ p_offer.interest_orig | percent }}</del> <b> {{ p_offer.interest | percent }}</b> 
+                            </div>
+                            <!-- <div class="col-6 text-right">
+                                
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <del>{{ p_offer.months_orig }} month(s)</del> <b> {{ p_offer.months }} month(s)</b>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-danger">Reject</button>
+                                    <button type="button" class="btn btn-success">Accept</button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </ul>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
 <!-- <div class="container"> -->
 <div class="row" style="margin-top: 10px;" *ngIf="loans_processing">
     <div class="col-12">
@@ -97,7 +148,7 @@
                     Available
                 </div>
                 <div class="col-2 text-center border-right">
-                    <h2>{{pending_loans}}</h2>
+                    <h2>{{pending_offers.length}}</h2>
                     <a href="#" data-toggle="modal" data-target="#pendingOffersModal">Offers</a>
                 </div>
                 <div class="col-4 text-center border-right">
