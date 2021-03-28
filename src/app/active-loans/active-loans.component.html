@@ -69,7 +69,6 @@
     <div class="card-header">
         My Loans
     </div>
-    <!-- <div class="card-body"> -->
     <ul class="overflow-auto list-group list-group-flush" style="max-height: 50vh;">
         <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
             No loans available...
@@ -82,8 +81,8 @@
                     Submitted - Waiting for Blockchain Confirmation
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
-                <small *ngIf="loan.state == 0 && !loan.offers" class="text-info">Available</small>
-                <small *ngIf="loan.offers" class="text-warning">{{ loan.offers.length }} Pending Offer(s)</small>
+                <small *ngIf="loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
+                <small *ngIf="loan.offers.length" class="text-warning">{{ loan.offers.length }} Pending Offer(s)</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Borrower Requested - Action Required</small>
                 <small *ngIf="loan.state == 4" class="text-success">Active</small>
                 <small *ngIf="loan.state == 5" class="text-warning">Active - Waiting Validation</small>
@@ -91,7 +90,6 @@
                 <small *ngIf="loan.state == 7" class="text-secondary">Terminated</small>
                 <small *ngIf="loan.state == 8" class="text-secondary">Withdrawn</small>
             </div>
-            <!-- <p class="mb-1">Some placeholder content in a paragraph.</p> -->
             <p class="mb-1">
                 <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
