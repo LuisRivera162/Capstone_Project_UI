@@ -57,4 +57,16 @@ export class PendingOffersComponent implements OnInit {
     return this.router.url == '/pending-offers'
   }
 
+  onSubmit() {
+    const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
+    this.HttpClient.delete<any>(
+      '/api/withdraw-offer',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      window.location.reload(); 
+    });
+  }
+
 }
