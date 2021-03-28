@@ -60,6 +60,8 @@ export class BorrowerPageComponent implements OnInit {
 
   latestActivity: any[] = []
 
+  curr_offer: any; 
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -98,6 +100,23 @@ export class BorrowerPageComponent implements OnInit {
 
       console.log(this.pending_offers)
     });
+  }
+
+  onSubmit() {
+    const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
+    console.log(params)
+    this.HttpClient.delete<any>(
+      '/api/withdraw-offer',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      window.location.reload(); 
+    });
+  }
+
+  loadOfferInfo(index: number) {
+    this.curr_offer = this.pending_offers[index]
   }
 
 }
