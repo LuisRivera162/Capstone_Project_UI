@@ -30,21 +30,14 @@ export class NotificationComponent implements OnInit {
   // 5. Payment Validated 
   // 6. Loan Closed/Withdrawn
   notificationMessage = [
-    'Your loan was successfully created!',            //0
-    'Your offer was successfully created!',           //1
-    'One of your offers was rejected.',               //2
-    'One of your loans was accepted by a Borrower!',  //3
-    'One of your offers was accepted by a Lender!',   //4
-    'Your loan term has now started!',                //5  
-    'Your offer was successfully withdrawn!',         //6
-    'Your offer was successfully edited!',            //7 
-    'Your loan was successfully withdrawn!',          //8
-    'Your payment was sent and waiting for validation.',
-    'Your payment was successfully validated!',
-    'Your loan request has been sent to the lender!',
-    'You have a new pending offer!',
-    'A payment was made towards one of your loan terms!',
-    'Your loan has been closed.'
+    'One of your offers was rejected by a lender.',   //1
+    'One of your loans was accepted by a Borrower!',  //2
+    'One of your offers was accepted by a Lender!',   //3
+    'Your loan term has now started!',                //4 
+    'Your payment was successfully validated!',       //5
+    'You have a new pending offer!',                  //6
+    'One of your pending offers has changed.',        //7
+    'Your loan has been closed.'                      //8
   ]; 
 
   notifications: Notification[] = [];
@@ -71,7 +64,7 @@ export class NotificationComponent implements OnInit {
     return this.notifications;
   }
 
-  insert_nofitication(userID: string, notificationType: number){
+  insert_nofitication(userID: number, notificationType: number){
     return this.HttpClient.post(
     '/api/notifications',
     {

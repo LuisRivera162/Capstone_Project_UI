@@ -166,7 +166,6 @@ export class LenderPageComponent implements OnInit {
         }
 
         this.loans_processing--;
-        this.notificationService.insert_nofitication(this.user_id, 0); 
       });
   }
 

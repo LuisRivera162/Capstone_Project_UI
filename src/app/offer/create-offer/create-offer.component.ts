@@ -80,7 +80,7 @@ export class CreateOfferComponent implements OnInit {
           form.reset(); 
           window.location.reload(); 
           this.isEdit = false; 
-          this.notificationService.insert_nofitication(this.authService.user_id, 7); 
+          this.notificationService.insert_nofitication(this.lender_id, 7); 
       });
       return;
     }
@@ -91,7 +91,6 @@ export class CreateOfferComponent implements OnInit {
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
       let platform = form.value.platform;
-      console.log(this.lender_id);
 
       this.HttpClient.post(
         '/api/create-offer',
@@ -103,7 +102,7 @@ export class CreateOfferComponent implements OnInit {
         }
         ).subscribe(resData => {
           form.reset(); 
-          this.notificationService.insert_nofitication(this.authService.user_id, 1); 
+          this.notificationService.insert_nofitication(this.lender_id, 6); 
           this.router.navigate(['/pending-offers']);
       });
     }
