@@ -23,7 +23,8 @@ interface Offer {
   amount: number,
   months: number,
   interest: number,
-  accepted: number,
+  accepted: boolean,
+  rejected: boolean
   expiration_date: Date,
   username: string,
   eht_address: string,
@@ -81,15 +82,15 @@ export class BorrowerPageComponent implements OnInit {
       this.firstname = resData.first_name
     });
 
-    this.HttpClient.get<any>(
-      '/api/user-loans',
-      {
-        params
-      }
-    ).subscribe(userLoans => {
-      // populate a pending/negotiated loan table
-      // if an active loan is found, hide table and show active loan dashboard..
-    });
+    // this.HttpClient.get<any>(
+    //   '/api/user-loans',
+    //   {
+    //     params
+    //   }
+    // ).subscribe(userLoans => {
+    //   // populate a pending/negotiated loan table
+    //   // if an active loan is found, hide table and show active loan dashboard..
+    // });
 
     this.HttpClient.get<any>(
       '/api/pending-offers',
@@ -106,7 +107,6 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe((rejectedOffers: any) => {
-      console.log(rejectedOffers.rejectedOffers);
       this.rejected_offers = rejectedOffers.rejectedOffers;
     });
     

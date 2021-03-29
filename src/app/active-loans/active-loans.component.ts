@@ -54,6 +54,7 @@ export class ActiveLoansComponent implements OnInit {
 
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
+    console.log(this.curr_loan)
     // this.recalculateEstimates();
   }
 
@@ -72,25 +73,26 @@ export class ActiveLoansComponent implements OnInit {
   }
 
   reject() {
-    if (this.user_id) {
-      this.HttpClient.post<any>(
-        '/api/eth/reject-loan-request',
-        {
-          sender: this.authService.user.getValue()!.wallet,
-          contractHash: this.curr_loan.eth_address
-        }
-      ).subscribe(resData => {
-        console.log("lender rejected, do something here...");
-      });
-    }
+    // if (this.user_id) {
+    //   this.HttpClient.post<any>(
+    //     '/api/eth/reject-loan-request',
+    //     {
+    //       sender: this.authService.user.getValue()!.wallet,
+    //       contractHash: this.curr_loan.eth_address
+    //     }
+    //   ).subscribe(resData => {
+    //     console.log("lender rejected, do something here...");
+    //   });
+    // }
   }
 
   withdraw() {
     if (this.user_id) {
       this.HttpClient.post<any>(
-        '/api/eth/withdraw-loan',
+        '/api/withdraw-loan',
         {
-          sender: this.authService.user.getValue()!.wallet,
+          lender: this.authService.user.getValue()!.wallet,
+          reason: '',
           contractHash: this.curr_loan.eth_address
         }
       ).subscribe(resData => {

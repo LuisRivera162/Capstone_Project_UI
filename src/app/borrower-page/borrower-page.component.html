@@ -92,7 +92,8 @@
                                         <del>{{ p_offer.amount_orig | currency }}</del> <b> {{p_offer.amount | currency}}</b>
                                     </div>
                                     <div class="col-6 text-right">
-                                        <small>Waiting for lender response</small>
+                                        <small *ngIf="!p_offer.accepted && !p_offer.rejected">Waiting for lender response</small>
+                                        <small *ngIf="p_offer.accepted" class="text-success">Lender Accepted - Waiting for Payment</small>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -109,8 +110,9 @@
                                     </div>
                                     <div class="col-6 text-right">
                                         <div class="btn-group" role="group">
-                                            <button type="button" *ngIf="!true" class="btn btn-secondary">Edit Offer</button>
+                                            <button type="button" *ngIf="!p_offer.accepted" class="btn btn-secondary">Edit Offer</button>
                                             <button type="button" 
+                                            *ngIf="!p_offer.accepted"
                                             class="btn btn-danger" 
                                             data-toggle="modal" 
                                             data-target="#confirmModal"

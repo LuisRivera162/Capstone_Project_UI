@@ -53,7 +53,7 @@ export class LenderPageComponent implements OnInit {
 
   loans: Loan[] = [];
   pending_offers: Offer[] = [];
-  curr_offer: any;
+  curr_offer: Offer = {} as Offer;
 
   loans_processing = 0;
 
@@ -192,6 +192,18 @@ export class LenderPageComponent implements OnInit {
       '/api/reject-offer',
       {
         offer_id: this.curr_offer.offer_id
+      }
+    ).subscribe(resData => {
+      window.location.reload(); 
+    });
+  }
+
+  accept_offer(index: number) {
+    // console.log(this.pending_offers[index])
+    this.HttpClient.put<any>(
+      '/api/accept-offer',
+      {
+        offer_id: this.pending_offers[index].offer_id
       }
     ).subscribe(resData => {
       window.location.reload(); 

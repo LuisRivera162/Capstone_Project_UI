@@ -38,6 +38,68 @@
                         {{curr_loan.months}}
                     </div>
                 </div>
+
+                <div class="accordion" id="offersAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block d-flex justify-content-between" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    Pending Offers
+                                    <span class="badge badge-primary badge-pill align-self-center">{{curr_loan.offers}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div class="overflow-auto" style="max-height: 40vh;">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#offersAccordion">
+                                <ul class="list-group list-group-flush">
+                                    <a class="list-group-item list-group-item-action" 
+                                    *ngFor="let p_offer of curr_loan.offers ; index as j">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <del>{{ p_offer.amount_orig | currency }}</del> <b> {{p_offer.amount | currency}}</b>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <small>Waiting for lender response</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <del>{{ p_offer.interest_orig | percent }}</del> <b> {{ p_offer.interest | percent }}</b> 
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <del>{{ p_offer.months_orig }} month(s)</del> <b> {{ p_offer.months }} month(s)</b>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <!-- <div class="btn-group" role="group">
+                                                    <button type="button" *ngIf="!true" class="btn btn-secondary">Edit Offer</button>
+                                                    <button type="button" 
+                                                    class="btn btn-danger" 
+                                                    data-toggle="modal" 
+                                                    data-target="#confirmModal"
+                                                    (click)="loadOfferInfo(j)"
+                                                    >
+                                                        Withdraw
+                                                    </button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </ul>
+                                <ul class="list-group list-group-flush" *ngIf="curr_loan.offers">
+                                    <li class="list-group-item">No pending offers availabe...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <hr>
                 <div id="calculatedEstimates">
                     <div class="d-flex w-100 justify-content-between">
@@ -59,7 +121,7 @@
             <div class="modal-footer" *ngIf="curr_loan.state == 3">
                 <button type="button" class="btn btn-outline-danger" (click)="reject()">Reject Request</button>
                 <button type="button" class="btn btn-primary" (click)="confirm()">Confirm Request</button>
-            </div>
+            </div> 
         </div>
     </div>
 </div>
@@ -82,13 +144,13 @@
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
                 <small *ngIf="loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
-                <small *ngIf="loan.offers.length" class="text-warning">{{ loan.offers.length }} Pending Offer(s)</small>
+                <small *ngIf="loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Borrower Requested - Action Required</small>
-                <small *ngIf="loan.state == 4" class="text-success">Active</small>
-                <small *ngIf="loan.state == 5" class="text-warning">Active - Waiting Validation</small>
-                <small *ngIf="loan.state == 6" class="text-danger">Delinquent</small>
-                <small *ngIf="loan.state == 7" class="text-secondary">Terminated</small>
-                <small *ngIf="loan.state == 8" class="text-secondary">Withdrawn</small>
+                <small *ngIf="loan.state == 2" class="text-success">Active</small>
+                <small *ngIf="loan.state == 3" class="text-warning">Active - Waiting Validation</small>
+                <small *ngIf="loan.state == 4" class="text-danger">Delinquent</small>
+                <small *ngIf="loan.state == 5" class="text-secondary">Terminated</small>
+                <small *ngIf="loan.state == 6" class="text-secondary">Withdrawn</small>
             </div>
             <p class="mb-1">
                 <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>

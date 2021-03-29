@@ -55,15 +55,22 @@ export class LoanSearchComponent implements OnInit {
   }
 
   requestLoan() {
-    this.HttpClient.post<any>(
-      'api/eth/request-loan',
+    this.HttpClient.post(
+      '/api/create-offer',
       {
-        contractHash: this.curr_loan.eth_address,
-        sender: this.authService.user.getValue()!.wallet
+        loan_id: this.curr_loan.loan_id, 
+        loan_amount: this.curr_loan.amount, 
+        interest: this.curr_loan.interest, 
+        time_frame:  this.curr_loan.months,
+        platform: null, 
+        borrower_id:  this.authService.user.getValue()!.id,
+        lender_id: this.curr_loan.lender
       }
-    ).subscribe (resData => {
-      console.log('offer placed')
-    })
+      ).subscribe(resData => {
+        // this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
+        // this.router.navigate(['/']);
+        alert('offer submited!')
+    });
   }
 
   monthlyPayment() {
