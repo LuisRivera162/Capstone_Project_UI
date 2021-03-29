@@ -57,6 +57,7 @@ export class BorrowerPageComponent implements OnInit {
   payment_due_date = new Date();
 
   pending_offers: Offer[] = [];
+  rejected_offers: Offer[] = [];
 
   latestActivity: any[] = []
 
@@ -97,9 +98,18 @@ export class BorrowerPageComponent implements OnInit {
       }
     ).subscribe((pendingOffers: any) => {
       this.pending_offers = pendingOffers.Offers
-
-      console.log(this.pending_offers)
     });
+
+    this.HttpClient.get<any>(
+      '/api/rejected-offers',
+      {
+        params
+      }
+    ).subscribe((rejectedOffers: any) => {
+      console.log(rejectedOffers.rejectedOffers);
+      this.rejected_offers = rejectedOffers.rejectedOffers;
+    });
+    
   }
 
   onSubmit() {

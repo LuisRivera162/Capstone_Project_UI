@@ -28,6 +28,7 @@ interface Offer {
   interest: number,
   accepted: number,
   expiration_date: Date,
+  rejected: boolean,
   username: string,
   eth_address: string,
   amount_orig: number,
@@ -52,6 +53,7 @@ export class LenderPageComponent implements OnInit {
 
   loans: Loan[] = [];
   pending_offers: Offer[] = [];
+  curr_offer: any;
 
   loans_processing = 0;
 
@@ -91,8 +93,8 @@ export class LenderPageComponent implements OnInit {
           this.available_loans++;
         }
         else if (loan.state == 4) {
-          this.active_loans++
-          this.active_loans_balance += loan.balance
+          this.active_loans++;
+          this.active_loans_balance += loan.balance;
         }
       });
     });
@@ -103,11 +105,8 @@ export class LenderPageComponent implements OnInit {
         params
       }
     ).subscribe((pendingOffers: any) => {
-      this.pending_offers = pendingOffers.Offers
-
-      console.log(this.pending_offers)
+      this.pending_offers = pendingOffers.Offers;
     });
-
   }
 
   onSubmit(form: NgForm) {
@@ -186,6 +185,21 @@ export class LenderPageComponent implements OnInit {
       this.loan.est_total_interest += ((this.loan.interest/100) / 12) * this.loan.balance
       this.loan.balance -= (this.loan.monthly_repayment - ((this.loan.interest/100) / 12) * this.loan.balance)
     }
+  }
+
+  reject_offer() {
+    this.HttpClient.put<any>(
+      '/api/reject-offer',
+      {
+        offer_id: this.curr_offer.offer_id
+      }
+    ).subscribe(resData => {
+      window.location.reload(); 
+    });
+  }
+
+  loadOfferInfo(index: number) {
+    this.curr_offer = this.pending_offers[index]
   }
 
 }
