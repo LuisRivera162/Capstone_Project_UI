@@ -86,7 +86,7 @@
                     data-parent="#offersAccordion">
                         <ul class="list-group list-group-flush">
                             <a class="list-group-item list-group-item-action" 
-                            *ngFor="let p_offer of pending_offers; index as i">
+                            *ngFor="let p_offer of pending_offers; index as j">
                                 <div class="row">
                                     <div class="col-6">
                                         <del>{{ p_offer.amount_orig | currency }}</del> <b> {{p_offer.amount | currency}}</b>
@@ -114,7 +114,7 @@
                                             class="btn btn-danger" 
                                             data-toggle="modal" 
                                             data-target="#confirmModal"
-                                            (click)="loadOfferInfo(i)"
+                                            (click)="loadOfferInfo(j)"
                                             >
                                                 Withdraw
                                             </button>
@@ -122,6 +122,9 @@
                                     </div>
                                 </div>
                             </a>
+                        </ul>
+                        <ul class="list-group list-group-flush" *ngIf="pending_offers.length == 0">
+                            <li class="list-group-item">No pending offers availabe...</li>
                         </ul>
                     </div>
                 </div>
@@ -168,7 +171,7 @@
                                             class="btn btn-danger" 
                                             data-toggle="modal" 
                                             data-target="#confirmModal"
-                                            (click)="loadOfferInfo(i)"
+                                            (click)="loadRejectedOfferInfo(i)"
                                             >
                                                 Withdraw
                                             </button>

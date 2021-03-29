@@ -129,4 +129,8 @@ export class BorrowerPageComponent implements OnInit {
     this.curr_offer = this.pending_offers[index]
   }
 
+  loadRejectedOfferInfo(index: number) {
+    this.curr_offer = this.rejected_offers[index]
+  }
+
 }
