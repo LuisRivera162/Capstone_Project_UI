@@ -125,6 +125,9 @@
                         </div>
                     </a>
                 </ul>
+                <ul class="list-group list-group-flush" *ngIf="pending_offers.length == 0">
+                    <li class="list-group-item">No pending offers availabe...</li>
+                </ul>
             </div>
         </div>
     </div>
