@@ -92,11 +92,13 @@ export class LenderPageComponent implements OnInit {
         if (loan.state == 0) {
           this.available_loans++;
         }
-        else if (loan.state == 4) {
+        else if (loan.state == 2) {
           this.active_loans++;
           this.active_loans_balance += loan.balance;
         }
       });
+
+      console.log(this.loans)
     });
 
     this.HttpClient.get<any>(
@@ -203,7 +205,8 @@ export class LenderPageComponent implements OnInit {
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
-        offer_id: this.pending_offers[index].offer_id
+        offer_id: this.pending_offers[index].offer_id,
+        contractHash: this.pending_offers[index].eth_address     
       }
     ).subscribe(resData => {
       window.location.reload(); 

@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="accordion" id="offersAccordion">
+                <div class="accordion" id="offersAccordion" *ngIf="!curr_loan.state">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
@@ -47,7 +47,7 @@
                                     data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
                                     Pending Offers
-                                    <span class="badge badge-primary badge-pill align-self-center">{{curr_loan.offers}}</span>
+                                    <span class="badge badge-primary badge-pill align-self-center">{{curr_loan.offers.length}}</span>
                                 </button>
                             </h2>
                         </div>
@@ -59,7 +59,7 @@
                                     *ngFor="let p_offer of curr_loan.offers ; index as j">
                                         <div class="row">
                                             <div class="col-6">
-                                                <del>{{ p_offer.amount_orig | currency }}</del> <b> {{p_offer.amount | currency}}</b>
+                                                <del>{{ curr_loan.amount | currency }}</del> <b> {{p_offer.amount | currency}}</b>
                                             </div>
                                             <div class="col-6 text-right">
                                                 <small>Waiting for lender response</small>
@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <del>{{ p_offer.interest_orig | percent }}</del> <b> {{ p_offer.interest | percent }}</b> 
+                                                <del>{{ curr_loan.interest | percent }}</del> <b> {{ p_offer.interest | percent }}</b> 
                                             </div>
                                             <div class="col-6 text-right">
                                                 
@@ -75,31 +75,27 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <del>{{ p_offer.months_orig }} month(s)</del> <b> {{ p_offer.months }} month(s)</b>
+                                                <del>{{ curr_loan.months }} month(s)</del> <b> {{ p_offer.months }} month(s)</b>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <!-- <div class="btn-group" role="group">
-                                                    <button type="button" *ngIf="!true" class="btn btn-secondary">Edit Offer</button>
-                                                    <button type="button" 
-                                                    class="btn btn-danger" 
-                                                    data-toggle="modal" 
-                                                    data-target="#confirmModal"
-                                                    (click)="loadOfferInfo(j)"
-                                                    >
-                                                        Withdraw
-                                                    </button>
-                                                </div> -->
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-danger" >Reject</button>
+                                                    <button type="button" class="btn btn-success">Accept</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
                                 </ul>
-                                <ul class="list-group list-group-flush" *ngIf="curr_loan.offers">
+                                <ul class="list-group list-group-flush" *ngIf="!curr_loan.offers">
                                     <li class="list-group-item">No pending offers availabe...</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="btn btn-success btn-block" *ngIf="curr_loan.state == 2 && !curr_loan.balance" (click)="send_payment()">Send Payment</div>
+
                 <hr>
                 <div id="calculatedEstimates">
                     <div class="d-flex w-100 justify-content-between">
@@ -145,8 +141,9 @@
                 </small>
                 <small *ngIf="loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
                 <small *ngIf="loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
-                <small *ngIf="loan.state == 3" class="text-warning">Borrower Requested - Action Required</small>
-                <small *ngIf="loan.state == 2" class="text-success">Active</small>
+                <!-- <small *ngIf="loan.state == 1" class="text-warning">Deal Reached - Send Payment</small> -->
+                <small *ngIf="loan.state == 2 && !loan.balance" class="text-warning">Active - Send Loan</small>
+                <small *ngIf="loan.state == 2 && loan.balance" class="text-success">Active</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Active - Waiting Validation</small>
                 <small *ngIf="loan.state == 4" class="text-danger">Delinquent</small>
                 <small *ngIf="loan.state == 5" class="text-secondary">Terminated</small>

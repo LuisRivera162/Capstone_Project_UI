@@ -37,7 +37,18 @@ export class ActiveLoansComponent implements OnInit {
 
   @Input() loans: Loan[] = [];
 
-  curr_loan: Loan = {} as Loan
+  curr_loan: Loan = {
+    amount: 0,
+    borrower: '',
+    created_on: new Date(),
+    eth_address: '',
+    interest: 1,
+    lender: '',
+    months: 1,
+    balance: 0,
+    state: 0,
+    offers: []
+  }
 
   user_id = this.authService.user.getValue()!.id;
   isLoading = false;
@@ -54,7 +65,7 @@ export class ActiveLoansComponent implements OnInit {
 
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
-    console.log(this.curr_loan)
+    // console.log(this.curr_loan)
     // this.recalculateEstimates();
   }
 
@@ -103,6 +114,10 @@ export class ActiveLoansComponent implements OnInit {
 
   isActiveLoansURLAddress() {
     return this.router.url == '/active-loans';
+  }
+
+  send_payment() {
+    
   }
 
   // recalculateEstimates() {
