@@ -27,7 +27,7 @@ interface Offer {
   rejected: boolean
   expiration_date: Date,
   username: string,
-  eht_address: string,
+  eth_address: string,
   amount_orig: number,
   months_orig: number,
   interest_orig: number
@@ -62,7 +62,7 @@ export class BorrowerPageComponent implements OnInit {
 
   latestActivity: any[] = []
 
-  curr_offer: any; 
+  curr_offer: Offer = {} as Offer;
 
   constructor(
     private authService: AuthService,
