@@ -14,7 +14,7 @@ interface Offer {
   months: number,
   interest: number,
   accepted: boolean,
-  expiration_date: Date
+  expiration_date: Date,
   rejected: boolean,
   username: string,
   eth_address: string
