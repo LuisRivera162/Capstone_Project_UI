@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Location } from '@angular/common';
 
 interface UserResponseData {
   'lender': any
@@ -16,14 +17,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    private HttpClient: HttpClient
+    private router: Router
   ) { }
 
   user_type = this.authService.user.getValue()!.lender;
 
   ngOnInit(): void {
-    console.log(this.authService.user)
     if(this.user_type){
       this.router.navigate(['/lender']);
     }else{

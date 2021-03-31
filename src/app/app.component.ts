@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import {Router} from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +11,18 @@ import {Router} from "@angular/router";
 export class AppComponent implements OnInit {
 
   constructor(private authService: AuthService,
-  private router: Router) {}
+              private router: Router,
+              private location: Location
+  ) {}
 
   ngOnInit() {
-    this.authService.autoLogin();
-    // if (this.authService.autoLogin() == 0){
-    //   this.router.navigate(['/home']);
-    // }
-    // else{
-    //   this.router.navigate(['/entry']);
-    // }
+    let login = this.authService.autoLogin();
+    if (this.location.path() == '/' && login == 0){
+      this.router.navigate(['/home']);
+    }
+    else if (login != 0){
+      this.router.navigate(['/entry']);
+    }
   }
 
 }
