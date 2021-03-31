@@ -20,6 +20,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AuthGuard } from './auth/auth.guard';
+import { LenderGuard } from './auth/lender.guard';
+import { BorrowerGuard } from './auth/borrower.guard';
 import { LatestPaymentsComponent } from './latest-payments/latest-payments.component';
 import { TxReceiptComponent } from './tx-receipt/tx-receipt.component';
 import { LoanDetailComponent } from './loan-detail/loan-detail.component';
