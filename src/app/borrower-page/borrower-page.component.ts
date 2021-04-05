@@ -11,8 +11,9 @@ interface Loan {
   interest: number,
   lender: string,
   months: number,
-  paymentNumber: number,
+  balance: number,
   state: number,
+  offers: any[]
 }
 
 interface Offer {
@@ -53,6 +54,7 @@ export class BorrowerPageComponent implements OnInit {
   firstname = '';
 
   currentLoan: Loan = {} as Loan;
+
   total_loan_balance = 0;
   payment_due = 0;
   payment_due_date = new Date();
@@ -63,6 +65,7 @@ export class BorrowerPageComponent implements OnInit {
   latestActivity: any[] = []
 
   curr_offer: Offer = {} as Offer;
+  offer_accepted = false;
 
   constructor(
     private authService: AuthService,
@@ -82,15 +85,17 @@ export class BorrowerPageComponent implements OnInit {
       this.firstname = resData.first_name
     });
 
-    // this.HttpClient.get<any>(
-    //   '/api/user-loans',
-    //   {
-    //     params
-    //   }
-    // ).subscribe(userLoans => {
-    //   // populate a pending/negotiated loan table
-    //   // if an active loan is found, hide table and show active loan dashboard..
-    // });
+    this.HttpClient.get<any>(
+      '/api/user-loans',
+      {
+        params
+      }
+    ).subscribe(userLoans => {
+      // populate a pending/negotiated loan table
+      console.log(userLoans[0])
+      this.currentLoan = userLoans[0]
+      // if an active loan is found, hide table and show active loan dashboard..
+    });
 
     this.HttpClient.get<any>(
       '/api/pending-offers',
@@ -99,6 +104,12 @@ export class BorrowerPageComponent implements OnInit {
       }
     ).subscribe((pendingOffers: any) => {
       this.pending_offers = pendingOffers.Offers
+
+      pendingOffers.Offers.forEach((offer: Offer) => {
+        if (offer.accepted) {
+          this.offer_accepted = true;
+        }
+      });
     });
 
     this.HttpClient.get<any>(

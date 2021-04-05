@@ -1,4 +1,6 @@
-<div class="modal fade" id="loanDetailsModal" tabindex="-1">
+<app-make-payment [loan]="curr_loan"></app-make-payment>
+
+<div class="modal fade" id="loanDetailsModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,7 +31,7 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
                     <div class="col-sm-6">
-                        {{curr_loan.interest | percent: '1.0-2'}}
+                        {{curr_loan.interest * 100 | percent: '1.0-2'}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -94,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="btn btn-success btn-block" *ngIf="curr_loan.state == 2 && !curr_loan.balance" (click)="send_payment()">Send Payment</div>
+                <div class="btn btn-success btn-block" data-dismiss="modal" data-toggle="modal" data-target="#makePaymentModal" *ngIf="curr_loan.state == 2 && !curr_loan.balance" (click)="send_payment()">Send Payment</div>
 
                 <hr>
                 <div id="calculatedEstimates">
@@ -153,7 +155,8 @@
                 <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
-            <small *ngIf="loan.borrower != '0x0000000000000000000000000000000000000000'"><b>Borrower:</b> {{loan.borrower}}</small>
+            <small *ngIf="loan.borrower != '0x0000000000000000000000000000000000000000'">
+                <b>Borrower:</b><a href="#"> {{loan.borrower}}</a></small>
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#">{{ loan.eth_address }}</a></small>
             </p>
