@@ -2,5 +2,13 @@ html,
 body,
 header,
 #intro {
-    height: 85%;
+    height: 95%;
 }
+html {
+  background: url('https://minutes.co/wp-content/uploads/2019/06/shutterstock_1044225994-e1561737001560.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+

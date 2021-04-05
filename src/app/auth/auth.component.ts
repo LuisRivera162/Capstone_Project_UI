@@ -27,6 +27,7 @@ export class AuthComponent implements OnInit {
   errorOnUsername = false
   errorOnEmail = false
   errorOnLogin = false
+  errorOnRegister = false
 
   constructor(
     private authService: AuthService,
@@ -109,16 +110,21 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0,0)
   }
 
   onItemChange(target: boolean) {
-    console.log(target)
     this.lender = target
   }
 
   private sign_up(email: any, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any) {
+    this.errorOnRegister = false;
     this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
       resData => {
+        if (resData.status == 'failure'){
+          this.errorOnRegister = true
+          return
+        }
         this.isLoading = false;
         this.error = "null";
         if(this.lender){
