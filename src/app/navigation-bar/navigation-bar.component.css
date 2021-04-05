@@ -2,18 +2,21 @@
     width: 500px;
     margin-top: 15px;
     max-height: 400px;
+    cursor: pointer;
 }
 
 .dropdown-item {
     height: 50px;
     padding: auto;
     border: 1px solid lightgrey;
+    cursor: pointer;
 }
 
 .dropdown-menu {
     max-height: 70vh;
     padding: 0;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .date-format {

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     let login = this.authService.autoLogin();
-    if (this.location.path() == '/' && login == 0){
+    if (this.location.path() == '/' || this.location.path() == '' && login == 0){
       this.router.navigate(['/home']);
     }
     else if (login != 0){
