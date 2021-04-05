@@ -17,7 +17,6 @@ import { ActiveLoansComponent } from './active-loans/active-loans.component';
 import { LoanInfoComponent } from './active-loans/loan-info/loan-info.component';
 import { EntryComponent } from './entry/entry.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LenderGuard } from './auth/lender.guard';
@@ -51,7 +50,6 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
     ActiveLoansComponent,
     EntryComponent,
     ProfileComponent,
-    SettingsComponent,
     NotificationComponent,
     LatestPaymentsComponent,
     TxReceiptComponent,
@@ -83,11 +81,10 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
       {path: 'entry', component: EntryComponent, canActivate: []},
       {path: 'profile', component: ProfileComponent, canActivate: []},
       {path: 'notifications', component: NotificationComponent, canActivate: []},
-      {path: 'settings', component: SettingsComponent, canActivate: []},
       {path: 'offer', component: CreateOfferComponent, canActivate: []},
       {path: 'pending-offers', component: PendingOffersComponent, canActivate: []},
-      
-      
+
+
     ]),
   ],
   providers: [],

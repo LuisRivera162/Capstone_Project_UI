@@ -1,105 +1,239 @@
-<div class="container" style="margin-top: 30px;">
-  <div class="main-body">
+<div class="container light-style flex-grow-1 container-p-y" style="margin-top: 30px;">
 
-    <!-- Breadcrumb -->
-    <!-- <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Profile</li>
-      </ol>
-    </nav> -->
-    <!-- /Breadcrumb -->
+  <h4 class="font-weight-bold py-3 mb-4">
+    Profile settings
+  </h4>
 
-    <div class="row gutters-sm">
-      <div class="col-md-4 mb-3">
-        <div class="card text-center">
-          <div class="card-body">
-            <div class=" text-center">
-              <img
-                src="https://w7.pngwing.com/pngs/312/283/png-transparent-man-s-face-avatar-computer-icons-user-profile-business-user-avatar-blue-face-heroes.png"
-                alt="Admin" class="rounded-circle" width="150">
-              <div class="mt-3">
-                <h4>{{firstname}} {{lastname}}</h4>
-                <p class="text-secondary mb-1">Member Since [year]</p>
-              </div>
-            </div>
-            <div class="btn btn-primary" *ngIf="!editMode" (click)="editMode=true">Edit Profile</div>
-          </div>
-          <span class="popuptext" ngModel id="myPopupU" name="myPopupU" style="color: red" *ngIf="errorOnUsername">Username Already in use.</span>
-          <span class="popuptext" ngModel name="myPopupE" id="myPopupE" style="color: red" *ngIf="errorOnEmail">Email already in use.</span>
+  <div class="card overflow-hidden">
+    <div class="row no-gutters row-bordered row-border-light">
+      <div class="col-md-3 pt-0">
+        <div class="list-group list-group-flush account-settings-links">
+          <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">Profile</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a>
         </div>
       </div>
+      <div class="col-md-9">
+        <div class="tab-content">
 
-      <div class="col-md-8">
-        <form #authForm="ngForm" (ngSubmit)="onSaveProfile(authForm)">
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row form-group">
-                <div class="col-sm-3" *ngIf="!editMode">
-                  <h6 class="mb-0" *ngIf="!editMode">Full Name</h6>
-                </div>
-                <div class="col-sm-9 text-secondary" *ngIf="!editMode">
-                  {{firstname}} {{lastname}}
-                </div>
-                <div class="col-sm-10 input-group" *ngIf="editMode">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Full Name</span>
-                  </div>
-                  <input id="first_name" class="form-control" name="first_name" ngModel type="text"
-                    [(ngModel)]="firstname" *ngIf="editMode">
-                  <input id="last_name" class="form-control" name="last_name" ngModel type="text" [(ngModel)]="lastname"
-                    *ngIf="editMode">
-                </div>
+          <div class="tab-pane fade active show" id="account-general">
+
+            <div class="card-body media align-items-center">
+              <img src="https://w7.pngwing.com/pngs/312/283/png-transparent-man-s-face-avatar-computer-icons-user-profile-business-user-avatar-blue-face-heroes.png" alt="" class="d-block ui-w-80">
+              <div class="media-body ml-4">
+                <label class="btn btn-outline-primary">
+                  Upload new photo
+                  <input type="file" class="account-settings-fileinput">
+                </label> &nbsp;
+                <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+
+                <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
               </div>
-              <hr>
-              <div class="row form-group">
-                <div class="col-sm-3" *ngIf="!editMode">
-                  <h6 class="mb-0">Username</h6>
-                </div>
-                <div class="col-sm-9 text-secondary" *ngIf="!editMode">{{username}}</div>
-                <div class="col-sm-10 input-group" *ngIf="editMode">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Username</span>
+            </div>
+            <hr class="border-light m-0">
+
+            <form #authForm="ngForm" (ngSubmit)="onSaveProfile(authForm)">
+              <div class="card-body pb-2">
+                <div><label class="popuptext" ngModel id="myPopupU" name="myPopupU" style="color: red" *ngIf="errorOnUsername">Username Already in use.</label></div>
+                <div><label class="popuptext" ngModel name="myPopupE" id="myPopupE" style="color: red" *ngIf="errorOnEmail">Email already in use.</label></div>
+
+                <div class="row form-group">
+                  <div class="col-sm-3" *ngIf="!editMode">
+                    <h6 class="mb-0" *ngIf="!editMode">Full Name</h6>
                   </div>
-                  <input id="username" class="form-control" name="username" [(ngModel)]="username" ngModel type="text" *ngIf="editMode">
+                  <div class="col-sm-9 text-secondary" *ngIf="!editMode">
+                    {{firstname}} {{lastname}}
+                  </div>
+                  <div class="col-sm-10 input-group" *ngIf="editMode">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Full Name</span>
+                    </div>
+                    <input id="first_name" class="form-control" name="first_name" ngModel type="text"
+                           [(ngModel)]="firstname" *ngIf="editMode">
+                    <input id="last_name" class="form-control" name="last_name" ngModel type="text" [(ngModel)]="lastname"
+                           *ngIf="editMode">
+                  </div>
                 </div>
+                <hr>
+                <div class="row form-group">
+                  <div class="col-sm-3" *ngIf="!editMode">
+                    <h6 class="mb-0">Username</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary" *ngIf="!editMode">{{username}}</div>
+                  <div class="col-sm-10 input-group" *ngIf="editMode">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Username</span>
+                    </div>
+                    <input id="username" class="form-control" name="username" [(ngModel)]="username" ngModel type="text" *ngIf="editMode">
+                  </div>
+                </div>
+                <hr>
+                <div class="row form-group">
+                  <div class="col-sm-3" *ngIf="!editMode">
+                    <h6 class="mb-0">Email</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary" *ngIf="!editMode">{{email}}</div>
+                  <div class="col-sm-10 input-group" *ngIf="editMode">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Email</span>
+                    </div>
+                    <input id="email" class="form-control" name="email" [(ngModel)]="email" ngModel type="text" *ngIf="editMode">
+                  </div>
+                  <div class="alert alert-warning mt-3">
+                    Your email is not confirmed. Please check your inbox.<br>
+                    <a href="javascript:void(0)">Resend confirmation</a>
+                  </div>
+                </div>
+                <hr>
+                <div class="row form-group">
+                  <div class="col-sm-3" *ngIf="!editMode">
+                    <h6 class="mb-0">Phone</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary" *ngIf="!editMode">
+                    {{phone}}
+                  </div>
+                  <div class="col-sm-10 input-group" *ngIf="editMode">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Phone</span>
+                    </div>
+                    <input id="phone" class="form-control" name="phone" [(ngModel)]="phone" ngModel type="text">
+                  </div>
+                </div>
+                <hr>
+                <div class="btn btn-primary" *ngIf="!editMode" (click)="editMode=true">Edit Profile</div>
+                <div type="submit" (click)="onSaveProfile(authForm)" data-toggle="modal" data-target="#myModal" class="btn btn-primary" *ngIf="editMode">Save Profile</div>
+                <div class="btn btn-secondary" (click)="editMode=false" *ngIf="editMode">Discard Changes</div>
               </div>
-              <hr>
-              <div class="row form-group">
-                <div class="col-sm-3" *ngIf="!editMode">
-                  <h6 class="mb-0">Email</h6>
-                </div>
-                <div class="col-sm-9 text-secondary" *ngIf="!editMode">{{email}}</div>
-                <div class="col-sm-10 input-group" *ngIf="editMode">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Email</span>
-                  </div>
-                  <input id="email" class="form-control" name="email" [(ngModel)]="email" ngModel type="text" *ngIf="editMode">
+            </form>
+
+          </div>
+
+          <div class="tab-pane fade" id="account-change-password">
+            <form #authForm1="ngForm" (ngSubmit)="onSaveChanges(authForm1)">
+
+              <div class="card-body pb-2">
+                <span class="popuptext" id="myPopupP" style="color: red" *ngIf="passwordError">Passwords dont match or Current Password is wrong</span>
+                <span class="popuptext" id="myPopupP" style="color: green" *ngIf="passwordChanged">Password changed succesfully</span>
+                <div class="form-group">
+                  <label class="form-label">Current password</label>
+                  <input type="password" ngModel name="password" id="password" class="form-control">
                 </div>
 
-              </div>
-              <hr>
-              <div class="row form-group">
-                <div class="col-sm-3" *ngIf="!editMode">
-                  <h6 class="mb-0">Phone</h6>
-                </div>
-                <div class="col-sm-9 text-secondary" *ngIf="!editMode">
-                  {{phone}}
-                </div>
-                <div class="col-sm-10 input-group" *ngIf="editMode">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Phone</span>
-                  </div>
-                  <input id="phone" class="form-control" name="phone" [(ngModel)]="phone" ngModel type="text">
+                <div class="form-group">
+                  <label class="form-label">New password</label>
+                  <input type="password" ngModel name="newpass" id="newpass" class="form-control">
                 </div>
 
+                <div class="form-group">
+                  <label class="form-label">Repeat new password</label>
+                  <input type="password" ngModel name="newpass_conf" id="newpass_conf" class="form-control">
+                </div>
+                <div type="submit" (click)="onSaveChanges(authForm1)" class="btn btn-primary">Save Changes</div>
               </div>
-              <hr>
-              <div type="submit" (click)="onSaveProfile(authForm)" data-toggle="modal" data-target="#myModal" class="btn btn-primary" *ngIf="editMode">Save Profile</div>
-              <div class="btn btn-secondary" (click)="editMode=false" *ngIf="editMode">Discard Changes</div>
+            </form>
+          </div>
+
+          <div class="tab-pane fade" id="account-info">
+            <form #authForm2="ngForm" (ngSubmit)="onSaveChanges(authForm2)">
+
+              <div class="card-body pb-2">
+                <div class="form-group">
+                  <label class="form-label">Bio</label>
+                  <textarea class="form-control" rows="5"> This would be more for borrowers maybe to describe who they are of their situation? IDK TBD</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Birthday</label>
+                  <input type="text" class="form-control" ngModel name="birthday" id="birthday" value="Jan 5, 1999">
+                </div>
+              </div>
+              <div class="card-body pb-2">
+
+                <div class="form-group">
+                  <label class="form-label">Phone</label>
+                  <input type="text" class="form-control" ngModel name="phone" id="phone" value="{{phone}}">
+                </div>
+                <div type="submit" (click)="onSaveChanges(authForm2)" class="btn btn-primary">Save Changes</div>
+
+              </div>
+            </form>
+          </div>
+
+          <div class="tab-pane fade" id="account-notifications">
+            <div class="card-body pb-2">
+
+              <h6 class="mb-4">Activity</h6>
+
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" checked="">
+                  <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                  <span class="switcher-label">  Email me when a payment is a week away</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" checked="">
+                  <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                  <span class="switcher-label">  Email me when a payment is done</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input">
+                  <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                  <span class="switcher-label">  Email me when a payment fails</span>
+                </label>
+              </div>
+            </div>
+            <hr class="border-light m-0">
+            <div class="card-body pb-2">
+
+              <h6 class="mb-4">Application</h6>
+
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" checked="">
+                  <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                  <span class="switcher-label">  News and announcements</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input">
+                  <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                  <span class="switcher-label">  Monthly statements</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="switcher">
+                  <input type="checkbox" class="switcher-input" checked="">
+                  <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                  <span class="switcher-label">  End Semester</span>
+                </label>
+              </div>
             </div>
           </div>
-        </form>
+
+        </div>
       </div>
     </div>
   </div>
