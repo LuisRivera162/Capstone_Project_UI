@@ -20,7 +20,7 @@
 </div>
 
 <!-- <div class="container"> -->
-<div class="row" *ngIf="currentLoan.eth_address">
+<div class="row" *ngIf="currentLoan.eth_address && currentLoan.balance">
     <div class="col">
         <div class="jumbotron" style="margin-top: 30px;">
             <div class="row">
@@ -46,8 +46,8 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="!currentLoan.eth_address" style="margin-top: 30px;">
-    <div class="col-12">
+<div class="row"  style="margin-top: 30px;">
+    <div class="col-12" *ngIf="!currentLoan.balance && !offer_accepted">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-8  border-right">
@@ -62,7 +62,16 @@
             </div>
         </div>
     </div>
-
+    <div class="col-12" *ngIf="offer_accepted && !currentLoan.balance">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Offer Accepted by Lender!</h1>
+                    You will be receiving the agreed amount shortly. This screen will update once received.
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-6">

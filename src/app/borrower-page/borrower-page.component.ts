@@ -91,10 +91,11 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe(userLoans => {
-      // populate a pending/negotiated loan table
-      console.log(userLoans[0])
-      this.currentLoan = userLoans[0]
       // if an active loan is found, hide table and show active loan dashboard..
+      if (userLoans.length) {
+        this.currentLoan = userLoans[0]
+      }
+      
     });
 
     this.HttpClient.get<any>(

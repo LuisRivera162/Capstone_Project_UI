@@ -89,6 +89,8 @@ export class LenderPageComponent implements OnInit {
       resData.forEach((loan: Loan) => {
         this.loans.push(loan);
 
+        
+
         if (loan.state == 0) {
           this.available_loans++;
         }

@@ -31,7 +31,7 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
                     <div class="col-sm-6">
-                        {{curr_loan.interest * 100 | percent: '1.0-2'}}
+                        {{curr_loan.interest/100 | percent: '1.0-2'}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="accordion" id="offersAccordion" *ngIf="!curr_loan.state">
+                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers.length && curr_loan.state != 2">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
@@ -152,7 +152,7 @@
                 <small *ngIf="loan.state == 6" class="text-secondary">Withdrawn</small>
             </div>
             <p class="mb-1">
-                <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
+                <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest/100 | percent: '1.0-2'}}</span>
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
             <small *ngIf="loan.borrower != '0x0000000000000000000000000000000000000000'">
