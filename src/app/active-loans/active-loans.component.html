@@ -113,13 +113,38 @@
             </div>
             <div class="modal-footer" *ngIf="curr_loan.state == 0">
                 <!-- <button type="button" *ngIf="curr_loan.offers" class="btn btn-outline-warning">View Offers</button> -->
-                <button type="button" class="btn btn-outline-danger" (click)="withdraw()">Withdraw Loan?</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" 
+                data-toggle="modal"
+                data-target="#confirmLoanWithdrawalModal">Withdraw Loan?</button>
                 <button type="button" class="btn btn-primary">Edit Parameters</button>
             </div>
             <div class="modal-footer" *ngIf="curr_loan.state == 3">
                 <button type="button" class="btn btn-outline-danger" (click)="reject()">Reject Request</button>
                 <button type="button" class="btn btn-primary" (click)="confirm()">Confirm Request</button>
             </div> 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmLoanWithdrawalModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Loan Withdrawal</h5> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h6>Note: This action <font color="red">cannot</font> be undone.</h6>
+                <h6>Do you wish to procede?</h6>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="withdraw()">
+                    Confirm Withdrawal
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -141,8 +166,8 @@
                     Submitted - Waiting for Blockchain Confirmation
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
-                <small *ngIf="loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
-                <small *ngIf="loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
+                <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
+                <small *ngIf="loan.offers && loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
                 <!-- <small *ngIf="loan.state == 1" class="text-warning">Deal Reached - Send Payment</small> -->
                 <small *ngIf="loan.state == 2 && !loan.balance" class="text-warning">Active - Send Loan</small>
                 <small *ngIf="loan.state == 2 && loan.balance" class="text-success">Active</small>

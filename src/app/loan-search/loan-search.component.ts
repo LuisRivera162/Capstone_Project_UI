@@ -67,9 +67,9 @@ export class LoanSearchComponent implements OnInit {
         lender_id: this.curr_loan.lender
       }
       ).subscribe(resData => {
-        // this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
-        // this.router.navigate(['/']);
-        alert('offer submited!')
+        this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
+        this.router.navigate(['/pending-offers']);
+        // alert('offer submited!')
     });
   }
 

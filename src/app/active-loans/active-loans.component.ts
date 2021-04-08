@@ -107,6 +107,7 @@ export class ActiveLoansComponent implements OnInit {
           contractHash: this.curr_loan.eth_address
         }
       ).subscribe(resData => {
+        window.location.reload();
         console.log("lender withdrew loan, do something here...");
       });
     }
