@@ -72,16 +72,9 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
       {path: 'borrower', component: BorrowerPageComponent, canActivate: []},
       {path: 'lender', component: LenderPageComponent, canActivate: []},
       {path: 'search', component: LoanSearchComponent, canActivate: []},
-      {path: 'create', component: CreateLoanComponent, canActivate: []},
       {path: 'active-loans', component: ActiveLoansComponent, canActivate: []},
-      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
-      {path: 'active-loans/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
-      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
-      {path: 'search/loan-info/:loan_id', component: LoanInfoComponent, canActivate: []},
       {path: 'entry', component: EntryComponent, canActivate: []},
       {path: 'profile', component: ProfileComponent, canActivate: []},
-      {path: 'notifications', component: NotificationComponent, canActivate: []},
-      {path: 'offer', component: CreateOfferComponent, canActivate: []},
       {path: 'pending-offers', component: PendingOffersComponent, canActivate: []},
 
 
