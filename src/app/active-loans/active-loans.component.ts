@@ -74,6 +74,7 @@ export class ActiveLoansComponent implements OnInit {
       this.HttpClient.post<any>(
         '/api/eth/accept-loan-request',
         {
+          
           sender: this.authService.user.getValue()!.wallet,
           contractHash: this.curr_loan.eth_address
         }
