@@ -95,6 +95,8 @@ export class BorrowerPageComponent implements OnInit {
       if (userLoans.length) {
         this.currentLoan = userLoans[0]
       }
+
+      console.log(this.currentLoan)
       
     });
 
@@ -126,7 +128,7 @@ export class BorrowerPageComponent implements OnInit {
 
   onSubmit() {
     const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
-    console.log(params)
+    // console.log(params)
     this.HttpClient.delete<any>(
       '/api/withdraw-offer',
       {

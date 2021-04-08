@@ -94,7 +94,7 @@ export class LenderPageComponent implements OnInit {
         if (loan.state == 0) {
           this.available_loans++;
         }
-        else if (loan.state == 2) {
+        else if (loan.state == 2 || loan.state == 3) {
           this.active_loans++;
           this.active_loans_balance += loan.balance;
         }
