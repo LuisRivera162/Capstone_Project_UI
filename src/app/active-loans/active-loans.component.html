@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers.length && curr_loan.state != 2">
+                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state != 2">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
