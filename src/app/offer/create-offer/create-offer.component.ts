@@ -34,10 +34,10 @@ export class CreateOfferComponent implements OnInit {
   error: string = "null";
 
   loan = {
-    amount: 0,
+    amount: 500,
     balance: 0,
-    interest: 0,
-    months: 0,
+    interest: 1,
+    months: 5,
     platform: 0,
     monthly_repayment: 0,
     est_total_interest: 0.0,
@@ -78,9 +78,9 @@ export class CreateOfferComponent implements OnInit {
         }
         ).subscribe(resData => {
           form.reset(); 
-          window.location.reload(); 
           this.isEdit = false; 
           this.notificationService.insert_nofitication(this.lender_id, 7); 
+          window.location.reload(); 
       });
       return;
     }

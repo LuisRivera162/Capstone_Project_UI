@@ -211,6 +211,7 @@ export class LenderPageComponent implements OnInit {
         contractHash: this.pending_offers[index].eth_address     
       }
     ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.pending_offers[index].borrower_id, 3);
       window.location.reload(); 
     });
   }
