@@ -7,13 +7,14 @@ interface Loan {
   amount: number,
   borrower: string,
   created_on: Date,
-  eth_address: string,
+  loan_id: number,
   interest: number,
   lender: string,
   months: number,
   balance: number,
   state: number,
-  offers: any[]
+  offers: any[],
+  platform: number
 }
 
 interface Offer {

@@ -9,7 +9,7 @@ interface Loan {
   amount: number,
   borrower: string,
   created_on: Date,
-  eth_address: string,
+  loan_id: number,
   interest: number,
   lender: string,
   months: number,
@@ -141,12 +141,10 @@ export class LenderPageComponent implements OnInit {
     newLoan.interest = interest/100;
     newLoan.months = time_frame;
     newLoan.borrower = '';
-    newLoan.eth_address = 'N/A'
-    // newLoan.platform = platform;
+    newLoan.loan_id = 0;
     newLoan.state = -1;
 
     this.loans.push(newLoan);
-    this.loans_processing++;
 
     return this.HttpClient.post(
       '/api/create-loan',
@@ -160,15 +158,7 @@ export class LenderPageComponent implements OnInit {
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData: any) => {
-        if (resData.Error) {
-          // return error
-          console.log(resData.Error);
-        } else {
-          newLoan.state = 0;
-          // newLoan.eth_address = resData.contractAddress;
-        }
         window.location.reload();
-        this.loans_processing--;
       });
   }
 

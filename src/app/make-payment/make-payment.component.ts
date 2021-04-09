@@ -8,7 +8,7 @@ interface Loan {
   amount: number,
   borrower: string,
   created_on: Date,
-  eth_address: string,
+  loan_id: number,
   interest: number,
   lender: string,
   months: number,
@@ -67,12 +67,12 @@ export class MakePaymentComponent implements OnInit {
     }
 
     return this.HttpClient.post(
-      '/api/payment/send',
+      '/api/send-payment',
       {
         sender_eth: user_data.wallet,
         amount: this.payment.amount,
         paymentNumber: this.payment.paymentNumber, 
-        contractHash: this.loan.eth_address, 
+        loan_id: this.loan.loan_id, 
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
         console.log(resData)

@@ -20,7 +20,7 @@ interface Loan {
   amount: number,
   borrower: string,
   created_on: Date,
-  eth_address: string,
+  loan_id: number,
   interest: number,
   lender: string,
   months: number,
@@ -60,7 +60,7 @@ export class ActiveLoansComponent implements OnInit {
     amount: 0,
     borrower: '',
     created_on: new Date(),
-    eth_address: '',
+    loan_id: 0,
     interest: 1,
     lender: '',
     months: 1,
@@ -124,9 +124,8 @@ export class ActiveLoansComponent implements OnInit {
       this.HttpClient.post<any>(
         '/api/withdraw-loan',
         {
-          lender: this.authService.user.getValue()!.wallet,
-          reason: '',
-          contractHash: this.curr_loan.eth_address
+          // lender: this.authService.user.getValue()!.wallet,
+          loan_id: this.curr_loan.loan_id
         }
       ).subscribe(resData => {
         window.location.reload();

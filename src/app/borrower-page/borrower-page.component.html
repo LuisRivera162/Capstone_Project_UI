@@ -20,7 +20,7 @@
 </div>
 
 <!-- <div class="container"> -->
-<div class="row" *ngIf="currentLoan.eth_address && currentLoan.balance">
+<div class="row" *ngIf="currentLoan.loan_id && currentLoan.balance">
     <div class="col">
         <div class="jumbotron" style="margin-top: 30px;">
             <div class="row">
@@ -47,7 +47,7 @@
     </div>
 </div>
 <div class="row"  style="margin-top: 30px;">
-    <div class="col-12" *ngIf="!currentLoan.balance && !offer_accepted">
+    <div class="col-12" *ngIf="!currentLoan.loan_id">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-8  border-right">
@@ -62,12 +62,21 @@
             </div>
         </div>
     </div>
-    <div class="col-12" *ngIf="offer_accepted && !currentLoan.balance">
+    <div class="col-12" *ngIf="currentLoan.loan_id && !currentLoan.balance">
         <div class="jumbotron">
             <div class="row">
-                <div class="col-12">
-                    <h1>Offer Accepted by Lender!</h1>
-                    You will be receiving the agreed amount shortly. This screen will update once received.
+                <div class="col-9 border-right">
+                    <h1>Waiting for Loan Transfer</h1>
+                    A lender has agreed to the terms in your offer. This screen will update once the money transfer is confirmed.
+                </div>
+                <div class="col-3">
+                    <h1>Loan Details</h1>
+                    <p>
+                        <b>Amount:</b> {{ currentLoan.amount | currency}}<br>
+                        <b>Interest:</b> {{ currentLoan.interest | percent: '1.0-2'}}<br>
+                        <b>Months:</b> {{ currentLoan.months}}<br>
+                        <b>Platform:</b> {{ currentLoan.platform }}<br>
+                    </p>
                 </div>
             </div>
         </div>
@@ -77,7 +86,7 @@
     <div class="col-6">
         <app-latest-payments [isLender]="false"></app-latest-payments>
     </div>
-    <div class="col-6" *ngIf="!currentLoan.eth_address">
+    <div class="col-6" *ngIf="!currentLoan.loan_id">
         <div class="accordion" id="offersAccordion">
             <div class="card">
                 <div class="card-header" id="headingOne">
