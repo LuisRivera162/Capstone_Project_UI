@@ -198,6 +198,7 @@ export class LenderPageComponent implements OnInit {
         offer_id: this.curr_offer.offer_id
       }
     ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 0);
       window.location.reload(); 
     });
   }

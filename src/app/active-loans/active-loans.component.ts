@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { NotificationComponent } from '../notification/notification.component';
 
 enum StateType {
   Available,
@@ -28,6 +29,24 @@ interface Loan {
   offers: any[]
 }
 
+interface Offer {
+  offer_id: number,
+  loan_id: number,
+  borrower_id: number,
+  lender_id: number,
+  amount: number,
+  months: number,
+  interest: number,
+  accepted: number,
+  expiration_date: Date,
+  rejected: boolean,
+  username: string,
+  eth_address: string,
+  amount_orig: number,
+  months_orig: number,
+  interest_orig: number
+}
+
 @Component({
   selector: 'app-active-loans',
   templateUrl: './active-loans.component.html',
@@ -36,7 +55,7 @@ interface Loan {
 export class ActiveLoansComponent implements OnInit {
 
   @Input() loans: Loan[] = [];
-
+  @Input() pending_offers: Offer[] = [];
   curr_loan: Loan = {
     amount: 0,
     borrower: '',
@@ -50,6 +69,7 @@ export class ActiveLoansComponent implements OnInit {
     offers: []
   }
 
+  curr_offer = {} as Offer; 
   user_id = this.authService.user.getValue()!.id;
   isLoading = false;
 
@@ -57,7 +77,8 @@ export class ActiveLoansComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) { }
 
   ngOnInit(): void {
@@ -120,6 +141,36 @@ export class ActiveLoansComponent implements OnInit {
 
   send_payment() {
     
+  }  
+  
+  update_offer(index: number) {
+    this.curr_offer = this.curr_loan.offers[index]; 
+  }
+  
+  accept_offer() {
+    // console.log(this.pending_offers[index])
+    this.HttpClient.put<any>(
+      '/api/accept-offer',
+      {
+        offer_id: this.curr_offer.offer_id,
+        contractHash: this.curr_offer.eth_address     
+      }
+    ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
+      window.location.reload(); 
+    });
+  }
+
+  reject_offer() {
+    this.HttpClient.put<any>(
+      '/api/reject-offer',
+      {
+        offer_id: this.curr_offer.offer_id
+      }
+    ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 0);
+      window.location.reload(); 
+    });
   }
 
   // recalculateEstimates() {
