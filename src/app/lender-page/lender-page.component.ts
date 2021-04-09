@@ -140,7 +140,7 @@ export class LenderPageComponent implements OnInit {
     newLoan.amount = loan_amount;
     newLoan.interest = interest/100;
     newLoan.months = time_frame;
-    newLoan.borrower = '0x0000000000000000000000000000000000000000';
+    newLoan.borrower = '';
     newLoan.eth_address = 'N/A'
     // newLoan.platform = platform;
     newLoan.state = -1;
@@ -165,7 +165,7 @@ export class LenderPageComponent implements OnInit {
           console.log(resData.Error);
         } else {
           newLoan.state = 0;
-          newLoan.eth_address = resData.contractAddress;
+          // newLoan.eth_address = resData.contractAddress;
         }
 
         this.loans_processing--;

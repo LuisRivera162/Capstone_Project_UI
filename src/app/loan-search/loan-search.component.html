@@ -9,9 +9,9 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-sm-6 col-form-label">Loan ID</label>
+                    <label class="col-sm-6 col-form-label">Lender</label>
                     <div class="col-sm-6">
-                        <a href="https://kovan.etherscan.io/address/{{curr_loan.eth_address}}" target="_blank" style="word-wrap: break-word;">{{curr_loan.eth_address}}</a>
+                        <a target="_blank" style="word-wrap: break-word;">{{curr_loan.lender}}</a>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -23,7 +23,7 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
                     <div class="col-sm-6">
-                        {{curr_loan.interest | percent}}
+                        {{curr_loan.interest | percent: '1.0-2'}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -65,9 +65,9 @@
 </div>
 
 <div class="card" style="margin-top: 50px;">
-    <h3 class="card-header">
+    <div class="card-header">
         Available Loans
-    </h3>
+    </div>
     <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
         No available loans at this time.
     </a>
@@ -76,13 +76,13 @@
         (click)="loadLoanInfo(i)">
             <div class="d-flex">
                 <h5 class="mb-1 align-self-center" style="margin-right: 2px;"> {{loan.amount | currency }}</h5>
-                <span class="badge badge-warning align-self-center" style="margin-right: 2px;">{{loan.interest | percent}}</span>
+                <span class="badge badge-warning align-self-center" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
                 <span class="badge badge-info align-self-center" style="margin-right: 2px;">{{loan.months}} month(s)</span>
                 <span class="badge badge-success align-self-center">Available</span>
             </div>
             <!-- <small><b>Lender:</b> {{loan.username}}</small> -->
             <p class="mb-1">
-                <small><b>Loan ID: </b><a href="#" >{{loan.eth_address}}</a></small>
+                <small><b>Lender: </b><a href="#" >{{loan.lender}}</a></small>
             </p>
         </a>
     </ul>
