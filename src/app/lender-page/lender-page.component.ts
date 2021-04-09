@@ -167,7 +167,7 @@ export class LenderPageComponent implements OnInit {
           newLoan.state = 0;
           // newLoan.eth_address = resData.contractAddress;
         }
-
+        window.location.reload();
         this.loans_processing--;
       });
   }
@@ -204,7 +204,7 @@ export class LenderPageComponent implements OnInit {
   }
 
   accept_offer() {
-    // console.log(this.pending_offers[index])
+    console.log(this.curr_offer)
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
@@ -213,6 +213,15 @@ export class LenderPageComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
+    });
+
+    this.HttpClient.put<any>(
+      '/api/update-loan-state',
+      {
+        loan_id: this.curr_offer.loan_id,
+        state: 2    
+      }
+    ).subscribe(resData => {
       window.location.reload(); 
     });
   }

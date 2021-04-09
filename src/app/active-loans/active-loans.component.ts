@@ -91,18 +91,18 @@ export class ActiveLoansComponent implements OnInit {
   }
 
   confirm() {
-    if (this.user_id) {
-      this.HttpClient.post<any>(
-        '/api/eth/accept-loan-request',
-        {
+    // if (this.user_id) {
+    //   this.HttpClient.post<any>(
+    //     '/api/eth/accept-loan-request',
+    //     {
           
-          sender: this.authService.user.getValue()!.wallet,
-          contractHash: this.curr_loan.eth_address
-        }
-      ).subscribe(resData => {
-        console.log("lender accepted, do something here...");
-      });
-    }
+    //       sender: this.authService.user.getValue()!.wallet,
+    //       contractHash: this.curr_loan.eth_address
+    //     }
+    //   ).subscribe(resData => {
+    //     console.log("lender accepted, do something here...");
+    //   });
+    // }
   }
 
   reject() {
@@ -148,7 +148,6 @@ export class ActiveLoansComponent implements OnInit {
   }
   
   accept_offer() {
-    // console.log(this.pending_offers[index])
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
@@ -157,6 +156,15 @@ export class ActiveLoansComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
+    });
+
+    this.HttpClient.put<any>(
+      '/api/update-loan-state',
+      {
+        loan_id: this.curr_offer.loan_id,
+        state: 2    
+      }
+    ).subscribe(resData => {
       window.location.reload(); 
     });
   }
