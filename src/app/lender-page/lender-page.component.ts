@@ -203,16 +203,16 @@ export class LenderPageComponent implements OnInit {
     });
   }
 
-  accept_offer(index: number) {
+  accept_offer() {
     // console.log(this.pending_offers[index])
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
-        offer_id: this.pending_offers[index].offer_id,
-        contractHash: this.pending_offers[index].eth_address     
+        offer_id: this.curr_offer.offer_id,
+        contractHash: this.curr_offer.eth_address     
       }
     ).subscribe(resData => {
-      this.notificationService.insert_nofitication(this.pending_offers[index].borrower_id, 3);
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
       window.location.reload(); 
     });
   }
