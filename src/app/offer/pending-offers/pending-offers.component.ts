@@ -17,7 +17,8 @@ interface Offer {
   expiration_date: Date,
   rejected: boolean,
   username: string,
-  eth_address: string
+  eth_address: string,
+  platform: number
 };
 
 @Component({

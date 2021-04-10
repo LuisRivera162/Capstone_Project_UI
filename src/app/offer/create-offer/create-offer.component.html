@@ -63,10 +63,10 @@
                         <h6>Payment Platform:</h6>
                     </div>
                     <div class="col-sm-4 d-flex justify-content-center">
-                        Venmo
+                        {{this.platforms[curr_offer.platform]}}
                     </div>
                     <div class="col-sm-4 d-flex justify-content-center">
-                        {{loan.platform}} 
+                        {{this.platforms[loan.platform]}} 
                     </div>
                 </div>
             </div>
@@ -109,10 +109,10 @@
         <label for="platform" class="col-sm-6 col-form-label">Desired Payment Platform:</label>
         <div class="col-sm-6">
             <select id="platform" class="form-control" name="platform" [(ngModel)]="loan.platform">
-                <option selected disabled value="0">Choose...</option>
-                <option value="Venmo">Venmo</option>
-                <option value="ATH Movil">ATH Movil</option>
-                <option value="Paypal">Paypal</option>
+                <option selected disabled value=0>Choose...</option>
+                <option value=0>Venmo</option>
+                <option value=1>ATH Movil</option>
+                <option value=2>Paypal</option>
             </select>
         </div>
     </div>

@@ -16,7 +16,8 @@ interface Offer {
   accepted: boolean,
   expiration_date: Date
   username: string,
-  eth_address: string
+  eth_address: string,
+  platform: number
 };
 
 @Component({
@@ -32,6 +33,7 @@ export class CreateOfferComponent implements OnInit {
 
   user_id: number | String = this.authService.user.getValue()!.id;  
   error: string = "null";
+  platforms = ['Venmo', 'ATH Movil', 'PayPal']
 
   loan = {
     amount: 500,
@@ -67,7 +69,7 @@ export class CreateOfferComponent implements OnInit {
       let loan_amount = form.value.loan_amount;
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
-      let platform = form.value.platform;
+      let platform = this.loan.platform;
 
       this.HttpClient.put(
         '/api/create-offer',
@@ -91,7 +93,6 @@ export class CreateOfferComponent implements OnInit {
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
       let platform = form.value.platform;
-
       this.HttpClient.post(
         '/api/create-offer',
         {

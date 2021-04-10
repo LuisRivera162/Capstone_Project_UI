@@ -47,7 +47,7 @@
     </div>
 </div>
 <div class="row"  style="margin-top: 30px;">
-    <div class="col-12" *ngIf="!currentLoan.loan_id">
+    <div class="col-12" *ngIf="!isParticipant">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-8  border-right">
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12" *ngIf="currentLoan.loan_id && !currentLoan.balance">
+    <div class="col-12" *ngIf="isParticipant">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-9 border-right">
@@ -86,7 +86,7 @@
     <div class="col-6">
         <app-latest-payments [isLender]="false"></app-latest-payments>
     </div>
-    <div class="col-6" *ngIf="!currentLoan.loan_id">
+    <div class="col-6" *ngIf="!isParticipant">
         <div class="accordion" id="offersAccordion">
             <div class="card">
                 <div class="card-header" id="headingOne">

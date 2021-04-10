@@ -30,6 +30,7 @@ interface Offer {
   expiration_date: Date,
   username: string,
   eth_address: string,
+  platform: number,
   amount_orig: number,
   months_orig: number,
   interest_orig: number
@@ -55,6 +56,7 @@ export class BorrowerPageComponent implements OnInit {
   firstname = '';
 
   currentLoan: Loan = {} as Loan;
+  isParticipant = false;
 
   total_loan_balance = 0;
   payment_due = 0;
@@ -98,6 +100,20 @@ export class BorrowerPageComponent implements OnInit {
       }
 
       console.log(this.currentLoan)
+      
+    });
+
+    this.HttpClient.get<any>(
+      '/api/get-participant',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      
+      if (resData.Participant){
+        this.isParticipant = true;
+      }
+      console.log(resData)
       
     });
 

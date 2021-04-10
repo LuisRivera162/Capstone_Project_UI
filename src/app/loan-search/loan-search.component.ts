@@ -19,6 +19,7 @@ interface Loan {
   monthly_repayment: number,
   balance: number,
   est_total_interest: number,
+  platform: number
 }
 
 @Component({
@@ -62,7 +63,7 @@ export class LoanSearchComponent implements OnInit {
         loan_amount: this.curr_loan.amount, 
         interest: this.curr_loan.interest, 
         time_frame:  this.curr_loan.months,
-        platform: null, 
+        platform: this.curr_loan.platform, 
         borrower_id:  this.authService.user.getValue()!.id,
         lender_id: this.curr_loan.lender
       }
