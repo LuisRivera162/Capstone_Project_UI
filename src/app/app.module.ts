@@ -22,7 +22,6 @@ import { LenderGuard } from './auth/lender.guard';
 import { BorrowerGuard } from './auth/borrower.guard';
 import { LatestPaymentsComponent } from './latest-payments/latest-payments.component';
 import { TxReceiptComponent } from './tx-receipt/tx-receipt.component';
-import { LoanDetailComponent } from './loan-detail/loan-detail.component';
 import { CreateOfferComponent } from './offer/create-offer/create-offer.component';
 import { ValidatePaymentComponent } from './validate-payment/validate-payment.component';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
@@ -50,7 +49,6 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
     NotificationComponent,
     LatestPaymentsComponent,
     TxReceiptComponent,
-    LoanDetailComponent,
     CreateOfferComponent,
     ValidatePaymentComponent,
     MakePaymentComponent,
