@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service'
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {tokenReference} from "@angular/compiler";
 
 interface ResultData {
   'Result1': string
