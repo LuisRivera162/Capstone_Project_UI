@@ -26,7 +26,8 @@ interface Loan {
   months: number,
   balance: number,
   state: number,
-  offers: any[]
+  platform: number,
+  offers: any[],
 }
 
 interface Offer {
@@ -56,6 +57,7 @@ export class ActiveLoansComponent implements OnInit {
 
   @Input() loans: Loan[] = [];
   @Input() pending_offers: Offer[] = [];
+  error = "null";
   curr_loan: Loan = {
     amount: 0,
     borrower: '',
@@ -66,6 +68,7 @@ export class ActiveLoansComponent implements OnInit {
     months: 1,
     balance: 0,
     state: 0,
+    platform: 0,
     offers: []
   }
 
@@ -73,6 +76,13 @@ export class ActiveLoansComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   isLoading = false;
 
+  monthly_repayment = 0;
+  est_total_interest = 0.0;
+  est_yield = 0.0;
+
+  edited_loan = {} as Loan;
+
+  platform = ['', 'Venmo', 'ATH Movil', 'PayPal']
 
   constructor(
     private authService: AuthService,
@@ -86,37 +96,6 @@ export class ActiveLoansComponent implements OnInit {
 
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
-    // console.log(this.curr_loan)
-    // this.recalculateEstimates();
-  }
-
-  confirm() {
-    // if (this.user_id) {
-    //   this.HttpClient.post<any>(
-    //     '/api/eth/accept-loan-request',
-    //     {
-          
-    //       sender: this.authService.user.getValue()!.wallet,
-    //       contractHash: this.curr_loan.eth_address
-    //     }
-    //   ).subscribe(resData => {
-    //     console.log("lender accepted, do something here...");
-    //   });
-    // }
-  }
-
-  reject() {
-    // if (this.user_id) {
-    //   this.HttpClient.post<any>(
-    //     '/api/eth/reject-loan-request',
-    //     {
-    //       sender: this.authService.user.getValue()!.wallet,
-    //       contractHash: this.curr_loan.eth_address
-    //     }
-    //   ).subscribe(resData => {
-    //     console.log("lender rejected, do something here...");
-    //   });
-    // }
   }
 
   withdraw() {
@@ -180,24 +159,46 @@ export class ActiveLoansComponent implements OnInit {
     });
   }
 
-  // recalculateEstimates() {
-  //   if (this.curr_loan.interest <= 0 || this.curr_loan.months < 3) return
+  recalculateEstimates(loan: Loan) {
+    if (loan.interest <= 0 || loan.months < 3) return
 
-  //   this.curr_loan.est_total_interest = 0; // reset
-  //   this.curr_loan.monthly_repayment = 0
-  //   this.curr_loan.balance = 0
+    this.est_total_interest = 0; // reset
+    this.monthly_repayment = 0
+    loan.balance = 0
 
-  //   this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
+    this.monthly_repayment = (((loan.interest/100) / 12) * loan.amount) / (1 - (1 + ((loan.interest/100) / 12)) ** (-loan.months))
 
-  //   // this.curr_loan.balance = this.curr_loan.amount - this.curr_loan.monthly_repayment
-  //   this.curr_loan.balance = this.curr_loan.amount
-  //   // this.curr_loan.est_total_interest = ((this.curr_loan.interest) / 12) * this.curr_loan.amount
+    // this.loan.balance = this.loan.amount - this.loan.monthly_repayment
+    loan.balance = loan.amount
+    // this.loan.est_total_interest = ((this.loan.interest) / 12) * this.loan.amount
 
-  //   for (var i = 1; i <= this.curr_loan.months; i++) {
-  //     this.curr_loan.est_total_interest += ((this.curr_loan.interest) / 12) * this.curr_loan.balance
-  //     this.curr_loan.balance -= (this.curr_loan.monthly_repayment - ((this.curr_loan.interest) / 12) * this.curr_loan.balance)
-  //   }
+    for (var i = 1; i <= loan.months; i++) {
+      this.est_total_interest += ((loan.interest/100) / 12) * loan.balance
+      loan.balance -= (this.monthly_repayment - ((loan.interest/100) / 12) * loan.balance)
+    }
+  }
 
-  // }
+  loadEditedLoan() {
+    this.edited_loan = JSON.parse(JSON.stringify(this.curr_loan)); 
+    this.edited_loan.interest = this.edited_loan.interest * 100;
+  }
+
+  confirmLoanChanges() {
+    this.HttpClient.put<any>(
+      '/api/user-loan',
+      {
+        loan_id: this.edited_loan.loan_id,
+        amount: this.edited_loan.amount,
+        interest: this.edited_loan.interest,
+        months: this.edited_loan.months,
+        platform: this.edited_loan.platform,
+      }
+    ).subscribe(resData => {
+      this.edited_loan.offers.forEach(offer => {
+        this.notificationService.insert_nofitication(offer.borrower_id, 8);
+      });
+      window.location.reload(); 
+    });
+  }
 
 }

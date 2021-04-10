@@ -23,24 +23,20 @@ interface Notification {
 export class NotificationComponent implements OnInit {
   
   // Notification Types: 
-  // 1. Loan Created 
-  // 2. Accepted 
-  // 3. Loan Started 
-  // 4. Payment Sent 
-  // 5. Payment Validated 
-  // 6. Loan Closed/Withdrawn
   notificationMessage = [
-    'One of your offers was rejected by a lender.',   //1
-    'One of your loans was accepted by a Borrower!',  //2
-    'One of your offers was accepted by a Lender!',   //3
-    'Your loan term has now started!',                //4 
-    'Your payment was successfully validated!',       //5
-    'You have a new pending offer!',                  //6
-    'One of your pending offers has changed.',        //7
-    'Your loan has been closed.'                      //8
+    'One of your offers was rejected by a lender.',   //0
+    'One of your loans was accepted by a Borrower!',  //1
+    'One of your offers was accepted by a Lender!',   //2
+    'Your loan term has now started!',                //3 
+    'Your payment was successfully validated!',       //4
+    'You have a new pending offer!',                  //5
+    'One of your pending offers has changed.',        //6
+    'Your loan has been closed.',                     //7
+    'A loan you made an offer to has changed!'        //8
   ]; 
 
   notifications: Notification[] = [];
+  notificationCount = 0; 
 
   constructor(
     private authService: AuthService,
@@ -60,6 +56,7 @@ export class NotificationComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.notifications = resData.Notifications; 
+      this.notificationCount = this.notifications.length;
     });
     return this.notifications;
   }
@@ -72,7 +69,7 @@ export class NotificationComponent implements OnInit {
       message: this.notificationMessage[notificationType], 
       notification_type: notificationType
     }).subscribe((resData) => {
-      
+      this.get_notifications()
     });
 
   }
