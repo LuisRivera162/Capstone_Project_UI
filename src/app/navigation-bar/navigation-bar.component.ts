@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { NotificationComponent } from '../notification/notification.component';
+import { NotificationsActionitemsComponent } from '../notifications-actionitems/notifications-actionitems.component';
 
 @Component({
   selector: 'app-navigation-bar',
