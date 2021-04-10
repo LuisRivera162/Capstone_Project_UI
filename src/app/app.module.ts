@@ -14,7 +14,6 @@ import { LenderPageComponent } from './lender-page/lender-page.component';
 import { LoanSearchComponent } from './loan-search/loan-search.component';
 import { CreateLoanComponent } from './create-loan/create-loan.component';
 import { ActiveLoansComponent } from './active-loans/active-loans.component';
-import { LoanInfoComponent } from './active-loans/loan-info/loan-info.component';
 import { EntryComponent } from './entry/entry.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './notification/notification.component';
@@ -43,10 +42,8 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
     LoanSearchComponent,
     CreateLoanComponent,
     ActiveLoansComponent,
-    LoanInfoComponent,
     ActiveLoansComponent,
     ActiveLoansComponent,
-    LoanInfoComponent,
     ActiveLoansComponent,
     EntryComponent,
     ProfileComponent,
