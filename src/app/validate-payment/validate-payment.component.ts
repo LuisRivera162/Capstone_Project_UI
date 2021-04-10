@@ -20,7 +20,7 @@ export class ValidatePaymentComponent implements OnInit {
   ) { }
 
   validationPayload = {
-    paymentNumber: 0,
+    payment_id: 3,
     contractHash: "",
     evidenceHash: "",
     isvalid: false
@@ -52,7 +52,11 @@ export class ValidatePaymentComponent implements OnInit {
 
     return this.HttpClient.post(
       '/api/validate-payment',
-      this.validationPayload
+      {
+        sender_id: user_data.id,
+        payment_id: this.validationPayload.payment_id,
+        evidenceHash: this.validationPayload.evidenceHash
+      }
       ).subscribe((resData: any) => {
         if (resData.isvalid) this.validationPayload.isvalid = true;
       });

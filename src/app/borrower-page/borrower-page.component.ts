@@ -5,11 +5,11 @@ import { AuthService } from '../auth/auth.service';
 
 interface Loan {
   amount: number,
-  borrower: string,
+  borrower: number,
   created_on: Date,
   loan_id: number,
   interest: number,
-  lender: string,
+  lender: number,
   months: number,
   balance: number,
   state: number,

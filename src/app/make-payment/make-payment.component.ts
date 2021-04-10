@@ -6,11 +6,11 @@ import { AuthService } from '../auth/auth.service';
 
 interface Loan {
   amount: number,
-  borrower: string,
+  borrower: number,
   created_on: Date,
   loan_id: number,
   interest: number,
-  lender: string,
+  lender: number,
   months: number,
   balance: number,
   state: number,
@@ -69,7 +69,8 @@ export class MakePaymentComponent implements OnInit {
     return this.HttpClient.post(
       '/api/send-payment',
       {
-        sender_eth: user_data.wallet,
+        sender_id: user_data.id,
+        receiver_id: this.loan.borrower,
         amount: this.payment.amount,
         paymentNumber: this.payment.paymentNumber, 
         loan_id: this.loan.loan_id, 

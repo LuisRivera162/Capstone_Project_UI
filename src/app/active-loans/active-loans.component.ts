@@ -18,11 +18,11 @@ enum StateType {
 
 interface Loan {
   amount: number,
-  borrower: string,
+  borrower: number,
   created_on: Date,
   loan_id: number,
   interest: number,
-  lender: string,
+  lender: number,
   months: number,
   balance: number,
   state: number,
@@ -60,11 +60,11 @@ export class ActiveLoansComponent implements OnInit {
   error = "null";
   curr_loan: Loan = {
     amount: 0,
-    borrower: '',
+    borrower: 0,
     created_on: new Date(),
     loan_id: 0,
     interest: 1,
-    lender: '',
+    lender: 0,
     months: 1,
     balance: 0,
     state: 0,

@@ -7,11 +7,11 @@ import { NotificationComponent } from '../notification/notification.component';
 
 interface Loan {
   amount: number,
-  borrower: string,
+  borrower: number,
   created_on: Date,
   loan_id: number,
   interest: number,
-  lender: string,
+  lender: number,
   months: number,
   balance: number,
   state: number,
@@ -129,7 +129,7 @@ export class LenderPageComponent implements OnInit {
     let platform = form.value.platform;
     let user_data: {
       email: string;
-      id: string;
+      id: number;
       wallet: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
     if (!user_data.email && !user_data.id && !user_data.wallet) {
@@ -137,11 +137,11 @@ export class LenderPageComponent implements OnInit {
     }
 
     let newLoan = {} as Loan
-    newLoan.lender = user_data.wallet;
+    newLoan.lender = user_data.id;
     newLoan.amount = loan_amount;
     newLoan.interest = interest/100;
     newLoan.months = time_frame;
-    newLoan.borrower = '';
+    newLoan.borrower = 0;
     newLoan.loan_id = 0;
     newLoan.state = -1;
 
