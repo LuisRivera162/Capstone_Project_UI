@@ -180,7 +180,7 @@ export class ActiveLoansComponent implements OnInit {
 
   loadEditedLoan() {
     this.edited_loan = JSON.parse(JSON.stringify(this.curr_loan)); 
-    this.edited_loan.interest = this.edited_loan.interest * 100;
+    this.edited_loan.interest = Number((this.edited_loan.interest * 100).toFixed(2));
   }
 
   confirmLoanChanges() {

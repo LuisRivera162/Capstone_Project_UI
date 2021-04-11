@@ -54,6 +54,7 @@ interface UserResponseData {
 export class BorrowerPageComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   firstname = '';
+  platforms = ['Venmo', 'ATH Movil' ,'PayPal'];
 
   currentLoan: Loan = {} as Loan;
   isParticipant = false;

@@ -12,7 +12,7 @@
                     <label class="col-sm-6 col-form-label">Loan ID</label>
                     <div class="col-sm-6">
                         <a href="https://kovan.etherscan.io/address/{{curr_offer.eth_address}}" target="_blank" style="word-wrap: break-word;">
-                            {{curr_offer.eth_address}}
+                            {{curr_offer.loan_id}}
                         </a>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-create-offer [isEdit]="true" [curr_offer]="this.curr_offer"></app-create-offer>
+                <app-create-offer [isEdit]="true" [curr_offer]="this.curr_offer" [lender_id]="this.curr_offer.lender_id"></app-create-offer>
             </div>
             <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -136,18 +136,14 @@
             </div>
             <small class="text-info">Waiting for Lender Response</small>
             </div>
-            
-            <!-- <p class="mb-1">
-                <span class="badge badge-success" style="margin-right: 2px;">Available</span>
-            </p> -->
-            <!-- <small>
+            <small>
                 <b>
                     Lender: {{offer.username}}
                 </b>
-            </small> -->
+            </small>
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#">
-                        {{offer.eth_address}}
+                        {{offer.loan_id}}
                     </a></small>
             </p>
         </a>

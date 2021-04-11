@@ -40,13 +40,11 @@ export class LoanSearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
     this.HttpClient.get<any>(
       '/api/loans',
-    {
-      params
-    }).subscribe(resData => {
+    { }).subscribe(resData => {
       this.loans = resData.Loans as Loan[];
+      console.log(this.loans)
     });
   }
 

@@ -27,9 +27,9 @@ interface Offer {
 })
 export class CreateOfferComponent implements OnInit {
   @Input() loan_id: number = -1;
-  @Input() lender_id = -1; 
   @Input() isEdit = false; 
   @Input() curr_offer: Offer = {} as Offer;
+  @Input() lender_id: number = -1;
 
   user_id: number | String = this.authService.user.getValue()!.id;  
   error: string = "null";
@@ -57,7 +57,6 @@ export class CreateOfferComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    
     if (!form.valid){
       this.error = "Form is not valid, make sure you fill all fields."
       return;
@@ -70,25 +69,24 @@ export class CreateOfferComponent implements OnInit {
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
       let platform = this.loan.platform;
-
       this.HttpClient.put(
         '/api/create-offer',
         {
           offer_id: this.curr_offer.offer_id, loan_amount: loan_amount, 
-          interest: interest, time_frame: time_frame,
-          platform: platform, borrower_id: this.user_id
+          interest: interest / 100, time_frame: time_frame,
+          platform: platform, borrower_id: this.user_id,
+          lender_id: this.lender_id
         }
         ).subscribe(resData => {
           form.reset(); 
           this.isEdit = false; 
-          this.notificationService.insert_nofitication(this.lender_id, 7); 
+          this.notificationService.insert_nofitication(this.lender_id, 6); 
           window.location.reload(); 
       });
       return;
     }
     
     if (this.loan_id != -1){
-
       let loan_amount = form.value.loan_amount;
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
@@ -97,7 +95,7 @@ export class CreateOfferComponent implements OnInit {
         '/api/create-offer',
         {
           loan_id: this.loan_id, loan_amount: loan_amount, 
-          interest: interest, time_frame: time_frame,
+          interest: interest / 100, time_frame: time_frame,
           platform: platform, borrower_id: this.user_id,
           lender_id: this.lender_id
         }

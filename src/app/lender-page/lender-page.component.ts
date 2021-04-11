@@ -195,7 +195,6 @@ export class LenderPageComponent implements OnInit {
   }
 
   accept_offer() {
-    console.log(this.curr_offer)
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
