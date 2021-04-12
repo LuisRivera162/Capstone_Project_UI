@@ -60,7 +60,7 @@ export class MakePaymentComponent implements OnInit {
 
     let user_data: {
       email: string;
-      id: string;
+      id: number;
       wallet: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
     if (!user_data.email && !user_data.id && !user_data.wallet) {
@@ -71,7 +71,7 @@ export class MakePaymentComponent implements OnInit {
       '/api/send-payment',
       {
         sender_id: user_data.id,
-        receiver_id: this.loan.borrower,
+        receiver_id: ((user_data.id == this.loan.borrower) ? this.loan.lender : this.loan.borrower),
         amount: this.payment.amount,
         paymentNumber: this.loan.paymentNumber, 
         loan_id: this.loan.loan_id, 
