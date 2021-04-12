@@ -77,6 +77,15 @@ export class MakePaymentComponent implements OnInit {
         loan_id: this.loan.loan_id, 
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
+        this.HttpClient.put<any>(
+          '/api/update-loan-state',
+          {
+            loan_id: this.loan.loan_id,
+            state: 3  
+          }
+        ).subscribe(resData => {
+          window.location.reload(); 
+        });
         console.log(resData)
       });
   }

@@ -29,7 +29,6 @@ interface Offer {
 export class PendingOffersComponent implements OnInit {
 
   offers: Offer[] = []
-
   curr_offer: Offer = {} as Offer;
 
   constructor(

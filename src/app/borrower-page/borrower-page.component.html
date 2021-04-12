@@ -65,7 +65,7 @@
     <div class="col-12" *ngIf="isParticipant && !currentLoan.loan_id && !currentLoan.balance">
         <div class="jumbotron">
             <div class="row">
-                <div class="col-9 border-right">
+                <div class="col-9 text-center">
                     <h1>Waiting for Loan Transfer</h1>
                     A lender has agreed to the terms in your offer. This screen will update once the money transfer is confirmed.
                 </div>
@@ -75,7 +75,7 @@
                         <b>Amount:</b> {{ currentLoan.amount | currency}}<br>
                         <b>Interest:</b> {{ currentLoan.interest | percent: '1.0-2'}}<br>
                         <b>Months:</b> {{ currentLoan.months}}<br>
-                        <b>Platform:</b> {{ currentLoan.platform }}<br>
+                        <b>Platform:</b> {{ platforms[currentLoan.platform] }}<br>
                     </p>
                 </div>
             </div>

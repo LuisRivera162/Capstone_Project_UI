@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state != 2">
+                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 2">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
@@ -108,11 +108,16 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="btn btn-success btn-block" data-dismiss="modal" 
+                data-toggle="modal" data-target="#makePaymentModal" 
+                *ngIf="curr_loan.state == 2 && !curr_loan.balance" 
+                (click)="send_payment()">
+                    Send Payment
+                </div>
 
-                <div class="btn btn-success btn-block" data-dismiss="modal" data-toggle="modal" data-target="#makePaymentModal" *ngIf="curr_loan.state == 2 && !curr_loan.balance" (click)="send_payment()">Send Payment</div>
-
-                <hr>
-                <div id="calculatedEstimates">
+                <hr *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
+                <div id="calculatedEstimates" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
                         <!-- <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5> -->
@@ -134,10 +139,11 @@
                 data-toggle="modal"
                 data-target="#editLoanModal"
                 (click)="loadEditedLoan()">Edit Parameters</button>
-            </div>
+            </div>  
             <div class="modal-footer" *ngIf="curr_loan.state == 3">
-                <button type="button" class="btn btn-outline-danger">Reject Request</button>
-                <button type="button" class="btn btn-primary">Confirm Request</button>
+                <!-- <button type="button" class="btn btn-outline-danger">Reject Request</button> -->
+                <!-- <button type="button" class="btn btn-primary">Confirm Request</button> -->
+                <p class="text-center">If the payment is not validated by the borrower in a week, the money will be returned to your account.</p>
             </div> 
         </div>
     </div>
@@ -248,7 +254,7 @@
                     <label for="interest" class="col-sm-6 col-form-label">Interest Rate (%)</label>
                     <div class="col-sm-6">
                         <input type="number" class="form-control" id="interest" [(ngModel)]="edited_loan.interest"
-                            (input)="recalculateEstimates(edited_loan)" name="interest" required maxlength="5" step="0.5"
+                            (input)="recalculateEstimates(edited_loan)" name="interest" required maxlength="2" step="0.5"
                             max="100" min="1" />
                     </div>
                 </div>
