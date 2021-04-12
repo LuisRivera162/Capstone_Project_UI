@@ -15,6 +15,8 @@ export class LatestPaymentsComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   payments: any[] = []; 
 
+  loanToValidate = {}
+
   constructor(
     private authService: AuthService, 
     private router: Router,

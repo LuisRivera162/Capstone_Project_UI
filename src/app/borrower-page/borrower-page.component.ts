@@ -14,7 +14,8 @@ interface Loan {
   balance: number,
   state: number,
   offers: any[],
-  platform: number
+  platform: number,
+  paymentNumber: number,
 }
 
 interface Offer {

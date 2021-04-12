@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
@@ -12,6 +12,8 @@ import { AuthService } from '../auth/auth.service';
 export class ValidatePaymentComponent implements OnInit {
 
   error: string = "null";
+
+  @Input() loan = {}
   
   constructor(
     private authService: AuthService,

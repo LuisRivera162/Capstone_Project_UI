@@ -16,7 +16,8 @@ interface Loan {
   balance: number,
   state: number,
   platform: number,
-  offers: any[]
+  offers: any[],
+  paymentNumber: number
 }
 
 interface Offer {
@@ -144,6 +145,7 @@ export class LenderPageComponent implements OnInit {
     newLoan.borrower = 0;
     newLoan.loan_id = 0;
     newLoan.state = -1;
+    newLoan.paymentNumber = 0;
 
     this.loans.push(newLoan);
 

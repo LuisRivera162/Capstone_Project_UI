@@ -14,7 +14,8 @@ interface Loan {
   months: number,
   balance: number,
   state: number,
-  offers: any[]
+  offers: any[],
+  paymentNumber: number;
 }
 
 @Component({
@@ -72,7 +73,7 @@ export class MakePaymentComponent implements OnInit {
         sender_id: user_data.id,
         receiver_id: this.loan.borrower,
         amount: this.payment.amount,
-        paymentNumber: this.payment.paymentNumber, 
+        paymentNumber: this.loan.paymentNumber, 
         loan_id: this.loan.loan_id, 
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
