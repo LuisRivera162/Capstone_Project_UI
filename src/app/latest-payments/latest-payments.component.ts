@@ -14,8 +14,9 @@ export class LatestPaymentsComponent implements OnInit {
 
   user_id = this.authService.user.getValue()!.id;
   payments: any[] = []; 
-
-  loanToValidate = {}
+  paymentToValidate = {
+    payment_id: 0
+  }
 
   constructor(
     private authService: AuthService, 
@@ -52,7 +53,7 @@ export class LatestPaymentsComponent implements OnInit {
     return this.user_id == receiver_id ? "mb-1 text-success" : "mb-1 text-danger"; 
   }
 
-  get_modal(validation: boolean, validation_hash: string){
+  get_modal(i: number, validation: boolean, validation_hash: string){
     if (validation && validation_hash == ""){
       return "#txReceiptModal";
     }
@@ -60,6 +61,7 @@ export class LatestPaymentsComponent implements OnInit {
       return "";
     }
     else {
+      this.paymentToValidate = this.payments[i]
       return "#validateModal";
     }
   }

@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<app-validate-payment [loan]='loanToValidate'></app-validate-payment>
+<app-validate-payment [paymentToValidate]='paymentToValidate'></app-validate-payment>
 
 <div class="card">
     <div class="card-header">
@@ -28,7 +28,7 @@
         <a class="list-group-item list-group-item-action" *ngIf="!payments.length">
             No recent activity available.
         </a>
-        <a href="#" data-toggle="modal" [attr.data-target]="get_modal(payment.validated, payment.validation_hash)"
+        <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, payment.validated, payment.validation_hash)"
             class="list-group-item list-group-item-action" *ngFor="let payment of payments;  let i = index">
             <div class="d-flex w-100 justify-content-between">
                 <h5 [ngClass]="get_relative_payment(payment.receiver_id)">

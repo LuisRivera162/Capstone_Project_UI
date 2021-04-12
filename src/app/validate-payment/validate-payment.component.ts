@@ -13,7 +13,9 @@ export class ValidatePaymentComponent implements OnInit {
 
   error: string = "null";
 
-  @Input() loan = {}
+  @Input() paymentToValidate = {
+    payment_id: 0
+  }
   
   constructor(
     private authService: AuthService,
@@ -22,7 +24,7 @@ export class ValidatePaymentComponent implements OnInit {
   ) { }
 
   validationPayload = {
-    payment_id: 3,
+    payment_id: 0,
     contractHash: "",
     evidenceHash: "",
     isvalid: false
@@ -42,7 +44,7 @@ export class ValidatePaymentComponent implements OnInit {
 
     let evidenceHash = form.value.evidenceHash;
 
-    console.log(evidenceHash);
+    console.log(this.paymentToValidate)
     
     let user_data: {
       email: string;
@@ -56,7 +58,7 @@ export class ValidatePaymentComponent implements OnInit {
       '/api/validate-payment',
       {
         sender_id: user_data.id,
-        payment_id: this.validationPayload.payment_id,
+        payment_id: this.paymentToValidate.payment_id,
         evidenceHash: this.validationPayload.evidenceHash
       }
       ).subscribe((resData: any) => {
