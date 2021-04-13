@@ -216,6 +216,9 @@ export class BorrowerPageComponent implements OnInit {
         this.paymentTable.push(payload)
       }
 
+      this.payment_due_date = new Date(this.paymentTable[0].date)
+      this.payment_due = this.paymentTable[0].payment
+
     });
 
     
