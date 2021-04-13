@@ -3,6 +3,7 @@ import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 interface Loan {
   amount: number,
@@ -33,7 +34,8 @@ export class MakePaymentComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) { }
 
   payment = {

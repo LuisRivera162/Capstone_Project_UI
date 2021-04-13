@@ -3,6 +3,7 @@ import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-validate-payment',
@@ -14,13 +15,15 @@ export class ValidatePaymentComponent implements OnInit {
   error: string = "null";
 
   @Input() paymentToValidate = {
-    payment_id: 0
+    payment_id: 0,
+    receiver_id: 0,
   }
   
   constructor(
     private authService: AuthService,
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) { }
 
   validationPayload = {
@@ -36,7 +39,7 @@ export class ValidatePaymentComponent implements OnInit {
   onSubmit(form: NgForm) {
 
     if (!form.valid) {
-      this.error = "Form is not valid, make sure you fill all fields."
+      this.error = "Make sure you enter your evidence code, before submitting."
       return;
     }
 
@@ -62,7 +65,12 @@ export class ValidatePaymentComponent implements OnInit {
         evidenceHash: this.validationPayload.evidenceHash
       }
       ).subscribe((resData: any) => {
-        if (resData.isvalid) this.validationPayload.isvalid = true;
+        if (resData.isvalid) {
+          this.validationPayload.isvalid = true;
+          this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 4);
+          window.location.reload();
+        }
+
       });
   }
 

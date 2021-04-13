@@ -73,7 +73,7 @@
     </a>
     <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
         <a class="list-group-item list-group-item-action" *ngFor="let loan of loans;  let i = index" data-toggle="modal" data-target="#loanInfoModal"
-        (click)="loadLoanInfo(i)">
+        (click)="loadLoanInfo(i)" onmousedown="return false">
             <div class="d-flex">
                 <h5 class="mb-1 align-self-center" style="margin-right: 2px;"> {{loan.amount | currency }}</h5>
                 <span class="badge badge-warning align-self-center" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
