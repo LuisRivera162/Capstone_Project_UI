@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-latest-payments',
@@ -15,13 +16,16 @@ export class LatestPaymentsComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   payments: any[] = []; 
   paymentToValidate = {
-    payment_id: 0
+    payment_id: 0,
+    receiver_id: 0,
+    sender_id: 0,
   }
 
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
     ) { }
 
   ngOnInit(): void {
@@ -33,6 +37,7 @@ export class LatestPaymentsComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.payments = resData.Payments;
+      console.log(this.payments);
     });
   }
 
@@ -57,11 +62,10 @@ export class LatestPaymentsComponent implements OnInit {
     if (validation && validation_hash == ""){
       return "#txReceiptModal";
     }
-    else if(validation && validation_hash != ""){
+    else if((validation && validation_hash != "") || this.payments[i].sender_id == this.authService.user_id){
       return "";
     }
     else {
-      this.paymentToValidate = this.payments[i]
       return "#validateModal";
     }
   }
@@ -76,6 +80,10 @@ export class LatestPaymentsComponent implements OnInit {
     else {
       return "Validation Required";
     }
+  }
+
+  update_payment(index: number){
+    this.paymentToValidate = this.payments[index];
   }
 
 }
