@@ -10,7 +10,7 @@
                 </button>
             </div>
             <!-- <div class="modal-body"> -->
-            <app-payment-schedule></app-payment-schedule>
+            <app-payment-schedule [loan]='currentLoan' [paymentTable]="paymentTable"></app-payment-schedule>
             <!-- </div> -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>

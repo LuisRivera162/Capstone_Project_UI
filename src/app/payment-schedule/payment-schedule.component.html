@@ -8,23 +8,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let p of payment_schedule">
-      <th scope="row">April 2021</th>
+    <tr *ngFor="let p of paymentTable">
+      <th scope="row">{{p.date | date: 'MMMM d, YYYY'}}</th>
       <td>{{p.payment | currency}}</td>
       <!-- <td>{{p.balance | currency}}</td> -->
       <td class="text-success">Paid - Validated</td>
     </tr>
-    <!-- <tr>
-      <th scope="row">May 2021</th>
-      <td>$169.11</td>
-      <td>$669.43</td>
-      <td class="text-warning">Upcoming</td>
-    </tr>
-    <tr>
-      <th scope="row">June 2021</th>
-      <td>$169.11 </td>
-      <td>$503.12</td>
-      <td class="text-muted">Not Due</td>
-    </tr> -->
   </tbody>
 </table>

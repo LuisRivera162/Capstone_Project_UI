@@ -16,6 +16,8 @@ interface Loan {
   offers: any[],
   platform: number,
   paymentNumber: number,
+  est_total_interest: number,
+  monthly_repayment: number
 }
 
 interface Offer {
@@ -55,7 +57,7 @@ interface UserResponseData {
 export class BorrowerPageComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   firstname = '';
-  platforms = ['Venmo', 'ATH Movil' ,'PayPal'];
+  platforms = ['Venmo', 'ATH Movil', 'PayPal'];
 
   currentLoan: Loan = {} as Loan;
   isParticipant = false;
@@ -72,6 +74,8 @@ export class BorrowerPageComponent implements OnInit {
   curr_offer: Offer = {} as Offer;
   offer_accepted = false;
 
+  paymentTable: any[] = [];
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -80,7 +84,7 @@ export class BorrowerPageComponent implements OnInit {
 
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
-    
+
     this.HttpClient.get<UserResponseData>(
       '/api/user',
       {
@@ -99,10 +103,11 @@ export class BorrowerPageComponent implements OnInit {
       // if an active loan is found, hide table and show active loan dashboard..
       if (userLoans.length) {
         this.currentLoan = userLoans[0]
+        this.loadPaymentSchedule()
       }
 
       console.log(this.currentLoan)
-      
+
     });
 
     this.HttpClient.get<any>(
@@ -111,12 +116,12 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      
-      if (resData.Participant){
+
+      if (resData.Participant) {
         this.isParticipant = true;
       }
-      console.log(resData)
-      
+      // console.log(resData)
+
     });
 
     this.HttpClient.get<any>(
@@ -142,7 +147,7 @@ export class BorrowerPageComponent implements OnInit {
     ).subscribe((rejectedOffers: any) => {
       this.rejected_offers = rejectedOffers.rejectedOffers;
     });
-    
+
   }
 
   onSubmit() {
@@ -154,7 +159,7 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      window.location.reload(); 
+      window.location.reload();
     });
   }
 
@@ -164,6 +169,57 @@ export class BorrowerPageComponent implements OnInit {
 
   loadRejectedOfferInfo(index: number) {
     this.curr_offer = this.rejected_offers[index]
+  }
+
+  loadPaymentSchedule() {
+    const params = new HttpParams().append('loan_id', this.currentLoan.loan_id.toString());
+    this.HttpClient.get(
+      '/api/loan-payments',
+      {
+        params
+      }
+    ).subscribe((resData: any) => {
+      console.log(resData)
+      var core_transfer_date = new Date(resData.Payments[0].payment_date)
+
+      console.log(core_transfer_date.getMonth(), core_transfer_date.getDay(), core_transfer_date.getFullYear())
+
+      var month = core_transfer_date.getMonth()
+      var day = core_transfer_date.getDay()
+      var year = core_transfer_date.getFullYear()
+
+      var balance = this.currentLoan.amount
+
+      this.currentLoan.est_total_interest = 0; // reset
+      this.currentLoan.monthly_repayment = 0
+
+      this.currentLoan.monthly_repayment = (((this.currentLoan.interest / 100) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest / 100) / 12)) ** (-this.currentLoan.months))
+
+      for (var i = 1; i <= this.currentLoan.months; i++) {
+        if (month == 11) {
+          month = 0
+          year++
+        } else {
+          month++
+        }
+        
+
+        this.currentLoan.est_total_interest += ((this.currentLoan.interest / 100) / 12) * balance
+        balance -= (this.currentLoan.monthly_repayment - ((this.currentLoan.interest / 100) / 12) * balance)
+
+        let payload = {
+          date: new Date(year, month, day),
+          payment: Math.round(this.currentLoan.monthly_repayment * 100) / 100,
+          balance: Math.round(balance * 100) / 100
+        }
+
+        this.paymentTable.push(payload)
+      }
+
+    });
+
+    
+
   }
 
 }
