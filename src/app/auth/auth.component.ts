@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service'
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {tokenReference} from "@angular/compiler";
 
 interface ResultData {
   'Result1': string
@@ -51,16 +50,13 @@ export class AuthComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.check = ((resData.Result1) || (resData.Result2))
-      console.log(resData)
       if(!this.check){
         this.sign_up(email,password,age,first_name,last_name,conf_password,username,phone)
       }else{
         if (resData.Result1){
-          console.log("cant register this user as the email already exist")
           this.errorOnEmail = true
         }
         if (resData.Result2) {
-          console.log("cant register this user as the username already exist")
           this.errorOnUsername = true
         }
       }
@@ -98,15 +94,12 @@ export class AuthComponent implements OnInit {
           }
         },
         errorRes => {
-          console.log(errorRes);
           this.errorOnLogin = true
           this.isLoading = false;
           this.error = "The username or password entered is incorrect.";
-          // need to check where in the response is the message sent from the back end
         }
       );
     }
-    // form.reset();
   }
 
   ngOnInit(): void {
@@ -134,7 +127,6 @@ export class AuthComponent implements OnInit {
         }
       },
       errorRes => {
-        console.log(errorRes);
         this.isLoading = false;
         this.error = "An error has occured.";
       }

@@ -75,7 +75,7 @@ export class BorrowerPageComponent implements OnInit {
 
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
-    
+
     this.HttpClient.get<UserResponseData>(
       '/api/user',
       {
@@ -96,8 +96,6 @@ export class BorrowerPageComponent implements OnInit {
         this.currentLoan = userLoans[0]
       }
 
-      console.log(this.currentLoan)
-      
     });
 
     this.HttpClient.get<any>(
@@ -123,19 +121,18 @@ export class BorrowerPageComponent implements OnInit {
     ).subscribe((rejectedOffers: any) => {
       this.rejected_offers = rejectedOffers.rejectedOffers;
     });
-    
+
   }
 
   onSubmit() {
     const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
-    // console.log(params)
     this.HttpClient.delete<any>(
       '/api/withdraw-offer',
       {
         params
       }
     ).subscribe(resData => {
-      window.location.reload(); 
+      window.location.reload();
     });
   }
 

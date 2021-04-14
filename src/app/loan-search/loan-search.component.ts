@@ -58,18 +58,17 @@ export class LoanSearchComponent implements OnInit {
     this.HttpClient.post(
       '/api/create-offer',
       {
-        loan_id: this.curr_loan.loan_id, 
-        loan_amount: this.curr_loan.amount, 
-        interest: this.curr_loan.interest, 
+        loan_id: this.curr_loan.loan_id,
+        loan_amount: this.curr_loan.amount,
+        interest: this.curr_loan.interest,
         time_frame:  this.curr_loan.months,
-        platform: null, 
+        platform: null,
         borrower_id:  this.authService.user.getValue()!.id,
         lender_id: this.curr_loan.lender
       }
       ).subscribe(resData => {
-        this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
+        this.notificationService.insert_nofitication(this.curr_loan.lender, 6);
         this.router.navigate(['/pending-offers']);
-        // alert('offer submited!')
     });
   }
 

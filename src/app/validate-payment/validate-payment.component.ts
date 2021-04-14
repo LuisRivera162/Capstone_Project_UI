@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
 export class ValidatePaymentComponent implements OnInit {
 
   error: string = "null";
-  
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -40,8 +40,6 @@ export class ValidatePaymentComponent implements OnInit {
 
     let evidenceHash = form.value.evidenceHash;
 
-    console.log(evidenceHash);
-    
     let user_data: {
       email: string;
       id: string;

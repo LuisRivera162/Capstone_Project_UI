@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
@@ -47,11 +47,9 @@ export class MakePaymentComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-    console.log("form sent..")
 
     if (!form.valid) {
       this.error = "Form is not valid, make sure you fill all fields."
-      console.log(this.error)
       return;
     }
 
@@ -71,11 +69,10 @@ export class MakePaymentComponent implements OnInit {
       {
         sender_eth: user_data.wallet,
         amount: this.payment.amount,
-        paymentNumber: this.payment.paymentNumber, 
-        contractHash: this.loan.eth_address, 
+        paymentNumber: this.payment.paymentNumber,
+        contractHash: this.loan.eth_address,
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
-        console.log(resData)
       });
   }
 

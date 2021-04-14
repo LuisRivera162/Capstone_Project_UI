@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { NotificationComponent } from '../notification/notification.component';
 
@@ -66,16 +65,15 @@ export class CreateLoanComponent implements OnInit {
     return this.HttpClient.post(
       '/api/create-loan',
       {
-        loan_amount: loan_amount, 
-        interest: interest, 
+        loan_amount: loan_amount,
+        interest: interest,
         time_frame: time_frame,
-        platform: platform, 
+        platform: platform,
         lender: user_data.id,
         lender_eth: user_data.wallet,
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData) => {
-        console.log()
         this.router.navigate(['/active-loans']);
       });
   }
@@ -89,9 +87,7 @@ export class CreateLoanComponent implements OnInit {
 
     this.loan.monthly_repayment = (((this.loan.interest/100) / 12) * this.loan.amount) / (1 - (1 + ((this.loan.interest/100) / 12)) ** (-this.loan.months))
 
-    // this.loan.balance = this.loan.amount - this.loan.monthly_repayment
     this.loan.balance = this.loan.amount
-    // this.loan.est_total_interest = ((this.loan.interest) / 12) * this.loan.amount
 
     for (var i = 1; i <= this.loan.months; i++) {
       this.loan.est_total_interest += ((this.loan.interest/100) / 12) * this.loan.balance

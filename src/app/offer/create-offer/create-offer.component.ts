@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { NotificationComponent } from 'src/app/notification/notification.component';
 
@@ -17,7 +17,7 @@ interface Offer {
   expiration_date: Date
   username: string,
   eth_address: string
-};
+}
 
 @Component({
   selector: 'app-create-offer',
@@ -26,11 +26,11 @@ interface Offer {
 })
 export class CreateOfferComponent implements OnInit {
   @Input() loan_id: number = -1;
-  @Input() lender_id = -1; 
-  @Input() isEdit = false; 
+  @Input() lender_id = -1;
+  @Input() isEdit = false;
   @Input() curr_offer: Offer = {} as Offer;
 
-  user_id: number | String = this.authService.user.getValue()!.id;  
+  user_id: number | String = this.authService.user.getValue()!.id;
   error: string = "null";
 
   loan = {
@@ -45,7 +45,7 @@ export class CreateOfferComponent implements OnInit {
   };
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private HttpClient: HttpClient,
     private notificationService: NotificationComponent
@@ -55,13 +55,12 @@ export class CreateOfferComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    
+
     if (!form.valid){
       this.error = "Form is not valid, make sure you fill all fields."
       return;
     }
-
-    this.error = "null"; 
+    this.error = "null";
 
     if (this.isEdit){
       let loan_amount = form.value.loan_amount;
@@ -72,21 +71,19 @@ export class CreateOfferComponent implements OnInit {
       this.HttpClient.put(
         '/api/create-offer',
         {
-          offer_id: this.curr_offer.offer_id, loan_amount: loan_amount, 
+          offer_id: this.curr_offer.offer_id, loan_amount: loan_amount,
           interest: interest, time_frame: time_frame,
           platform: platform, borrower_id: this.user_id
         }
         ).subscribe(resData => {
-          form.reset(); 
-          this.isEdit = false; 
-          this.notificationService.insert_nofitication(this.lender_id, 7); 
-          window.location.reload(); 
+          form.reset();
+          this.isEdit = false;
+          this.notificationService.insert_nofitication(this.lender_id, 7);
+          window.location.reload();
       });
       return;
     }
-    
     if (this.loan_id != -1){
-
       let loan_amount = form.value.loan_amount;
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
@@ -95,20 +92,16 @@ export class CreateOfferComponent implements OnInit {
       this.HttpClient.post(
         '/api/create-offer',
         {
-          loan_id: this.loan_id, loan_amount: loan_amount, 
+          loan_id: this.loan_id, loan_amount: loan_amount,
           interest: interest, time_frame: time_frame,
           platform: platform, borrower_id: this.user_id,
           lender_id: this.lender_id
         }
         ).subscribe(resData => {
-          form.reset(); 
-          this.notificationService.insert_nofitication(this.lender_id, 6); 
+          form.reset();
+          this.notificationService.insert_nofitication(this.lender_id, 6);
           this.router.navigate(['/pending-offers']);
       });
-    }
-
-    else {
-      console.log('fail');
     }
   }
 }

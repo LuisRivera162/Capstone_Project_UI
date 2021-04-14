@@ -65,8 +65,6 @@ export class ActiveLoansComponent implements OnInit {
 
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
-    // console.log(this.curr_loan)
-    // this.recalculateEstimates();
   }
 
   confirm() {
@@ -78,23 +76,12 @@ export class ActiveLoansComponent implements OnInit {
           contractHash: this.curr_loan.eth_address
         }
       ).subscribe(resData => {
-        console.log("lender accepted, do something here...");
       });
     }
   }
 
   reject() {
-    // if (this.user_id) {
-    //   this.HttpClient.post<any>(
-    //     '/api/eth/reject-loan-request',
-    //     {
-    //       sender: this.authService.user.getValue()!.wallet,
-    //       contractHash: this.curr_loan.eth_address
-    //     }
-    //   ).subscribe(resData => {
-    //     console.log("lender rejected, do something here...");
-    //   });
-    // }
+
   }
 
   withdraw() {
@@ -108,7 +95,6 @@ export class ActiveLoansComponent implements OnInit {
         }
       ).subscribe(resData => {
         window.location.reload();
-        console.log("lender withdrew loan, do something here...");
       });
     }
   }
@@ -118,27 +104,7 @@ export class ActiveLoansComponent implements OnInit {
   }
 
   send_payment() {
-    
+
   }
-
-  // recalculateEstimates() {
-  //   if (this.curr_loan.interest <= 0 || this.curr_loan.months < 3) return
-
-  //   this.curr_loan.est_total_interest = 0; // reset
-  //   this.curr_loan.monthly_repayment = 0
-  //   this.curr_loan.balance = 0
-
-  //   this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
-
-  //   // this.curr_loan.balance = this.curr_loan.amount - this.curr_loan.monthly_repayment
-  //   this.curr_loan.balance = this.curr_loan.amount
-  //   // this.curr_loan.est_total_interest = ((this.curr_loan.interest) / 12) * this.curr_loan.amount
-
-  //   for (var i = 1; i <= this.curr_loan.months; i++) {
-  //     this.curr_loan.est_total_interest += ((this.curr_loan.interest) / 12) * this.curr_loan.balance
-  //     this.curr_loan.balance -= (this.curr_loan.monthly_repayment - ((this.curr_loan.interest) / 12) * this.curr_loan.balance)
-  //   }
-
-  // }
 
 }
