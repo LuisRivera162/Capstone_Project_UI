@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
                     <small><b>Your Payment is Due On</b></small>
-                    <h1>{{ payment_due_date | date: 'MMMM d'}}</h1>
+                    <h1>{{ payment_due_date | date: 'MMMM d, YYYY'}}</h1>
                     <div class="btn btn-primary mt-auto p-2" data-toggle="modal" data-target="#makePaymentModal">Make
                         Payment</div>
                 </div>
@@ -46,8 +46,8 @@
         </div>
     </div>
 </div>
-<div class="row"  style="margin-top: 30px;">
-    <div class="col-12" *ngIf="!isParticipant">
+<div class="row"  style="margin-top: 30px;" *ngIf="!isParticipant">
+    <div class="col-12" >
         <div class="jumbotron">
             <div class="row">
                 <div class="col-8  border-right">

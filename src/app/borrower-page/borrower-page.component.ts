@@ -185,7 +185,7 @@ export class BorrowerPageComponent implements OnInit {
       console.log(core_transfer_date.getMonth(), core_transfer_date.getDay(), core_transfer_date.getFullYear())
 
       var month = core_transfer_date.getMonth()
-      var day = core_transfer_date.getDay()
+      var day = core_transfer_date.getDate()
       var year = core_transfer_date.getFullYear()
 
       var balance = this.currentLoan.amount
@@ -210,7 +210,17 @@ export class BorrowerPageComponent implements OnInit {
         let payload = {
           date: new Date(year, month, day),
           payment: Math.round(this.currentLoan.monthly_repayment * 100) / 100,
-          balance: Math.round(balance * 100) / 100
+          balance: Math.round(balance * 100) / 100,
+          state: 0
+        }
+
+        if (resData.Payments[i] !== undefined) {
+          // found payment for period
+          if (resData.Payments[i].validated) {
+            payload.state = 1 // found payment is validated
+          } else {
+            payload.state = -1 // payment exists but not validated yet
+          }
         }
 
         this.paymentTable.push(payload)
