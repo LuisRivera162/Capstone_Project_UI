@@ -15,7 +15,7 @@ interface Loan {
   state: number,
   offers: any[],
   platform: number,
-  paymentNumber: number,
+  payment_number: number,
   est_total_interest: number,
   monthly_repayment: number
 }
@@ -120,7 +120,8 @@ export class BorrowerPageComponent implements OnInit {
       if (resData.Participant) {
         this.isParticipant = true;
       }
-      // console.log(resData)
+      
+      console.log(resData)
 
     });
 
@@ -180,58 +181,61 @@ export class BorrowerPageComponent implements OnInit {
       }
     ).subscribe((resData: any) => {
       console.log(resData)
-      var core_transfer_date = new Date(resData.Payments[0].payment_date)
+      if (resData.Payments.length) {
+        var core_transfer_date = new Date(resData.Payments[0].payment_date)
 
-      console.log(core_transfer_date.getMonth(), core_transfer_date.getDay(), core_transfer_date.getFullYear())
+        console.log(core_transfer_date.getMonth(), core_transfer_date.getDay(), core_transfer_date.getFullYear())
 
-      var month = core_transfer_date.getMonth()
-      var day = core_transfer_date.getDate()
-      var year = core_transfer_date.getFullYear()
+        var month = core_transfer_date.getMonth()
+        var day = core_transfer_date.getDate()
+        var year = core_transfer_date.getFullYear()
 
-      var balance = this.currentLoan.amount
+        var balance = this.currentLoan.amount
 
-      this.currentLoan.est_total_interest = 0; // reset
-      this.currentLoan.monthly_repayment = 0
+        this.currentLoan.est_total_interest = 0; // reset
+        this.currentLoan.monthly_repayment = 0
 
-      this.currentLoan.monthly_repayment = (((this.currentLoan.interest / 100) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest / 100) / 12)) ** (-this.currentLoan.months))
+        this.currentLoan.monthly_repayment = (((this.currentLoan.interest / 100) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest / 100) / 12)) ** (-this.currentLoan.months))
 
-      for (var i = 1; i <= this.currentLoan.months; i++) {
-        if (month == 11) {
-          month = 0
-          year++
-        } else {
-          month++
-        }
-        
-
-        this.currentLoan.est_total_interest += ((this.currentLoan.interest / 100) / 12) * balance
-        balance -= (this.currentLoan.monthly_repayment - ((this.currentLoan.interest / 100) / 12) * balance)
-
-        let payload = {
-          date: new Date(year, month, day),
-          payment: Math.round(this.currentLoan.monthly_repayment * 100) / 100,
-          balance: Math.round(balance * 100) / 100,
-          state: 0
-        }
-
-        if (resData.Payments[i] !== undefined) {
-          // found payment for period
-          if (resData.Payments[i].validated) {
-            payload.state = 1 // found payment is validated
+        for (var i = 1; i <= this.currentLoan.months; i++) {
+          if (month == 11) {
+            month = 0
+            year++
           } else {
-            payload.state = -1 // payment exists but not validated yet
+            month++
           }
+
+
+          this.currentLoan.est_total_interest += ((this.currentLoan.interest / 100) / 12) * balance
+          balance -= (this.currentLoan.monthly_repayment - ((this.currentLoan.interest / 100) / 12) * balance)
+
+          let payload = {
+            date: new Date(year, month, day),
+            payment: Math.round(this.currentLoan.monthly_repayment * 100) / 100,
+            balance: Math.round(balance * 100) / 100,
+            state: 0
+          }
+
+          if (resData.Payments[i] !== undefined) {
+            // found payment for period
+            if (resData.Payments[i].validated) {
+              payload.state = 1 // found payment is validated
+            } else {
+              payload.state = -1 // payment exists but not validated yet
+            }
+          }
+
+          this.paymentTable.push(payload)
         }
 
-        this.paymentTable.push(payload)
+        this.payment_due_date = new Date(this.paymentTable[0].date)
+        this.payment_due = this.paymentTable[0].payment
       }
 
-      this.payment_due_date = new Date(this.paymentTable[0].date)
-      this.payment_due = this.paymentTable[0].payment
 
     });
 
-    
+
 
   }
 

@@ -116,17 +116,17 @@
                     Send Payment
                 </div>
 
-                <hr *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
+                <!-- <hr *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
                 <div id="calculatedEstimates" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
-                        <!-- <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5> -->
+                         <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5> 
                     </div>
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Yield</h5>
-                        <!-- <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5> -->
+                        <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5>
                     </div>
-                </div>
+                </div> -->
                 
             </div>
             <div class="modal-footer" *ngIf="curr_loan.state == 0">
@@ -270,7 +270,7 @@
                     </div>
                 </div>
                 <hr>
-                <div id="calculatedEstimates">
+                <!-- <div id="calculatedEstimates">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
                         <h5 class="mb-1 text-success">{{monthly_repayment | currency }}</h5>
@@ -281,7 +281,7 @@
                             ({{est_total_interest /
                                 curr_loan.amount | percent: '1.0-2' }})</h5>
                     </div>
-                </div>
+                </div> -->
             </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -387,7 +387,7 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"> {{loan.amount | currency}}</h5>
                 <small *ngIf="loan.state == -1" class="text-warning">
-                    Submitted - Waiting for Blockchain Confirmation
+                    Submitting Loan to Our Systems...
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
                 <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length" class="text-info">Available</small>

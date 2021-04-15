@@ -13,7 +13,7 @@
       <td>{{p.payment | currency}}</td>
       <td class="text-info" *ngIf="p.state == 0">Unpaid</td>
       <td class="text-warning" *ngIf="p.state == -1">Paid - Waiting Validation</td>
-      <td class="text-warning" *ngIf="p.state == 1">Paid - Validated</td>
+      <td class="text-success" *ngIf="p.state == 1">Paid - Validated</td>
     </tr>
   </tbody>
 </table>

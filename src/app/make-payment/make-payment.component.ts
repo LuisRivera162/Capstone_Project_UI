@@ -15,8 +15,10 @@ interface Loan {
   months: number,
   balance: number,
   state: number,
+  platform: number,
   offers: any[],
-  paymentNumber: number;
+  payment_number: number,
+  monthly_repayment: number
 }
 
 @Component({
@@ -69,13 +71,15 @@ export class MakePaymentComponent implements OnInit {
       return;
     }
 
+    console.log( ((this.loan.payment_number == 0) ? this.loan.amount : this.loan.monthly_repayment))
+
     return this.HttpClient.post(
       '/api/send-payment',
       {
         sender_id: user_data.id,
         receiver_id: ((user_data.id == this.loan.borrower) ? this.loan.lender : this.loan.borrower),
-        amount: this.payment.amount,
-        paymentNumber: this.loan.paymentNumber, 
+        amount: ((this.loan.payment_number == 0) ? this.loan.amount : this.loan.monthly_repayment),
+        paymentNumber: this.loan.payment_number, 
         loan_id: this.loan.loan_id, 
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {

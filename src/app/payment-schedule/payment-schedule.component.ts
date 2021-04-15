@@ -12,7 +12,7 @@ interface Loan {
   state: number,
   offers: any[],
   platform: number,
-  paymentNumber: number,
+  payment_number: number,
   est_total_interest: number,
   monthly_repayment: number
 }
