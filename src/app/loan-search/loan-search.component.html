@@ -64,14 +64,14 @@
     </div>
 </div>
 
-<div class="card" style="margin-top: 50px;">
-    <div class="card-header">
-        Available Loans
+<div class="bg-white text-dark rounded-lg shadow" style="margin-top: 30px;">
+    <div class="p-3 border-bottom">
+        <h5 class="p-0 m-0">Available Loans</h5>
     </div>
-    <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
-        No available loans at this time.
-    </a>
-    <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
+    <ul class="overflow-auto list-group list-group-flush rounded-lg" style="max-height: 75vh;">
+        <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
+            No loans available at this time. Please check again later.
+        </a>
         <a class="list-group-item list-group-item-action" *ngFor="let loan of loans;  let i = index" data-toggle="modal" data-target="#loanInfoModal"
         (click)="loadLoanInfo(i)" onmousedown="return false">
             <div class="d-flex">

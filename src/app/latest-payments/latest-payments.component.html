@@ -19,12 +19,12 @@
 
 <app-validate-payment [paymentToValidate]='paymentToValidate'></app-validate-payment>
 
-<div class="card">
-    <div class="card-header">
-        Latest Activity
+<div class="bg-white text-dark rounded-lg shadow">
+    <div class="p-3 border-bottom">
+        <h5 class="p-0 m-0">Latest Activity</h5>
     </div>
     <!-- <div class="card-body"> -->
-    <ul class="overflow-auto list-group list-group-flush" style="max-height: 50vh;">
+    <ul class="overflow-auto list-group list-group-flush rounded-lg" style="max-height: 50vh;">
         <a class="list-group-item list-group-item-action" *ngIf="!payments.length">
             No recent activity available.
         </a>
@@ -33,20 +33,27 @@
             (click)="update_payment(i)" onmousedown="return false">
             <div class="d-flex w-100 justify-content-between">
                 <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
-                    {{this.user_id == payment.receiver_id ? '+' : '-'}}{{payment.amount | currency}}
+                    <div *ngIf="this.user_id == payment.receiver_id">
+                        <i class="bi bi-arrow-down-left-circle"></i> Received {{payment.amount | currency}} from {{ payment.sender_id }}
+                    </div>
+                    <div *ngIf="this.user_id != payment.receiver_id">
+                        <i class="bi bi-arrow-up-left-circle"></i> Sent {{payment.amount | currency}} to {{ payment.receiver_id }}
+                    </div>
                 </h5>
+                
+                <!-- <small>
+                    <b>{{user_id == payment.receiver_id ? 'From Lender' : 'To Borrower'}}:</b>
+                    {{user_id == payment.receiver_id? payment.sender_id : payment.receiver_id}}
+                </small> -->
+                <!-- <p class="mb-1">
+                    <small><b>Loan ID: </b><a href="#" data-toggle="modal"
+                            data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
+                </p> -->
                 <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
                     {{get_validation_message(payment.validated, payment.validation_hash)}}
                 </small>
             </div>
-            <small>
-                <b>{{user_id == payment.receiver_id ? 'Borrower' : 'Lender'}}:</b>
-                {{payment.receiver_username}}
-            </small>
-            <p class="mb-1">
-                <small><b>Loan ID: </b><a href="#" data-toggle="modal"
-                        data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
-            </p>
+            
             <p class="mb-1">
                 <small>{{payment.payment_date}}</small>
             </p>

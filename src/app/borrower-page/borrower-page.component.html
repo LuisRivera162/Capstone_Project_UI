@@ -20,9 +20,9 @@
 </div>
 
 <!-- <div class="container"> -->
-<div class="row" *ngIf="currentLoan.loan_id && currentLoan.balance">
+<div class="row" *ngIf="currentLoan.loan_id && currentLoan.balance" style="margin-top: 30px;">
     <div class="col">
-        <div class="jumbotron" style="margin-top: 30px;">
+        <div class="shadow p-4 rounded-lg bg-white">
             <div class="row">
                 <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
                     <small><b>Payment Due</b></small>
@@ -48,9 +48,9 @@
 </div>
 <div class="row" style="margin-top: 30px;" *ngIf="!isParticipant">
     <div class="col-12">
-        <div class="jumbotron">
+        <div class="shadow p-4 rounded-lg bg-white">
             <div class="row">
-                <div class="col-8  border-right">
+                <div class="col-8 border-right">
                     <h1>Hello {{firstname}}! Looking for a loan?</h1>
                     Check out the latest loan offers from our lenders <a href="/search">here</a>
                 </div>
@@ -64,9 +64,9 @@
     </div>
 </div>
 <div class="row" style="margin-top: 30px;" *ngIf="isParticipant && currentLoan.loan_id && !currentLoan.balance">
-    <div class="col">
-        <div class="jumbotron">
-            <div class="row ">
+    <div class="col-12">
+        <div class="shadow p-4 rounded-lg bg-white">
+            <div class="row">
                 <div class="col-9 text-left border-right">
                     <h1>Waiting for Loan Transfer</h1>
                     <p>
@@ -88,23 +88,22 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-6">
+<div class="row" style="margin-top: 30px;">
+    <div class="col-8">
         <app-latest-payments [isLender]="false"></app-latest-payments>
     </div>
-    <div class="col-6" *ngIf="!isParticipant">
-        <div class="accordion" id="offersAccordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
-                        <button class="btn btn-block d-flex justify-content-between" type="button"
-                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                            aria-controls="collapseOne">
+    <div class="col-4" *ngIf="!isParticipant">
+        <div class="accordion shadow" id="offersAccordion">
+            <div class="bg-white text-dark rounded-top">
+                <div class="p-3 border-bottom" id="headingOne">
+                    <h5 class="m-0 p-0">
+                        <div class="d-flex justify-content-between" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Pending Offers
                             <span
                                 class="badge badge-primary badge-pill align-self-center">{{pending_offers.length}}</span>
-                        </button>
-                    </h2>
+                        </div>
+                    </h5>
                 </div>
                 <div class="overflow-auto" style="max-height: 40vh;">
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
@@ -113,32 +112,30 @@
                             <a class="list-group-item list-group-item-action"
                                 *ngFor="let p_offer of pending_offers; index as j">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <del>{{ p_offer.amount_orig | currency }}</del> <b> {{p_offer.amount |
                                             currency}}</b>
                                     </div>
-                                    <div class="col-6 text-right">
-                                        <small *ngIf="!p_offer.accepted && !p_offer.rejected">Waiting for lender
-                                            response</small>
-                                        <small *ngIf="p_offer.accepted" class="text-success">Lender Accepted - Waiting
-                                            for Payment</small>
+                                    <div class="col-5 text-right">
+                                        <small *ngIf="!p_offer.accepted && !p_offer.rejected">Waiting for Lender</small>
+                                        <small *ngIf="p_offer.accepted" class="text-success">Waiting for Payment</small>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <del>{{ p_offer.interest_orig | percent: '1.0-2' }}</del> <b> {{
                                             p_offer.interest | percent: '1.0-2' }}</b>
                                     </div>
-                                    <div class="col-6 text-right">
+                                    <div class="col-5 text-right">
 
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <del>{{ p_offer.months_orig }} month(s)</del> <b> {{ p_offer.months }}
                                             month(s)</b>
                                     </div>
-                                    <div class="col-6 text-right">
+                                    <!-- <div class="col-6 text-right">
                                         <div class="btn-group" role="group">
                                             <button type="button" *ngIf="!p_offer.accepted" class="btn btn-secondary"
                                                 data-dismiss="modal" data-toggle="modal" data-target="#createOfferModal"
@@ -151,7 +148,7 @@
                                                 Withdraw
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </a>
                         </ul>
@@ -161,20 +158,20 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                        <button class="btn btn-block collapsed  d-flex justify-content-between" type="button"
-                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                            aria-controls="collapseTwo">
+            <div class="bg-white text-dark">
+                <div class="p-3 border-bottom" id="headingTwo">
+                    <h5 class="m-0 p-0">
+                        <div class="collapsed d-flex justify-content-between" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Rejected Offers
                             <span
                                 class="badge badge-primary badge-pill align-self-center">{{rejected_offers.length}}</span>
-                        </button>
-                    </h2>
+                        </div>
+                    </h5>
                 </div>
-                <div class="overflow-auto" style="max-height: 40vh;">
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#offersAccordion">
+                <div class="overflow-auto rounded-bottom" style="max-height: 40vh;">
+                    <div id="collapseTwo" class="collapse rounded-bottom" aria-labelledby="headingTwo"
+                        data-parent="#offersAccordion">
                         <ul class="list-group list-group-flush">
                             <a class="list-group-item list-group-item-action"
                                 *ngFor="let p_offer of rejected_offers; index as i">
@@ -201,18 +198,18 @@
                                         <del>{{ p_offer.months_orig }} month(s)</del> <b> {{ p_offer.months }}
                                             month(s)</b>
                                     </div>
-                                    <div class="col-6 text-right">
+                                    <!-- <div class="col-6 text-right">
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#confirmModal" (click)="loadRejectedOfferInfo(i)">
                                                 Withdraw
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </a>
                         </ul>
-                        <ul class="list-group list-group-flush" *ngIf="rejected_offers.length == 0">
+                        <ul class="list-group list-group-flush rounded-bottom" *ngIf="rejected_offers.length == 0">
                             <li class="list-group-item">No rejected offers availabe...</li>
                         </ul>
                     </div>

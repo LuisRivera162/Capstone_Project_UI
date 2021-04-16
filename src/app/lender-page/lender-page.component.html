@@ -183,19 +183,9 @@
     </div>
 </div>
 
-<!-- <div class="container"> -->
-<!-- <div class="row" style="margin-top: 10px;" *ngIf="loans_processing">
-    <div class="col-12">
-        <div class="alert alert-warning d-flex align-items-center" role="alert">
-            <a>One or more new loans are currently being confirmed in the Ethereum Blockchain. <b>Do not refresh this
-                    page.</b></a>
-            <span class="spinner-border spinner-border-sm ml-auto" role="status" aria-hidden="true"></span>
-        </div>
-    </div>
-</div> -->
-<div class="row">
+<div class="row" style="margin-top: 30px;" >
     <div class="col">
-        <div class="jumbotron" style="margin-top: 30px;">
+        <div class="shadow p-4 rounded-lg bg-white">
             <div class="row">
                 <div class="col-2 text-center border-right">
                     <h2>{{active_loans}}</h2>
@@ -221,12 +211,12 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-6">
-        <app-active-loans [loans]="loans"></app-active-loans>
-    </div>
-    <div class="col-6">
+<div class="row"  style="margin-top: 30px;" >
+    <div class="col-8">
         <app-latest-payments [isLender]="true"></app-latest-payments>
+    </div>
+    <div class="col-4">
+        <app-active-loans [loans]="loans"></app-active-loans>
     </div>
 </div>
 

@@ -105,11 +105,11 @@
 </div>
 
 <div *ngIf="getURL()" style="margin-top: 50px;"></div>
-<div class="card">
-    <div class="card-header">
-        Pending Offers
+<div class="bg-white text-dark rounded-lg shadow">
+    <div class="p-3 border-bottom">
+        <h5 class="p-0 m-0">Pending Offers</h5>
     </div>
-    <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
+    <ul class="overflow-auto list-group list-group-flush rounded-lg" style="max-height: 75vh;">
         <a class="list-group-item list-group-item-action" *ngIf="!offers.length">
             No pending offers at this time.
         </a>
