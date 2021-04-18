@@ -8,6 +8,8 @@ import { NotificationComponent } from '../notification/notification.component';
 interface Loan {
   amount: number,
   borrower: number,
+  borrower_username: string,
+  lender_username: string,
   created_on: Date,
   loan_id: number,
   interest: number,

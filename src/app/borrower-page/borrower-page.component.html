@@ -94,8 +94,8 @@
     </div>
     <div class="col-4" *ngIf="!isParticipant">
         <div class="accordion shadow" id="offersAccordion">
-            <div class="bg-white text-dark rounded-top">
-                <div class="p-3 border-bottom" id="headingOne">
+            <div class="rounded-top">
+                <div class="p-3 border-bottom bg-white text-dark " id="headingOne">
                     <h5 class="m-0 p-0">
                         <div class="d-flex justify-content-between" type="button" data-toggle="collapse"
                             data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -135,9 +135,12 @@
                                         <del>{{ p_offer.months_orig }} month(s)</del> <b> {{ p_offer.months }}
                                             month(s)</b>
                                     </div>
-                                    <!-- <div class="col-6 text-right">
-                                        <div class="btn-group" role="group">
-                                            <button type="button" *ngIf="!p_offer.accepted" class="btn btn-secondary"
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="btn-group d-flex" role="group">
+                                            <button type="button" *ngIf="!p_offer.accepted" class="btn btn-secondary "
                                                 data-dismiss="modal" data-toggle="modal" data-target="#createOfferModal"
                                                 (click)="loadOfferInfo(j)">
                                                 Edit Offer
@@ -148,7 +151,7 @@
                                                 Withdraw
                                             </button>
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </a>
                         </ul>
@@ -158,8 +161,8 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white text-dark">
-                <div class="p-3 border-bottom" id="headingTwo">
+            <div>
+                <div class="p-3 border-bottom rounded-bottom bg-white text-dark" id="headingTwo">
                     <h5 class="m-0 p-0">
                         <div class="collapsed d-flex justify-content-between" type="button" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -169,8 +172,8 @@
                         </div>
                     </h5>
                 </div>
-                <div class="overflow-auto rounded-bottom" style="max-height: 40vh;">
-                    <div id="collapseTwo" class="collapse rounded-bottom" aria-labelledby="headingTwo"
+                <div class="overflow-auto" style="max-height: 40vh;">
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                         data-parent="#offersAccordion">
                         <ul class="list-group list-group-flush">
                             <a class="list-group-item list-group-item-action"
@@ -209,7 +212,7 @@
                                 </div>
                             </a>
                         </ul>
-                        <ul class="list-group list-group-flush rounded-bottom" *ngIf="rejected_offers.length == 0">
+                        <ul class="list-group list-group-flush" *ngIf="rejected_offers.length == 0">
                             <li class="list-group-item">No rejected offers availabe...</li>
                         </ul>
                     </div>

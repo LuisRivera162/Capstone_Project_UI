@@ -37,7 +37,7 @@ export class LatestPaymentsComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.payments = resData.Payments;
-      // console.log(this.payments);
+      console.log(this.payments);
     });
   }
 

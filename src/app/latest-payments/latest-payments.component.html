@@ -34,10 +34,10 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
                     <div *ngIf="this.user_id == payment.receiver_id">
-                        <i class="bi bi-arrow-down-left-circle"></i> Received {{payment.amount | currency}} from {{ payment.sender_id }}
+                        <i class="bi bi-arrow-down-left-circle"></i> Received {{payment.amount | currency}} from {{ payment.sender_username }}
                     </div>
                     <div *ngIf="this.user_id != payment.receiver_id">
-                        <i class="bi bi-arrow-up-left-circle"></i> Sent {{payment.amount | currency}} to {{ payment.receiver_id }}
+                        <i class="bi bi-arrow-up-left-circle"></i> Sent {{payment.amount | currency}} to {{ payment.receiver_username }}
                     </div>
                 </h5>
                 

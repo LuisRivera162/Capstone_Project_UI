@@ -19,7 +19,7 @@
                 <div class="form-group row" style="word-wrap: break-word;" *ngIf="curr_loan.borrower">
                     <label class="col-sm-6 col-form-label">Borrower</label>
                     <div class="col-sm-6 col-form-label">
-                        {{curr_loan.borrower}}
+                        {{curr_loan.borrower_username}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -140,9 +140,11 @@
                 data-target="#editLoanModal"
                 (click)="loadEditedLoan()">Edit Parameters</button>
             </div>  
-            <div class="modal-footer" *ngIf="curr_loan.state == 3">
+            <div class="modal-footer justify-content-center" *ngIf="curr_loan.state == 3">
+
                 <!-- <button type="button" class="btn btn-outline-danger">Reject Request</button> -->
                 <!-- <button type="button" class="btn btn-primary">Confirm Request</button> -->
+                <h5 class="text-warning"><i class="bi bi-exclamation-circle"></i> Waiting for Borrower Validation</h5>
                 <p class="text-center">If the payment is not validated by the borrower in a week, the money will be returned to your account.</p>
             </div> 
         </div>
@@ -405,7 +407,7 @@
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
             <small *ngIf="loan.borrower">
-                <b>Borrower:</b><a href="#"> {{loan.borrower}}</a></small>
+                <b>Borrower:</b><a href="#"> {{loan.borrower_username}}</a></small>
             <!-- <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#">{{ loan.eth_address }}</a></small>
             </p> -->
