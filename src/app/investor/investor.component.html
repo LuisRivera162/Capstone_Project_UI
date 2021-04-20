@@ -1,0 +1,184 @@
+<div class="modal fade" id="investModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Invest in Loan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="!waitingForMetamask && !showErrorPage && !showSuccessPage">
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label"><b>Loan ID</b></label>
+                        <div class="col-sm-6 col-form-label">
+                            {{ selected_loan.address }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label"><b>Loan Amount</b></label>
+                        <div class="col-sm-6 col-form-label">
+                            {{selected_loan.amount | currency}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label"><b>Block Price</b></label>
+                        <div class="col-sm-6 col-form-label">
+                            {{selected_loan.block_price | currency}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label"><b>Available Blocks</b></label>
+                        <div class="col-sm-6 col-form-label">
+                            {{selected_loan.available_blocks}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="waitingForMetamask">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center " style="height: 25vh;">
+                            <div class="spinner-border align-self-center" role="status"
+                                style="width: 4rem; height: 4rem;" *ngIf="!showErrorPage && !showSuccessPage">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+
+                            <i class="bi bi-x-circle text-danger" style="font-size: 4rem" *ngIf='showErrorPage'></i>
+                            <i class="bi bi-check-circle text-success" style="font-size: 4rem"
+                                *ngIf='showSuccessPage'></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            {{ message }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    *ngIf="!waitingForMetamask">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="buy_block()" *ngIf="!waitingForMetamask">Buy
+                    Block</button>
+                <button type="button" class="btn btn-secondary" *ngIf="showSuccessPage || showErrorPage">Dismiss</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="logged_in">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="bg-white text-dark rounded-lg shadow">
+                <div class="row p-3 text-center">
+                    <div class="col-4 border-right">
+                        <h3>{{ loans.length }}</h3>
+                        <p class="p-0 m-0">Active Loans</p>
+                    </div>
+                    <div class="col-4 border-right">
+                        <h3>{{ global_apy / loans.length | percent: '1.0-2'}}</h3>
+                        <p class="p-0 m-0">Avg. Investor APY</p>
+                    </div>
+                    <div class="col-4">
+                        <h3>{{ global_insured | currency }}</h3>
+                        <p class="p-0 m-0">Total Insured</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-8">
+            <div class="bg-white text-dark rounded-lg shadow">
+                <div class="row p-3">
+                    <div class="col-6">
+                        <h4>Active Loans</h4>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="option1" checked> All Loans
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option2"> Available
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option3"> Fully Insured
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 rounded-lg">
+                        <div class="list-group list-group-flush rounded-lg">
+                            <a class="list-group-item list-group-item-action" *ngFor="let loan of loans">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <h4 class="text-success p-0 m-0">{{loan.amount | currency}}</h4>
+                                    <span class="badge badge-success">{{ loan.apy | percent: '1.0-2' }} APY</span>
+                                </div>
+                                <p class="m-0 d-flex">
+                                    <i class="bi bi-box p-1"
+                                        [ngClass]="{'text-success': investor != '0x0000000000000000000000000000000000000000'}"
+                                        style="font-size: 1.5rem" *ngFor="let investor of loan.investors"></i>
+                                    <span class="ml-auto align-self-center"><b>{{loan.amount/10 * loan.n_insured |
+                                            currency
+                                            }}/{{loan.amount | currency}} ({{loan.n_insured/10 | percent}}) </b><a
+                                            href="#" data-toggle="modal" data-target="#investModal"
+                                            (click)="load_loan_data(loan)">Invest?</a></span>
+                                </p>
+
+                                <small>{{loan.address}}</small>
+                            </a>
+                            <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
+                                No loans found...
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="bg-white text-dark rounded-lg shadow p-3">
+                <!-- <div class="btn btn-primary" (click)="createStubLoans()">Load Stub Loans</div> -->
+                <div class="row border-bottom">
+                    <div class="col-6">
+                        <h5 class="pb-3 m-0">Investing</h5>
+                    </div>
+                    <div class="col-6 text-right">
+                        <h5 class="pb-3 m-0">{{ investing | currency}}</h5>
+                    </div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-6">
+                        <h5 class="pb-3 pt-3 m-0">Estimated APY</h5>
+                    </div>
+                    <div class="col-6 text-right">
+                        <h5 class="pb-3 pt-3 m-0">wip</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="pt-3 m-0">Current APY</h5>
+                    </div>
+                    <div class="col-6 text-right">
+                        <h5 class="pt-3 m-0">wip</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="!logged_in">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="bg-white text-dark rounded-lg shadow p-3">
+                <h1 class="display-4">MetaMask Wallet Required.</h1>
+                <p class="pt-1">Please authorize your MetaMask wallet to access this service. No personal data is stored us.</p>
+                <div class="btn btn-primary" (click)="requestMetaMask()"><i class="bi bi-wallet2"></i> Request MetaMask Access</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { NotificationsActionitemsComponent } from './notifications-actionitems/notifications-actionitems.component';
 import { PaymentScheduleComponent } from './payment-schedule/payment-schedule.component';
 import { PendingOffersComponent } from './offer/pending-offers/pending-offers.component';
+import { InvestorComponent } from './investor/investor.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
     MakePaymentComponent,
     NotificationsActionitemsComponent,
     PaymentScheduleComponent,
-    PendingOffersComponent
+    PendingOffersComponent,
+    InvestorComponent
   ],
   imports: [
     BrowserModule,
@@ -70,9 +72,8 @@ import { PendingOffersComponent } from './offer/pending-offers/pending-offers.co
       {path: 'active-loans', component: ActiveLoansComponent, canActivate: []},
       {path: 'entry', component: EntryComponent, canActivate: []},
       {path: 'profile', component: ProfileComponent, canActivate: []},
-      {path: 'pending-offers', component: PendingOffersComponent, canActivate: []},
-
-
+      {path: 'pending-offers', component: PendingOffersComponent},
+      {path: 'investor', component: InvestorComponent, canActivate: []},
     ]),
   ],
   providers: [],
