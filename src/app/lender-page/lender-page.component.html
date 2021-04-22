@@ -174,11 +174,23 @@
                     within a week or the loan will be automatically rejected.</h6>
                 <h6>Do you wish to procede?</h6>
             </div>
-            <div class="modal-footer justify-content-center">
+            <div class="modal-footer justify-content-center" *ngIf="offer_accept_isprocessing == 0">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="accept_offer()">
+                <button type="button" class="btn btn-danger" (click)="accept_offer()">
                     Confirm
                 </button>
+            </div>
+            <div class="modal-footer justify-content-center" *ngIf="offer_accept_isprocessing == -1">
+                <small  class="text-warning">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Processing offer acceptance, don't dismiss this form...
+                </small>
+            </div>
+            <div class="modal-footer justify-content-center" *ngIf="offer_accept_isprocessing == 1">
+                <small  class="text-success">
+                    <i class="bi bi-check-circle"></i>
+                    Successfully proccessed offer acceptance.
+                </small>
             </div>
         </div>
     </div>

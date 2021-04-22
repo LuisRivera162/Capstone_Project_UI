@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NotificationComponent } from '../notification/notification.component';
+import { timer } from 'rxjs';
 
 interface Loan {
   amount: number,
@@ -62,6 +63,8 @@ export class LenderPageComponent implements OnInit {
   loans: Loan[] = [];
   pending_offers: Offer[] = [];
   curr_offer: Offer = {} as Offer;
+
+  offer_accept_isprocessing = 0
 
   loans_processing = 0;
 
@@ -204,6 +207,7 @@ export class LenderPageComponent implements OnInit {
   }
 
   accept_offer() {
+    this.offer_accept_isprocessing = -1
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
@@ -211,18 +215,23 @@ export class LenderPageComponent implements OnInit {
         contractHash: this.curr_offer.eth_address     
       }
     ).subscribe(resData => {
+      this.offer_accept_isprocessing = 1.
+
+      this.HttpClient.put<any>(
+        '/api/update-loan-state',
+        {
+          loan_id: this.curr_offer.loan_id,
+          state: 2    
+        }
+      ).subscribe(resData => {
+        timer(2)
+        window.location.reload(); 
+      });
+      
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
     });
 
-    this.HttpClient.put<any>(
-      '/api/update-loan-state',
-      {
-        loan_id: this.curr_offer.loan_id,
-        state: 2    
-      }
-    ).subscribe(resData => {
-      window.location.reload(); 
-    });
+    
   }
 
   loadOfferInfo(index: number) {

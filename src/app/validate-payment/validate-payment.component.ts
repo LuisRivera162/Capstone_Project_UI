@@ -14,6 +14,8 @@ export class ValidatePaymentComponent implements OnInit {
 
   error: string = "null";
 
+  validation_in_progress = 0
+
   @Input() paymentToValidate = {
     payment_id: 0,
     receiver_id: 0,
@@ -57,6 +59,8 @@ export class ValidatePaymentComponent implements OnInit {
       return;
     }
 
+    this.validation_in_progress = 1
+    
     return this.HttpClient.post(
       '/api/validate-payment',
       {

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import { Location } from '@angular/common';
 
 @Component({
@@ -8,20 +8,32 @@ import { Location } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
+  // @HostListener('window:beforeunload', ['$event'])
+  // beforeunloadHandler($event: any) {
+  //   $event.preventDefault();
+  //   $event.returnValue = "Unsaved modifications";
+  // }
+
 
   constructor(private authService: AuthService,
-              private router: Router,
-              private location: Location
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit() {
     let login = this.authService.autoLogin();
-    if (this.location.path() == '/' || this.location.path() == '' && login == 0){
+    if (this.location.path() == '/' || this.location.path() == '' && login == 0) {
       this.router.navigate(['/home']);
     }
-    else if (login != 0){
-      this.router.navigate(['/entry']);
+    else if (login != 0) {
+      if (this.location.path() == '/investor') {
+        this.router.navigate(['/investor'])
+      } else {
+        this.router.navigate(['/entry']);
+      }
+
     }
   }
 

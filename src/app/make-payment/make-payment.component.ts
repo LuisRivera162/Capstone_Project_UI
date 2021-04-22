@@ -45,6 +45,7 @@ export class MakePaymentComponent implements OnInit {
     source: 0,
     paymentNumber: 0,
     evidence: "",
+    state: 0
   }
 
   ngOnInit(): void {
@@ -52,7 +53,7 @@ export class MakePaymentComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-    console.log("form sent..")
+    // console.log("form sent..")
 
     if (!form.valid) {
       this.error = "Form is not valid, make sure you fill all fields."
@@ -73,6 +74,8 @@ export class MakePaymentComponent implements OnInit {
 
     console.log( ((this.loan.payment_number == 0) ? this.loan.amount : this.loan.monthly_repayment))
 
+    this.payment.state = -1
+
     return this.HttpClient.post(
       '/api/send-payment',
       {
@@ -90,9 +93,10 @@ export class MakePaymentComponent implements OnInit {
             state: 3  
           }
         ).subscribe(resData => {
-          window.location.reload(); 
+          // window.location.reload(); 
+          this.payment.state = 1
         });
-        console.log(resData)
+        // console.log(resData)
       });
   }
 

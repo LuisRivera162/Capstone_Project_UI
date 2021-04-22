@@ -195,7 +195,7 @@ export class BorrowerPageComponent implements OnInit {
         this.currentLoan.rcvd_interest = 0; // reset
         this.currentLoan.monthly_repayment = 0
 
-        this.currentLoan.monthly_repayment = (((this.currentLoan.interest) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest) / 12)) ** (-this.currentLoan.months))
+        this.currentLoan.monthly_repayment = Number(((((this.currentLoan.interest) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest) / 12)) ** (-this.currentLoan.months))).toFixed(2))
 
         for (var i = 1; i <= this.currentLoan.months; i++) {
           if (month == 11) {

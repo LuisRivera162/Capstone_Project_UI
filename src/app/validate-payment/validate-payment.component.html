@@ -22,9 +22,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" *ngIf="!validation_in_progress">
                     <button class="btn btn-success" *ngIf="!validationPayload.isvalid">Validate</button>
                     <button class="btn btn-secondary" *ngIf="validationPayload.isvalid"  data-dismiss="modal">Dismiss</button>
+                </div>
+                <div class="modal-footer text-center" *ngIf="validation_in_progress">
+                    <small  class="text-warning">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Processing validation, don't dismiss this form...
+                    </small>
                 </div>
             </form>
         </div>

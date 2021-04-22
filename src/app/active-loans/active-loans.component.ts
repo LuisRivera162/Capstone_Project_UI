@@ -190,10 +190,11 @@ export class ActiveLoansComponent implements OnInit {
 
   loadEditedLoan() {
     this.edited_loan = JSON.parse(JSON.stringify(this.curr_loan)); 
-    this.edited_loan.interest = Number((this.edited_loan.interest * 100).toFixed(2));
+    this.edited_loan.interest = Number(this.edited_loan.interest*100);
   }
 
   confirmLoanChanges() {
+    this.curr_loan.state = -2
     this.HttpClient.put<any>(
       '/api/user-loan',
       {
@@ -207,7 +208,13 @@ export class ActiveLoansComponent implements OnInit {
       this.edited_loan.offers.forEach(offer => {
         this.notificationService.insert_nofitication(offer.borrower_id, 8);
       });
-      window.location.reload(); 
+      // window.location.reload(); 
+      this.curr_loan.amount = this.edited_loan.amount
+      this.curr_loan.interest = this.edited_loan.interest/100
+      this.curr_loan.months = this.edited_loan.months
+      this.curr_loan.platform = this.edited_loan.platform
+
+      this.curr_loan.state = 0
     });
   }
 
