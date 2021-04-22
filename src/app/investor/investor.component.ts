@@ -86,7 +86,7 @@ export class InvestorComponent implements OnInit {
           loans.forEach((loan) => {
             var dloan = new ethers.Contract(loan, loanInfo.abi, this.signer)
 
-            this.provider.getBalance(loan).then((res: any) => { console.log(res) })
+            // this.provider.getBalance(loan).then((res: any) => { console.log(res) })
 
             dloan.Info().then((res: any) => {
               dloan.GetInvestors().then((investors: any[]) => {
@@ -94,7 +94,7 @@ export class InvestorComponent implements OnInit {
                   ethers.BigNumber.from(res[2]).toNumber(),
                   ethers.BigNumber.from(res[4]).toNumber(),
                   ethers.BigNumber.from(res[5]).toNumber()
-                )
+                ) 
 
                 investors.forEach((investor) => {
                   if (investor != '0x0000000000000000000000000000000000000000') {
@@ -107,7 +107,7 @@ export class InvestorComponent implements OnInit {
                   }
                 })
 
-                this.global_apy += apy
+                this.global_apy += apy / (ethers.BigNumber.from(res[2]).toNumber()/10)
 
                 this.loans.push(
                   {
@@ -117,7 +117,7 @@ export class InvestorComponent implements OnInit {
                     investors: investors,
                     n_insured: 10 - this.calculateAvailableBlocks(investors),
                     address: loan,
-                    apy: apy
+                    apy: apy / (ethers.BigNumber.from(res[2]).toNumber()/10)
                   }
                 )
               })

@@ -16,7 +16,7 @@ interface Loan {
   offers: any[],
   platform: number,
   payment_number: number,
-  est_total_interest: number,
+  rcvd_interest: number,
   monthly_repayment: number
 }
 
@@ -120,7 +120,7 @@ export class BorrowerPageComponent implements OnInit {
       if (resData.Participant) {
         this.isParticipant = true;
       }
-      
+
       console.log(resData)
 
     });
@@ -192,10 +192,10 @@ export class BorrowerPageComponent implements OnInit {
 
         var balance = this.currentLoan.amount
 
-        this.currentLoan.est_total_interest = 0; // reset
+        this.currentLoan.rcvd_interest = 0; // reset
         this.currentLoan.monthly_repayment = 0
 
-        this.currentLoan.monthly_repayment = (((this.currentLoan.interest / 100) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest / 100) / 12)) ** (-this.currentLoan.months))
+        this.currentLoan.monthly_repayment = (((this.currentLoan.interest) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest) / 12)) ** (-this.currentLoan.months))
 
         for (var i = 1; i <= this.currentLoan.months; i++) {
           if (month == 11) {
@@ -205,14 +205,15 @@ export class BorrowerPageComponent implements OnInit {
             month++
           }
 
-
-          this.currentLoan.est_total_interest += ((this.currentLoan.interest / 100) / 12) * balance
-          balance -= (this.currentLoan.monthly_repayment - ((this.currentLoan.interest / 100) / 12) * balance)
+          var oldbalance = balance
+          this.currentLoan.rcvd_interest += ((this.currentLoan.interest) / 12) * balance
+          balance -= (this.currentLoan.monthly_repayment - ((this.currentLoan.interest) / 12) * balance)
 
           let payload = {
             date: new Date(year, month, day),
             payment: Math.round(this.currentLoan.monthly_repayment * 100) / 100,
             balance: Math.round(balance * 100) / 100,
+            interest: ((this.currentLoan.interest) / 12) * oldbalance,
             state: 0
           }
 
@@ -228,8 +229,17 @@ export class BorrowerPageComponent implements OnInit {
           this.paymentTable.push(payload)
         }
 
-        this.payment_due_date = new Date(this.paymentTable[0].date)
-        this.payment_due = this.paymentTable[0].payment
+        console.log(this.paymentTable)
+
+        for (let i = 0; i < this.paymentTable.length; i++) {
+          if (this.paymentTable[i].state == 0) {
+            this.payment_due_date = new Date(this.paymentTable[i].date)
+            this.payment_due = this.paymentTable[i].payment
+            break
+          }
+        }
+
+
       }
 
 

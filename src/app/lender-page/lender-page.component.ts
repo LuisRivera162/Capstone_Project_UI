@@ -20,7 +20,8 @@ interface Loan {
   platform: number,
   monthly_repayment: number,
   offers: any[],
-  payment_number: number
+  payment_number: number,
+  rcvd_interest: number
 }
 
 interface Offer {
@@ -53,6 +54,8 @@ export class LenderPageComponent implements OnInit {
   active_loans = 0;
   active_loans_balance = 0;
   pending_loans = 0;
+
+  overall_gain = 0;
 
   error: string = "null";
 
@@ -102,6 +105,7 @@ export class LenderPageComponent implements OnInit {
         else if (loan.state == 2 || loan.state == 3) {
           this.active_loans++;
           this.active_loans_balance += loan.balance;
+          this.overall_gain += loan.rcvd_interest
         }
       });
 

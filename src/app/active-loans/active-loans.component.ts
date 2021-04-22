@@ -31,7 +31,8 @@ interface Loan {
   platform: number,
   offers: any[],
   payment_number: number,
-  monthly_repayment: number
+  monthly_repayment: number,
+  rcvd_interest: number
 }
 
 interface Offer {
@@ -77,7 +78,8 @@ export class ActiveLoansComponent implements OnInit {
     platform: 0,
     offers: [],
     payment_number: 0,
-    monthly_repayment: 0
+    monthly_repayment: 0,
+    rcvd_interest: 0
   }
 
   curr_offer = {} as Offer; 
