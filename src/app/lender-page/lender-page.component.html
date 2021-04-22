@@ -221,8 +221,11 @@
             <div class="p-3 border-bottom">
                 <h5 class="m-0 p-0">Interest Received</h5>
             </div>
-            <div class="p-3">
-                <h5 class="m-0 p-0 text-success"><i class="bi bi-caret-up-fill"></i>{{ overall_gain | currency }}</h5>
+            <div class="p-3" *ngIf="overall_gain">
+                <h5 class="m-0 p-0 text-success"><i class="bi bi-caret-up-fill" ></i>{{ overall_gain | currency }}</h5>
+            </div>
+            <div class="p-3" *ngIf="!overall_gain">
+                <h5 class="m-0 p-0">{{ overall_gain | currency }}</h5>
             </div>
         </div>
         <app-active-loans [loans]="loans"></app-active-loans>
