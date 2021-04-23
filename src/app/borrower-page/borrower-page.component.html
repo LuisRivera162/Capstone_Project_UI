@@ -90,13 +90,13 @@
     </div>
 </div>
 <div class="row" style="margin-top: 30px;">
-    <div class="col-12">
+    <div class="col-8">
         <app-latest-payments [isLender]="false"></app-latest-payments>
     </div>
     <div class="col-4" *ngIf="!isParticipant">
         <div class="accordion shadow" id="offersAccordion">
-            <div class="rounded-top">
-                <div class="p-3 border-bottom bg-white text-dark " id="headingOne">
+            <div class="">
+                <div class="p-3 border-bottom bg-white text-dark rounded-top" id="headingOne">
                     <h5 class="m-0 p-0">
                         <div class="d-flex justify-content-between" type="button" data-toggle="collapse"
                             data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -165,7 +165,7 @@
             <div>
                 <div class="p-3 border-bottom rounded-bottom bg-white text-dark" id="headingTwo">
                     <h5 class="m-0 p-0">
-                        <div class="collapsed d-flex justify-content-between" type="button" data-toggle="collapse"
+                        <div class="collapsed d-flex justify-content-between rounded-bottom" type="button" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Rejected Offers
                             <span
@@ -173,7 +173,7 @@
                         </div>
                     </h5>
                 </div>
-                <div class="overflow-auto" style="max-height: 40vh;">
+                <div class="overflow-auto rounded-bottom " style="max-height: 40vh;">
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                         data-parent="#offersAccordion">
                         <ul class="list-group list-group-flush">

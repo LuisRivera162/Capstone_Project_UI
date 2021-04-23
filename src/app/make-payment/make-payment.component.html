@@ -25,12 +25,8 @@
                     <div class="form-group row">
                         <label for="platform" class="col-sm-6 col-form-label">Payment Source</label>
                         <div class="col-sm-6">
-                            <select id="source" class="form-control" name="source" [(ngModel)]="loan.platform" disabled>
-                                <option selected disabled value="0">Choose...</option>
-                                <option value="1">Venmo</option>
-                                <option value="2">ATH Movil</option>
-                                <option value="3">Paypal</option>
-                            </select>
+                            <input class="form-control" id="source" [(ngModel)]="platform[loan.platform]"
+                                name="source" required disabled *ngIf="loan.payment_number > 0"/>
                         </div>
                     </div>
                     <div *ngIf="loan.platform">

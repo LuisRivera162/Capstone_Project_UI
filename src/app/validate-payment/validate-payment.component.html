@@ -17,6 +17,7 @@
                         <label for="evidenceHash" class="col-sm-6 col-form-label">Evidence Hash</label>
                         <div class="col-sm-6">
                             <input type="string" class="form-control" id="evidenceHash"
+                                autocomplete="off" 
                                 [(ngModel)]="validationPayload.evidenceHash" name="evidenceHash" required />
                                 <p class="text-success" *ngIf="validationPayload.isvalid"><i class="bi bi-check-circle-fill"></i> Payment Validated!</p>
                         </div>
