@@ -19,6 +19,14 @@ export class LatestPaymentsComponent implements OnInit {
     payment_id: 0,
     receiver_id: 0,
     sender_id: 0,
+    lender: 0,
+    borrower: 0,
+    amount: 0, 
+    payment_date: new Date,
+    offer_id: 0,
+    loan_id: 0,
+    validation: 0,
+    validation_hash: 0
   }
 
   constructor(
@@ -58,8 +66,11 @@ export class LatestPaymentsComponent implements OnInit {
     return this.user_id == receiver_id ? "mb-1 text-success" : "mb-1 text-danger"; 
   }
 
-  get_modal(i: number, validation: boolean, validation_hash: string){
-    if (validation && validation_hash == ""){
+  get_modal(i: number, validation: boolean, validation_hash: string, payment_id: number){
+    if (payment_id == null){
+      return "";
+    }
+    else if (validation && validation_hash == ""){
       return "#txReceiptModal";
     }
     else if((validation && validation_hash != "") || this.payments[i].sender_id == this.authService.user_id){

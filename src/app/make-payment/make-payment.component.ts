@@ -59,14 +59,15 @@ export class MakePaymentComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-    // console.log("form sent..")
+    // console.log(form)
 
-    if (!form.valid) {
-      this.error = "Form is not valid, make sure you fill all fields."
-      console.log(this.error)
-      console.log(this.loan.platform)
-      return;
-    }
+    // if (!form.valid) {
+    //   this.error = "Form is not valid, make sure you fill all fields."
+    //   console.log(this.error)
+    //   console.log(this.loan.platform)
+    //   console.log(this.loan)
+    //   return;
+    // }
 
     this.error = "null";
 

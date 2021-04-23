@@ -28,35 +28,63 @@
         <a class="list-group-item list-group-item-action" *ngIf="!payments.length">
             No recent activity available.
         </a>
-        <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, payment.validated, payment.validation_hash)"
+        <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, payment.validated, payment.validation_hash, payment.payment_id)"
             class="list-group-item list-group-item-action" *ngFor="let payment of payments;  let i = index"  
             (click)="update_payment(i)" onmousedown="return false">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
-                    <div *ngIf="this.user_id == payment.receiver_id">
-                        <i class="bi bi-arrow-down-left-circle"></i> Received {{payment.amount | currency}} from {{ payment.sender_username }}
-                    </div>
-                    <div *ngIf="this.user_id != payment.receiver_id">
-                        <i class="bi bi-arrow-up-left-circle"></i> Sent {{payment.amount | currency}} to {{ payment.receiver_username }}
-                    </div>
-                </h5>
+            <div *ngIf="payment.payment_id">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
+                        <div *ngIf="this.user_id == payment.receiver_id">
+                            <i class="bi bi-arrow-down-left-circle"></i> Received {{payment.amount | currency}} from {{ payment.sender_username }}
+                        </div>
+                        <div *ngIf="this.user_id != payment.receiver_id">
+                            <i class="bi bi-arrow-up-left-circle"></i> Sent {{payment.amount | currency}} to {{ payment.receiver_username }}
+                        </div>
+                    </h5>
+                    
+                    <!-- <small>
+                        <b>{{user_id == payment.receiver_id ? 'From Lender' : 'To Borrower'}}:</b>
+                        {{user_id == payment.receiver_id? payment.sender_id : payment.receiver_id}}
+                    </small> -->
+                    <!-- <p class="mb-1">
+                        <small><b>Loan ID: </b><a href="#" data-toggle="modal"
+                                data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
+                    </p> -->
+                    <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
+                        {{get_validation_message(payment.validated, payment.validation_hash)}}
+                    </small>
+                </div>
                 
-                <!-- <small>
-                    <b>{{user_id == payment.receiver_id ? 'From Lender' : 'To Borrower'}}:</b>
-                    {{user_id == payment.receiver_id? payment.sender_id : payment.receiver_id}}
-                </small> -->
-                <!-- <p class="mb-1">
-                    <small><b>Loan ID: </b><a href="#" data-toggle="modal"
-                            data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
-                </p> -->
-                <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
-                    {{get_validation_message(payment.validated, payment.validation_hash)}}
-                </small>
+                <p class="mb-1">
+                    <small>{{payment.payment_date}}</small>
+                </p>
             </div>
-            
-            <p class="mb-1">
-                <small>{{payment.payment_date}}</small>
-            </p>
+            <div *ngIf="payment.loan_id">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-success">
+                        <div *ngIf="this.user_id == payment.lender">
+                            <i class="bi bi-check2-circle"></i> Loan {{payment.loan_id}} was successfully was created.
+                        </div>
+                    </h5>
+                </div>
+                
+                <p class="mb-1">
+                    <small>{{payment.payment_date}}</small>
+                </p>
+            </div>
+            <div *ngIf="payment.offer_id">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-success">
+                        <div >
+                            <i class="bi bi-check2-circle"></i> Offer {{payment.offer_id}} was successfully created.
+                        </div>
+                    </h5>
+                </div>
+                
+                <p class="mb-1">
+                    <small>{{payment.payment_date}}</small>
+                </p>
+            </div>
         </a>
     </ul>
 </div>
