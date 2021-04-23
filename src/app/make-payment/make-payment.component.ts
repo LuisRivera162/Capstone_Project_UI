@@ -30,6 +30,7 @@ interface Loan {
 export class MakePaymentComponent implements OnInit {
 
   error: string = "null";
+  platform = ['Venmo', 'PayPal', 'ATH Movil'];
 
   @Input() loan: Loan = {} as Loan;
 
@@ -49,6 +50,7 @@ export class MakePaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.loan.platform)
   }
 
   reloadPage() {
@@ -62,6 +64,7 @@ export class MakePaymentComponent implements OnInit {
     if (!form.valid) {
       this.error = "Form is not valid, make sure you fill all fields."
       console.log(this.error)
+      console.log(this.loan.platform)
       return;
     }
 
