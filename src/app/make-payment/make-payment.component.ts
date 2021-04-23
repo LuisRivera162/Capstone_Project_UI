@@ -51,6 +51,10 @@ export class MakePaymentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  reloadPage() {
+    window.location.reload()
+  }
+
   onSubmit(form: NgForm) {
 
     // console.log("form sent..")
@@ -93,10 +97,8 @@ export class MakePaymentComponent implements OnInit {
             state: 3  
           }
         ).subscribe(resData => {
-          // window.location.reload(); 
           this.payment.state = 1
         });
-        // console.log(resData)
       });
   }
 

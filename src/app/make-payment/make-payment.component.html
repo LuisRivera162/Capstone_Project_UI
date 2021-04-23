@@ -65,7 +65,7 @@
                     <button type="submit" class="btn btn-success">Review & Submit</button>
                 </div>
                 <div class="modal-footer" *ngIf="payment.state == 1" >
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reloadPage()">Dismiss</button>
                 </div>
             </form>
         </div>

@@ -107,7 +107,11 @@ export class InvestorComponent implements OnInit {
                   }
                 })
 
-                this.global_apy += apy / (ethers.BigNumber.from(res[2]).toNumber()/10)
+                // dont add apy to global apy if loan is withdrawn (state == 6)
+                if (ethers.BigNumber.from(res[7]).toNumber() != 6) {
+                  this.global_apy += apy / (ethers.BigNumber.from(res[2]).toNumber()/10)
+                }
+                  
 
                 this.loans.push(
                   {
@@ -117,9 +121,11 @@ export class InvestorComponent implements OnInit {
                     investors: investors,
                     n_insured: 10 - this.calculateAvailableBlocks(investors),
                     address: loan,
-                    apy: apy / (ethers.BigNumber.from(res[2]).toNumber()/10)
+                    apy: apy / (ethers.BigNumber.from(res[2]).toNumber()/10),
                   }
                 )
+
+                console.log(this.loans)
               })
             })
           })
@@ -200,11 +206,13 @@ export class InvestorComponent implements OnInit {
 
   }
 
-  public resetBooleans() {
-    location.reload()
-    // this.waitingForMetamask = false
-    // this.showErrorPage = false
-    // this.showSuccessPage = false
+  public dismissed() {
+    // location.reload()
+    this.showErrorPage = false
+    this.showSuccessPage = false
+    this.waitingForMetamask = false
+    
+
   }
 
   public load_loan_data(loan: any) {

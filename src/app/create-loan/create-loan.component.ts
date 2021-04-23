@@ -50,7 +50,7 @@ export class CreateLoanComponent implements OnInit {
 
     this.error = "null";
 
-    let loan_amount = form.value.loan_amount;
+    let loan_amount = Number(Number(form.value.loan_amount).toFixed(2));
     let interest = form.value.interest;
     let time_frame = form.value.time_frame;
     let platform = form.value.platform;
