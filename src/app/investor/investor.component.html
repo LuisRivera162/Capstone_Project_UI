@@ -76,7 +76,8 @@
                         <p class="p-0 m-0">Active Loans</p>
                     </div>
                     <div class="col-4 border-right">
-                        <h3>{{ global_apy / loans.length | percent: '1.0-2'}}</h3>
+                        <h3 *ngIf="loans.length">{{ global_apy / loans.length | percent: '1.0-2'}}</h3>
+                        <h3 *ngIf="!loans.length">{{ 0 | percent: '1.0-2'}}</h3>
                         <p class="p-0 m-0">Avg. Investor APY</p>
                     </div>
                     <div class="col-4">
@@ -154,7 +155,7 @@
                         <h5 class="pb-3 pt-3 m-0">Estimated APY</h5>
                     </div>
                     <div class="col-6 text-right">
-                        <h5 class="pb-3 pt-3 m-0">wip</h5>
+                        <h5 class="pb-3 pt-3 m-0">{{ estimated_apy | currency }}</h5>
                     </div>
                 </div>
                 <div class="row">
@@ -162,7 +163,7 @@
                         <h5 class="pt-3 m-0">Current APY</h5>
                     </div>
                     <div class="col-6 text-right">
-                        <h5 class="pt-3 m-0">wip</h5>
+                        <h5 class="pt-3 m-0">{{ current_apy | currency }}</h5>
                     </div>
                 </div>
             </div>
@@ -175,7 +176,7 @@
         <div class="col-12">
             <div class="bg-white text-dark rounded-lg shadow p-3">
                 <h1 class="display-4">MetaMask Wallet Required.</h1>
-                <p class="pt-1">Please authorize your MetaMask wallet to access this service. No personal data is stored us.</p>
+                <p class="pt-1">Please authorize your MetaMask wallet to access this service. No personal data is stored by us.</p>
                 <div class="btn btn-primary" (click)="requestMetaMask()"><i class="bi bi-wallet2"></i> Request MetaMask Access</div>
             </div>
         </div>

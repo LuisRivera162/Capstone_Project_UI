@@ -17,6 +17,7 @@ interface Loan {
   platform: number,
   payment_number: number,
   rcvd_interest: number,
+  est_interest: number,
   monthly_repayment: number
 }
 
@@ -192,7 +193,7 @@ export class BorrowerPageComponent implements OnInit {
 
         var balance = this.currentLoan.amount
 
-        this.currentLoan.rcvd_interest = 0; // reset
+        this.currentLoan.est_interest = 0; // reset
         this.currentLoan.monthly_repayment = 0
 
         this.currentLoan.monthly_repayment = Number(((((this.currentLoan.interest) / 12) * this.currentLoan.amount) / (1 - (1 + ((this.currentLoan.interest) / 12)) ** (-this.currentLoan.months))).toFixed(2))
@@ -206,7 +207,7 @@ export class BorrowerPageComponent implements OnInit {
           }
 
           var oldbalance = balance
-          this.currentLoan.rcvd_interest += ((this.currentLoan.interest) / 12) * balance
+          this.currentLoan.est_interest += ((this.currentLoan.interest) / 12) * balance
           balance -= (this.currentLoan.monthly_repayment - ((this.currentLoan.interest) / 12) * balance)
 
           let payload = {

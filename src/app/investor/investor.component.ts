@@ -27,6 +27,9 @@ export class InvestorComponent implements OnInit {
   public investing = 0.00
   public invested_in: { [key: string]: number } = {}
   public blocks = 0
+  public estimated_apy = 0.00
+  public current_apy = 0.00
+
   public waitingForMetamask = false;
   public showSuccessPage = false
   public showErrorPage = false
@@ -101,6 +104,9 @@ export class InvestorComponent implements OnInit {
                     if (investor == this.account) {
                       // found logged in wallet, save investment
                       this.investing += (ethers.BigNumber.from(res[2]).toNumber() / 10)
+
+                      console.log(apy)
+                      this.estimated_apy += apy
                     }
 
                     this.global_insured += ethers.BigNumber.from(res[2]).toNumber() / 10

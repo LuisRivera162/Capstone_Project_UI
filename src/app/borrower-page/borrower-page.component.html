@@ -90,7 +90,7 @@
     </div>
 </div>
 <div class="row" style="margin-top: 30px;">
-    <div class="col-12">
+    <div [ngClass]="{'col-12': isParticipant === true, 'col-8' : isParticipant === false }">
         <app-latest-payments [isLender]="false"></app-latest-payments>
     </div>
     <div class="col-4" *ngIf="!isParticipant">
