@@ -49,14 +49,25 @@ export class MakePaymentComponent implements OnInit {
     state: 0
   }
 
+  /**
+   * Initial code ran when component is loaded. 
+   */
   ngOnInit(): void {
     console.log(this.loan.platform)
   }
 
+  /**
+   * Reloades current page. 
+   */
   reloadPage() {
     window.location.reload()
   }
 
+  /**
+   * 
+   * @param form Submission form when sending payment. 
+   * @returns Payment ID created upon success, Null object upon failure. 
+   */
   onSubmit(form: NgForm) {
 
     // console.log(form)
