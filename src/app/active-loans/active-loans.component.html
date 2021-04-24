@@ -40,6 +40,12 @@
                         {{curr_loan.months}} months
                     </div>
                 </div>
+                <div class="form-group row" style="word-wrap: break-word;">
+                    <label class="col-sm-6 col-form-label">Payment Platform</label>
+                    <div class="col-sm-6 col-form-label">
+                        {{platform[curr_loan.platform]}}
+                    </div>
+                </div>
 
                 <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 2">
                     <div class="card">
@@ -272,7 +278,7 @@
                     </div>
                 </div>
                 <hr>
-                <!-- <div id="calculatedEstimates">
+                <div id="calculatedEstimates">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
                         <h5 class="mb-1 text-success">{{monthly_repayment | currency }}</h5>
@@ -283,7 +289,7 @@
                             ({{est_total_interest /
                                 curr_loan.amount | percent: '1.0-2' }})</h5>
                     </div>
-                </div> -->
+                </div>
             </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -361,6 +367,19 @@
                     </div>
                     <div class="col-sm-4 d-flex justify-content-center">
                         {{this.platform[this.edited_loan.platform]}} 
+                    </div>
+                </div>
+                <hr>
+                <div id="calculatedEstimates">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Monthly Payment</h5>
+                        <h5 class="mb-1 text-success">{{monthly_repayment | currency }}</h5>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Yield</h5>
+                        <h5 class="mb-1 text-success">+{{est_total_interest | currency }}
+                            ({{est_total_interest /
+                                curr_loan.amount | percent: '1.0-2' }})</h5>
                     </div>
                 </div>
             </div>
