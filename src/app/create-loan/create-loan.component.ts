@@ -37,10 +37,31 @@ export class CreateLoanComponent implements OnInit {
     private notificationService: NotificationComponent
   ) { }
 
+
+  /**
+   * 
+   * Initial code ran when component is loaded. 
+   * in this case, calls forward the recalculateEstimates 
+   * local method in order to load the loan profits interface 
+   * upon loading this component. 
+   * 
+   */
   ngOnInit(): void {
     this.recalculateEstimates();
   }
 
+  /**
+   * 
+   * Main method when user submits a form, retrieves the form's
+   * values and sends an http 'POST' request to the route 
+   * '/api/create-loan' which returns the new loan_id of the 
+   * successfully created loan or an error. 
+   * 
+   * @param form Submitted user form.
+   * @returns Null, if the form is not valid or user is invalid. 
+   * Returns the response from the server upon valid form and user. 
+   * The response may be an error or expected value. 
+   */
   onSubmit(form: NgForm) {
 
     if (!form.valid) {
@@ -80,6 +101,17 @@ export class CreateLoanComponent implements OnInit {
       });
   }
 
+  /**
+   * 
+   * This method calculates the estimated total interest to be
+   * gained from a loan depending on its interest, amount and 
+   * monthly repayment parameters, in order for the lender to 
+   * recognize the pottential profits to be made from his loan. 
+   * 
+   * @param loan The loan object to be used for the evaluation 
+   * of profit returns. 
+   * @returns Null if invalid values. 
+   */
   recalculateEstimates() {
     if (this.loan.interest <= 0 || this.loan.months < 3) return
 
