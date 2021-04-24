@@ -22,6 +22,14 @@ export class HomeComponent implements OnInit {
 
   user_type = this.authService.user.getValue()!.lender;
 
+  /**
+   * 
+   * Initial code ran when component is loaded. 
+   * in this case, re-routes the user to the 
+   * corresponding page, depending if the user 
+   * is a lender or a borrower. 
+   * 
+   */
   ngOnInit(): void {
     if(this.user_type){
       this.router.navigate(['/lender']);
