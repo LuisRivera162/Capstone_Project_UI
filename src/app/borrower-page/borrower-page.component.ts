@@ -83,6 +83,15 @@ export class BorrowerPageComponent implements OnInit {
     private HttpClient: HttpClient
   ) { }
 
+
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, gets the user logged in user, 
+   * user-loans, checks to see if the user is in 
+   * a current loan, pending offers, and rejected 
+   * offers the user may have from the back-end 
+   * server. 
+   */
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
 
@@ -152,9 +161,14 @@ export class BorrowerPageComponent implements OnInit {
 
   }
 
+  /**
+   * On submission of the main form, this method sends an
+   * http 'DELETE' request to the route '/api/withdraw-offer'
+   * on the back-end server in order to delete an offer upon 
+   * user request. 
+   */
   onSubmit() {
     const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
-    // console.log(params)
     this.HttpClient.delete<any>(
       '/api/withdraw-offer',
       {
@@ -165,14 +179,37 @@ export class BorrowerPageComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   * Sets the value of the instance variable 'curr_offer' to the 
+   * offer in the index provided within the array 'pending_offers'. 
+   * Called when a users clicks on an offer in order to load the 
+   * values of the offer. 
+   * 
+   * @param index Index of the offer selected by the user.
+   */
   loadOfferInfo(index: number) {
     this.curr_offer = this.pending_offers[index]
   }
 
+  /**
+   * 
+   * Sets the value of the instance variable 'curr_offer' to the 
+   * offer in the index provided within the array 'rejected_offers'. 
+   * Called when a users clicks on an offer in order to load the 
+   * values of the offer. 
+   * 
+   * @param index Index of the offer selected by the user.
+   */
   loadRejectedOfferInfo(index: number) {
     this.curr_offer = this.rejected_offers[index]
   }
 
+  /**
+   * Loads the payment schedule a borrower may have based on the
+   * loan's number of months to pay, payments due, and interest rate, 
+   * for the user to see which days he has to pay. 
+   */
   loadPaymentSchedule() {
     const params = new HttpParams().append('loan_id', this.currentLoan.loan_id.toString());
     this.HttpClient.get(
@@ -239,15 +276,8 @@ export class BorrowerPageComponent implements OnInit {
             break
           }
         }
-
-
       }
-
-
     });
-
-
-
   }
 
 }
