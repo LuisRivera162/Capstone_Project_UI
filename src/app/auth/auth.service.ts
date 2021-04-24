@@ -25,6 +25,24 @@ export class AuthService {
     private router: Router
     ) {}
 
+
+  /**
+   * 
+   * Method used in order to sign up users. Sends and http 'POST' 
+   * request to the back-end route '/api/register', and locally
+   * stores the user object returned upon success to the browser. 
+   * 
+   * @param username username to submit
+   * @param first_name  first_name to submit
+   * @param last_name  last_name to submit
+   * @param email  email to submit
+   * @param password  password to submit
+   * @param conf_password  conf_password to submit
+   * @param age  age to submit
+   * @param phone  phone to submit
+   * @param lender  lender to submit
+   * @returns server response from the back-end. 
+   */
   signUp(username: string, first_name: string, last_name: string, email: string, password: string,
     conf_password: string, age: BigInteger, phone: string, lender: boolean) {
     return this.http.post<AuthResponseData>(
@@ -43,6 +61,16 @@ export class AuthService {
       }));
   }
 
+  /**
+   * 
+   * Method used in order to login users. Sends and http 'POST' 
+   * request to the back-end route '/api/login', and locally
+   * stores the user object returned upon success to the browser.
+   * 
+   * @param email email to submit
+   * @param password password to submit
+   * @returns server response from the back-end. 
+   */
   login(email: string, password: string) {
     return this.http.post<AuthResponseData>(
       '/api/login',
@@ -64,6 +92,14 @@ export class AuthService {
     }));
   }
 
+
+  /**
+   * Method used in order to auto login user when 
+   * user credentials are located within the browser. 
+   * 
+   * @returns -1, when no user credentials are found, 
+   * 0 when user credentials are found within the browser. 
+   */
   autoLogin(){
     const userData: {
       email: string;
@@ -80,6 +116,10 @@ export class AuthService {
     return 0
   }
 
+  /**
+   * Removes user credentials found in the local browser 
+   * upon logout. 
+   */
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
