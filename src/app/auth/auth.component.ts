@@ -34,38 +34,70 @@ export class AuthComponent implements OnInit {
     private HttpClient: HttpClient
   ) {}
 
+  /**
+   * 
+   * Used in order to dynamically change the login component height due 
+   * to the amount of fields in each form. 
+   * 
+   * @param mode The mode it is in, true if in the register interface,
+   * false if in the login interface. 
+   */
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
     this.loginStyle = mode ? "750px" : "440px";
   }
 
+  /**
+   * 
+   * Method used in order to confirm if the credentials upon register 
+   * are valid. In the case a user email or username already exists,
+   * it is considered invalid. 
+   * 
+   * @param email User email
+   * @param password User password
+   * @param age User age
+   * @param first_name User first name
+   * @param last_name User last name
+   * @param conf_password User confirmed password
+   * @param username User username
+   * @param phone User phone
+   */
   check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
     const params = new HttpParams().append('email', email).append("username",username);
     this.errorOnEmail = false
     this.errorOnUsername = false
     this.HttpClient.get<ResultData>(
-      '/api/check-emails_user',
+      '/api/check-emails-user',
       {
         params
       }
     ).subscribe(resData => {
       this.check = ((resData.Result1) || (resData.Result2))
-      console.log(resData)
       if(!this.check){
         this.sign_up(email,password,age,first_name,last_name,conf_password,username,phone)
       }else{
         if (resData.Result1){
-          console.log("cant register this user as the email already exist")
+          console.log("Cannot register this user as the email already exist")
           this.errorOnEmail = true
         }
         if (resData.Result2) {
-          console.log("cant register this user as the username already exist")
+          console.log("Cannot register this user as the username already exist")
           this.errorOnUsername = true
         }
       }
     });
   }
 
+  /**
+   * 
+   * On submit method when users sends in the login form,
+   * detects valid form, if correct sends a login 
+   * request to the authentification 
+   * service component. 
+   * 
+   * @param form User submitted form
+   * @returns Null if the form is not valid. 
+   */
   onSubmit(form: NgForm){
 
     if (!form.valid){
@@ -105,17 +137,43 @@ export class AuthComponent implements OnInit {
         }
       );
     }
-    // form.reset();
+    form.reset();
   }
 
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, scrolls the page to the top.
+   */
   ngOnInit(): void {
     window.scrollTo(0,0)
   }
 
+  /**
+   * 
+   * Method in order to choose if a user wants to be a lender or a borrower, 
+   * within the register page. 
+   * 
+   * @param target True in order to check for lender, false for borrower.
+   * 
+   */
   onItemChange(target: boolean) {
     this.lender = target
   }
 
+  /**
+   * 
+   * Method in order to sign up in the application, sends the form 
+   * credentials to the authentication service component. 
+   * 
+   * @param email User email
+   * @param password User password
+   * @param age User age
+   * @param first_name User first name
+   * @param last_name User last name
+   * @param conf_password User confirmed password
+   * @param username User username
+   * @param phone User phone
+   */
   private sign_up(email: any, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any) {
     this.errorOnRegister = false;
     this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
