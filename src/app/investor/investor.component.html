@@ -61,7 +61,7 @@
                     *ngIf="!waitingForMetamask">Cancel</button>
                 <button type="button" class="btn btn-primary" (click)="buy_block()" *ngIf="!waitingForMetamask">Buy
                     Block</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="dismissed()" *ngIf="showSuccessPage || showErrorPage">Dismiss</button>
+                <button type="button" class="btn btn-secondary" (click)="dismissed()" *ngIf="showSuccessPage || showErrorPage">Dismiss</button>
             </div>
         </div>
     </div>
@@ -131,8 +131,13 @@
 
                                 <small>{{loan.address}}</small>
                             </a>
-                            <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
+                            <a class="list-group-item list-group-item-action" *ngIf="!loans.length && !loadingData">
                                 No loans found...
+                            </a>
+                            <a class="list-group-item list-group-item-action text-center" *ngIf="loadingData">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
                             </a>
                         </div>
                     </div>

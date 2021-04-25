@@ -20,6 +20,8 @@ export class InvestorComponent implements OnInit {
 
   private loanAbi: any;
 
+  public loadingData = false;
+
   public loans: any[] = [];
   public global_apy = 0.00;
   public global_insured = 0.00;
@@ -81,6 +83,8 @@ export class InvestorComponent implements OnInit {
 
   private async getLoans() {
     // get loans from factory contract and store in local memory
+    this.loadingData = true
+
     this.HttpClient.get<any>('/api/getloan')
       .subscribe(loanInfo => {
         this.loanAbi = loanInfo.abi
@@ -90,6 +94,14 @@ export class InvestorComponent implements OnInit {
             var dloan = new ethers.Contract(loan, loanInfo.abi, this.signer)
 
             // this.provider.getBalance(loan).then((res: any) => { console.log(res) })
+            dloan.queryFilter(dloan.filters.PaidInvestor(null, this.signer.address)).then((res) => {
+              console.log(res)
+              res.forEach((investorPaid) => {
+                console.log(investorPaid.args)
+                // console.log(Number(ethers.utils.formatEther(investorPaid.args?.weis))/.0005)
+                this.current_apy += Number(ethers.utils.formatEther(investorPaid.args?.weis))/.0005
+              })
+            })
 
             dloan.Info().then((res: any) => {
               dloan.GetInvestors().then((investors: any[]) => {
@@ -105,7 +117,6 @@ export class InvestorComponent implements OnInit {
                       // found logged in wallet, save investment
                       this.investing += (ethers.BigNumber.from(res[2]).toNumber() / 10)
 
-                      console.log(apy)
                       this.estimated_apy += apy
                     }
 
@@ -131,11 +142,13 @@ export class InvestorComponent implements OnInit {
                   }
                 )
 
-                console.log(this.loans)
+                
+
+                // console.log(this.loans)
               })
             })
           })
-
+          this.loadingData = false
         }).catch((error: Error) => {
           console.log(error)
         })
@@ -143,14 +156,10 @@ export class InvestorComponent implements OnInit {
       });
   }
 
-  // public async getInsuredByInvestor() {
-  //   // for loan in loans get insured by me
-  //   this.loans.forEach((loan) => {
-  //     loan.inversors.forEach((investor: any) => {
-
-  //     })
-  //   })
-  // }
+  public async getInterestPaymentEvents() {
+    // for loan in loans
+    // get payment event using ethers
+  }
 
   public async buyBlock(loan_eth_address: string) {
     // send required ether amount to loan contract
@@ -213,12 +222,7 @@ export class InvestorComponent implements OnInit {
   }
 
   public dismissed() {
-    // location.reload()
-    this.showErrorPage = false
-    this.showSuccessPage = false
-    this.waitingForMetamask = false
-    
-
+    location.reload()
   }
 
   public load_loan_data(loan: any) {
