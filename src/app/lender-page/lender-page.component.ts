@@ -88,6 +88,12 @@ export class LenderPageComponent implements OnInit {
     private notificationService: NotificationComponent
   ) { }
 
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, sends a 'GET' http request to the back-end
+   * in order to fill user loans and pending offers to their
+   * respective instance variables if any found. 
+   */
   ngOnInit(): void {
 
     const params = new HttpParams().append('user_id', this.user_id);
@@ -125,6 +131,17 @@ export class LenderPageComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   * On submission of the form when creating loans, this method 
+   * retrieves the parameters a user has given in order to create
+   * the desired loan, once retrieved, sends an http 'POST' request
+   * with the given parameters in order to create the loan. 
+   * 
+   * @param form Form submitted by user. 
+   * @returns Null if invalid form, otherwise, the loan_id
+   * of the created loan. 
+   */
   onSubmit(form: NgForm) {
 
     if (!form.valid) {
@@ -175,6 +192,15 @@ export class LenderPageComponent implements OnInit {
       });
   }
 
+
+  /**
+   * 
+   * Initial code ran when component is loaded. 
+   * in this case, calls forward the recalculateEstimates 
+   * local method in order to load the loan profits interface 
+   * upon loading this component. 
+   * 
+   */
   recalculateEstimates() {
     if (this.loan.interest <= 0 || this.loan.months < 3) return
 
@@ -194,6 +220,11 @@ export class LenderPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Sends an http 'PUT' request with the offer_id 
+   * of the'curr_offer' instance variable in order 
+   * to withdraw chosen offer. 
+   */
   reject_offer() {
     this.HttpClient.put<any>(
       '/api/reject-offer',
@@ -206,6 +237,14 @@ export class LenderPageComponent implements OnInit {
     });
   }
 
+  /**
+   * Sends an http 'PUT' request with the 'offer_id' 
+   * and the 'contractHash' of the'curr_offer' instance 
+   * variable in order to accept chosen offer, updates 
+   * loan state of the loan corresponding to the offer 
+   * accepted, and sends a notification to the borrower,
+   * informing him an offer was accepted. 
+   */
   accept_offer() {
     this.offer_accept_isprocessing = -1
     this.HttpClient.put<any>(
@@ -230,10 +269,17 @@ export class LenderPageComponent implements OnInit {
       
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
     });
-
-    
   }
 
+  /**
+   * 
+   * Sets the value of the instance variable 'curr_offer' to the 
+   * offer in the index provided within the array 'pending_offers'. 
+   * Called when a users clicks on an offer in order to load the 
+   * values of the offer. 
+   * 
+   * @param index Index of the offer selected by the user.
+   */
   loadOfferInfo(index: number) {
     this.curr_offer = this.pending_offers[index]
   }
