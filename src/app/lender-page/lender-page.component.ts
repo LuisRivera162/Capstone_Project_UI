@@ -95,8 +95,8 @@ export class LenderPageComponent implements OnInit {
    * respective instance variables if any found. 
    */
   ngOnInit(): void {
-
     const params = new HttpParams().append('user_id', this.user_id);
+
     this.HttpClient.get<any>(
       '/api/user-loans',
       {
@@ -105,9 +105,6 @@ export class LenderPageComponent implements OnInit {
     ).subscribe(resData => {
       resData.forEach((loan: Loan) => {
         this.loans.push(loan);
-
-        
-
         if (loan.state == 0) {
           this.available_loans++;
         }
@@ -117,7 +114,6 @@ export class LenderPageComponent implements OnInit {
           this.overall_gain += loan.rcvd_interest
         }
       });
-
       console.log(this.loans)
     });
 
@@ -143,7 +139,6 @@ export class LenderPageComponent implements OnInit {
    * of the created loan. 
    */
   onSubmit(form: NgForm) {
-
     if (!form.valid) {
       this.error = "Form is not valid, make sure you fill all fields."
       return;
@@ -266,7 +261,6 @@ export class LenderPageComponent implements OnInit {
         timer(2)
         window.location.reload(); 
       });
-      
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
     });
   }
