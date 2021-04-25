@@ -36,6 +36,14 @@ export class LatestPaymentsComponent implements OnInit {
     private notificationService: NotificationComponent
     ) { }
 
+  /**
+   * 
+   * Initial code ran when component is loaded. 
+   * In this case, retrieves all user payments
+   * from the database and loads the http 
+   * 'GET' response to the variable 'payments'. 
+   * 
+   */
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
     this.HttpClient.get<any>(
@@ -49,8 +57,17 @@ export class LatestPaymentsComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   * Method used in order to determine the bootstrap 
+   * class to be used when considering a payment. 
+   * In this case the validation of the payment. 
+   * 
+   * @param validation boolean denoting the validation of the payment. 
+   * @param validation_hash validation hash of the payment if any. 
+   * @returns The corresponding bootstrap class to be used for the payment view. 
+   */
   get_validation_class(validation: boolean, validation_hash: string){
-    
     if (validation && validation_hash == ""){
       return "text-warning";
     }
@@ -62,10 +79,30 @@ export class LatestPaymentsComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * Used to determine the bootstrap class to be used
+   * based on if the user received or sent a payment. 
+   * 
+   * @param receiver_id The user_id of the receiver. 
+   * @returns The bootstrap class to be used. 
+   */
   get_relative_payment(receiver_id: string){
     return this.user_id == receiver_id ? "mb-1 text-success" : "mb-1 text-danger"; 
   }
 
+  /**
+   * 
+   * Method used in order to determine which modal to be used based 
+   * on a set of variables, passed on as parameters. 
+   * 
+   * @param i Index of the payment clicked. 
+   * @param validation Payment validated clause. 
+   * @param validation_hash Payment validation hash, if any.
+   * @param payment_id The payment_id of the clicked payment. 
+   * @returns The modal to be displayed upon click. 
+   * 
+   */
   get_modal(i: number, validation: boolean, validation_hash: string, payment_id: number){
     if (payment_id == null){
       return "";
@@ -81,6 +118,15 @@ export class LatestPaymentsComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * Method used to determine the validation message based on the
+   * current status of a payment. 
+   * 
+   * @param validation Payment validated clause. 
+   * @param validation_hash Payment validation hash, if any.
+   * @returns Validation message to be displayed. 
+   */
   get_validation_message(validation: boolean, validation_hash: string){
     if (validation && validation_hash == ""){
       return "Validation Pending";
@@ -93,6 +139,15 @@ export class LatestPaymentsComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * Sets the value of the instance variable 'paymentToValidate' to the 
+   * payment in the index provided within the array 'payments'. 
+   * Called when a users clicks on a payment in order to load the 
+   * values of the payment. 
+   * 
+   * @param index Index of the payment selected by the user.
+   */
   update_payment(index: number){
     this.paymentToValidate = this.payments[index];
   }

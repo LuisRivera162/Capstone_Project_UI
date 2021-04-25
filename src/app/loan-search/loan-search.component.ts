@@ -40,6 +40,12 @@ export class LoanSearchComponent implements OnInit {
     private notificationService: NotificationComponent
   ) { }
 
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, sends an http 'GET' request 
+   * in order to retrieve all available loans
+   * for the borrower to check out.
+   */
   ngOnInit(): void {
     this.HttpClient.get<any>(
       '/api/loans',
@@ -49,11 +55,25 @@ export class LoanSearchComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   * Sets the value of the instance variable 'curr_loan' to the 
+   * loan in the index provided within the array 'loans'. 
+   * Called when a users clicks on an loan in order to load the 
+   * values of the loan. 
+   * 
+   * @param index Index of the loan selected by the user.
+   */
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
     this.monthlyPayment()
   }
 
+  /**
+   * This method sends an http 'POST' to the '/api/create-offer' 
+   * route with the original loan parameters in order to create
+   * an offer with identical parameters to the original loan. 
+   */
   requestLoan() {
     this.HttpClient.post(
       '/api/create-offer',
@@ -69,10 +89,13 @@ export class LoanSearchComponent implements OnInit {
       ).subscribe(resData => {
         this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
         this.router.navigate(['/borrower']);
-        // alert('offer submited!')
     });
   }
 
+  /**
+   * Calculates the monthly repayment based on the 
+   * loan clicked by the borrower. 
+   */
   monthlyPayment() {
     this.curr_loan.monthly_repayment = (((this.curr_loan.interest) / 12) * this.curr_loan.amount) / (1 - (1 + ((this.curr_loan.interest) / 12)) ** (-this.curr_loan.months))
   }
