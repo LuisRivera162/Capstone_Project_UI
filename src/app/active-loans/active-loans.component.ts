@@ -92,7 +92,7 @@ export class ActiveLoansComponent implements OnInit {
 
   edited_loan = {} as Loan;
 
-  platform = ['', 'Venmo', 'ATH Movil', 'PayPal']
+  platform = ['Venmo', 'ATH Movil', 'PayPal']
 
   constructor(
     private authService: AuthService,
@@ -134,6 +134,7 @@ export class ActiveLoansComponent implements OnInit {
           loan_id: this.curr_loan.loan_id
         }
       ).subscribe(resData => {
+        this.notificationService.insert_nofitication(Number(this.authService.user_id), 11);
         window.location.reload();
         console.log("lender withdrew loan, do something here...");
       });

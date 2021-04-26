@@ -271,9 +271,9 @@
                     <div class="col-sm-6">
                         <select id="platform" class="form-control" name="platform" [(ngModel)]="edited_loan.platform">
                             <option selected disabled value="0">Choose...</option>
-                            <option value="1">Venmo</option>
-                            <option value="2">ATH Movil</option>
-                            <option value="3">Paypal</option>
+                            <option value="0">Venmo</option>
+                            <option value="1">ATH Movil</option>
+                            <option value="2">Paypal</option>
                         </select>
                     </div>
                 </div>
@@ -366,7 +366,7 @@
                         {{this.platform[this.curr_loan.platform]}}
                     </div>
                     <div class="col-sm-4 d-flex justify-content-center">
-                        {{this.platform[this.edited_loan.platform]}} 
+                        {{this.platform[this.edited_loan.platform]}}
                     </div>
                 </div>
                 <hr>
