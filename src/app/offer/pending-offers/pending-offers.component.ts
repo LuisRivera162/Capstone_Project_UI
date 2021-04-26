@@ -52,6 +52,7 @@ export class PendingOffersComponent implements OnInit {
       params
     }).subscribe((resData:any) => {
       this.offers = resData.Offers; 
+      console.log(this.offers)
     });
   }
 
@@ -80,20 +81,20 @@ export class PendingOffersComponent implements OnInit {
   }
 
   /**
-   * Main submission method, in this case used when the user
-   * decides to withdraw an offer, sends an http 'DELETE' request
-   * to the route '/api/withdraw-offer'. 
+   * On submission of the main form, this method sends an
+   * http 'PUT' request to the route '/api/withdraw-offer'
+   * on the back-end server in order to set the offer to 
+   * the 'withdrawn' state upon user request. 
    */
-  onSubmit() {
-    const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
-    this.HttpClient.delete<any>(
-      '/api/withdraw-offer',
-      {
-        params
-      }
-    ).subscribe(resData => {
-      window.location.reload(); 
-    });
-  }
+     onSubmit() {
+      this.HttpClient.put<any>(
+        '/api/withdraw-offer',
+        {
+          offer_id: this.curr_offer.offer_id
+        }
+      ).subscribe(resData => {
+        window.location.reload();
+      });
+    }
 
 }
