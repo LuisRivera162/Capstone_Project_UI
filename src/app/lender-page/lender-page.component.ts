@@ -183,6 +183,7 @@ export class LenderPageComponent implements OnInit {
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData: any) => {
+        this.notificationService.insert_nofitication(user_data.id, 10);
         window.location.reload();
       });
   }

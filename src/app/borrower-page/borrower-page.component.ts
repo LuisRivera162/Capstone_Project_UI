@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 interface Loan {
   amount: number,
@@ -37,7 +38,8 @@ interface Offer {
   platform: number,
   amount_orig: number,
   months_orig: number,
-  interest_orig: number
+  interest_orig: number,
+  withdrawn: boolean,
 }
 
 interface UserResponseData {
@@ -80,7 +82,8 @@ export class BorrowerPageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
   ) { }
 
 
@@ -115,9 +118,6 @@ export class BorrowerPageComponent implements OnInit {
         this.currentLoan = userLoans[0]
         this.loadPaymentSchedule()
       }
-
-      console.log(this.currentLoan)
-
     });
 
     this.HttpClient.get<any>(
@@ -126,13 +126,9 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-
       if (resData.Participant) {
         this.isParticipant = true;
       }
-
-      console.log(resData)
-
     });
 
     this.HttpClient.get<any>(
@@ -163,18 +159,18 @@ export class BorrowerPageComponent implements OnInit {
 
   /**
    * On submission of the main form, this method sends an
-   * http 'DELETE' request to the route '/api/withdraw-offer'
-   * on the back-end server in order to delete an offer upon 
-   * user request. 
+   * http 'PUT' request to the route '/api/withdraw-offer'
+   * on the back-end server in order to set the offer to 
+   * the 'withdrawn' state upon user request. 
    */
   onSubmit() {
-    const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
-    this.HttpClient.delete<any>(
+    this.HttpClient.put<any>(
       '/api/withdraw-offer',
       {
-        params
+        offer_id: this.curr_offer.offer_id
       }
     ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 9); 
       window.location.reload();
     });
   }
@@ -189,7 +185,8 @@ export class BorrowerPageComponent implements OnInit {
    * @param index Index of the offer selected by the user.
    */
   loadOfferInfo(index: number) {
-    this.curr_offer = this.pending_offers[index]
+    this.curr_offer = this.pending_offers[index];
+    console.log(this.curr_offer);
   }
 
   /**

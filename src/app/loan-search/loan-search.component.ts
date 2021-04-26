@@ -74,7 +74,7 @@ export class LoanSearchComponent implements OnInit {
    * an offer with identical parameters to the original loan. 
    */
   requestLoan() {
-    this.HttpClient.post(
+    this.HttpClient.post<any>(
       '/api/create-offer',
       {
         loan_id: this.curr_loan.loan_id, 
@@ -86,7 +86,15 @@ export class LoanSearchComponent implements OnInit {
         lender_id: this.curr_loan.lender
       }
       ).subscribe(resData => {
-        this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
+        console.log(resData.Status)
+        if (resData.Status == 'Edited'){
+          this.notificationService.insert_nofitication(Number(this.authService.user_id), 13); 
+          this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 
+        }
+        else{
+          this.notificationService.insert_nofitication(Number(this.authService.user_id), 12); 
+          this.notificationService.insert_nofitication(this.curr_loan.lender, 14); 
+        }
         this.router.navigate(['/borrower']);
     });
   }

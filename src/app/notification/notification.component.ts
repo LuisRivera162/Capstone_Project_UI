@@ -32,7 +32,13 @@ export class NotificationComponent implements OnInit {
     'You have a new pending offer!',                  //5
     'One of your pending offers has changed.',        //6
     'Your loan has been closed.',                     //7
-    'A loan you made an offer to has changed!'        //8
+    'A loan you made an offer to has changed!',       //8
+    'Your offer was successfully withdrawn.',         //9
+    'Your loan was successfully created.',            //10
+    'Your loan was successfully withdrawn.',          //11
+    'Your offer was successfully created.',           //12
+    'Your offer was successfully edited.',            //13
+    'A new offer on one of your loans was created.',  //14
   ]; 
 
   notifications: Notification[] = [];

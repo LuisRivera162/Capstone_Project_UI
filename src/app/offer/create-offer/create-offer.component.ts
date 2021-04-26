@@ -121,7 +121,7 @@ export class CreateOfferComponent implements OnInit {
         }
         ).subscribe(resData => {
           form.reset(); 
-          this.notificationService.insert_nofitication(this.lender_id, 6); 
+          this.notificationService.insert_nofitication(Number(this.authService.user_id), 12);
           this.router.navigate(['/pending-offers']);
       });
     }
