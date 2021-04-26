@@ -35,9 +35,26 @@ export class ValidatePaymentComponent implements OnInit {
     isvalid: false
   }
 
+  /**
+   * A callback method that is invoked immediately after the default 
+   * change detector has checked the directive's data-bound properties 
+   * for the first time, and before any of the view or content children 
+   * have been checked. It is invoked only once when the directive is 
+   * instantiated.
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * Main cubmission form method, called when requesting a payment validation. 
+   * sends an http 'POST' request to the '/api/validate-payment' route with 
+   * submitted credentials in order to post the payment, if successful it will
+   * validate the payment and send a notification to the receiver, otherwise it
+   * will display an error message. 
+   * 
+   * @param form User submitted validation form.
+   * @returns Null, upon invalid form. 
+   */
   onSubmit(form: NgForm) {
 
     if (!form.valid) {
@@ -74,7 +91,10 @@ export class ValidatePaymentComponent implements OnInit {
           this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 4);
           window.location.reload();
         }
-
+        else{
+          this.error = 'Validation failed, make sure you are entering the correct code.' 
+        }
+        // NEED TO MANAGE THIS
       });
   }
 

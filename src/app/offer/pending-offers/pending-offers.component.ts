@@ -37,6 +37,13 @@ export class PendingOffersComponent implements OnInit {
     private HttpClient: HttpClient
     ) { }
 
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, sends an http 'GET' request 
+   * to the route '/api/pending-offers' in order 
+   * to retrieve from the server all the pending 
+   * offers a user has. 
+   */
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
     this.HttpClient.get<any>(
@@ -46,18 +53,37 @@ export class PendingOffersComponent implements OnInit {
     }).subscribe((resData:any) => {
       this.offers = resData.Offers; 
     });
-
-
   }
 
+  /**
+   * 
+   * Sets the value of the instance variable 'curr_offer' to the 
+   * offer in the index provided within the array 'offers'. 
+   * Called when a users clicks on an offer in order to load the 
+   * values of the offer. 
+   * 
+   * @param index Index of the offer selected by the user.
+   */
   loadOfferInfo(index: number): void {
     this.curr_offer = this.offers[index];
   }
 
+  /**
+   * Method to check the current web page irl. Used to modify 
+   * the style of the page. 
+   * 
+   * @returns True if the current url is '/pending-offers', 
+   * False otherwise.
+   */
   getURL(){
     return this.router.url == '/pending-offers'
   }
 
+  /**
+   * Main submission method, in this case used when the user
+   * decides to withdraw an offer, sends an http 'DELETE' request
+   * to the route '/api/withdraw-offer'. 
+   */
   onSubmit() {
     const params = new HttpParams().append('offer_id', '' + this.curr_offer.offer_id);
     this.HttpClient.delete<any>(

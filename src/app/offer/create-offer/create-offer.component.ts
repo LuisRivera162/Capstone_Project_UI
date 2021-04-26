@@ -53,9 +53,29 @@ export class CreateOfferComponent implements OnInit {
     private notificationService: NotificationComponent
   ) {}
 
+  /**
+   * A callback method that is invoked immediately after 
+   * the default change detector has checked the directive's 
+   * data-bound properties for the first time, and before any 
+   * of the view or content children have been checked. It is 
+   * invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * Main submit of the component, in this case used to send
+   * and http 'POST' request to the route '/api/create-offer' 
+   * with the desired offer parameters requested from the form
+   * and provided by the user in order to create an offer. 
+   * If the user attempts to create an offer to a loan that 
+   * the user has already made an offer it will send a 'PUT' 
+   * request instead.  
+   * 
+   * @param form Form submitted by the user.
+   * @returns Null, if invalid form. void when the user edits 
+   * a loan. 
+   */
   onSubmit(form: NgForm) {
     if (!form.valid){
       this.error = "Form is not valid, make sure you fill all fields."

@@ -44,9 +44,24 @@ export class NotificationComponent implements OnInit {
     private HttpClient: HttpClient
   ) { }
 
+
+  /**
+   * A callback method that is invoked immediately after 
+   * the default change detector has checked the directive's 
+   * data-bound properties for the first time, and before any 
+   * of the view or content children have been checked. It is 
+   * invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * This method sends an http 'GET' request to the route 
+   * '/api/notifications' in order to retrieve all notifications
+   * that belong to the logged in user. 
+   * 
+   * @returns An array of notifications if successfull, empty array if none found.
+   */
   get_notifications(){
     const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
     this.HttpClient.get<any>(
@@ -61,6 +76,18 @@ export class NotificationComponent implements OnInit {
     return this.notifications;
   }
 
+  /**
+   * This method sends an http 'POST' request to '/api/notifications' 
+   * in order to post a new notification to the user with the 'user_id'
+   * provided and with a message depending on the 'notificationType'
+   * index passed.
+   * 
+   * @param userID User ID of the user that will receive the notification.
+   * @param notificationType Index denoting the type of message to be used 
+   * in the notification.
+   * 
+   * @returns The http response from the back-end.
+   */
   insert_nofitication(userID: number, notificationType: number){
     return this.HttpClient.post(
     '/api/notifications',
@@ -71,7 +98,6 @@ export class NotificationComponent implements OnInit {
     }).subscribe((resData) => {
       this.get_notifications()
     });
-
   }
 
 }

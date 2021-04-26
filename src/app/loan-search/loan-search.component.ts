@@ -56,7 +56,6 @@ export class LoanSearchComponent implements OnInit {
   }
 
   /**
-   * 
    * Sets the value of the instance variable 'curr_loan' to the 
    * loan in the index provided within the array 'loans'. 
    * Called when a users clicks on an loan in order to load the 

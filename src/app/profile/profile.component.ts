@@ -57,6 +57,13 @@ export class ProfileComponent implements OnInit {
   errorOnEmail = false
   errorOnUsername = false
 
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, sends an http 'GET' request 
+   * to the route '/api/user' in order to 
+   * retrieve from the server all the user
+   * information. 
+   */
   ngOnInit(): void {
     const params = new HttpParams().append('user_id', this.user_id);
 
@@ -75,6 +82,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * This method is used in order to validate user credentials
+   * when trying to change passwords. If successfull it will
+   * send an http 'PUT' request to the route '/api/editpass'
+   * with the user credentials in order to request a password
+   * change. 
+   * 
+   * @param form The user submitted form in order to change password.
+   */
   onSaveChanges(form: NgForm) {
     let user_id = this.user_id
     let email = form.value.email;
@@ -86,15 +102,12 @@ export class ProfileComponent implements OnInit {
     this.passwordChanged = false
     if (new_password != newpass_conf){
       this.passwordError = true
-      console.log("not matching")
     }else{
-      console.log("matching")
 
       this.HttpClient.put<ResponseInterface>(
         '/api/editpass',
         {user_id: user_id, email: this.email, old_password : old_password, new_password: new_password }
       ).subscribe(resData => {
-        console.log(resData.status)
         if (resData.status == "fail"){
           this.passwordError = true
         }else if (resData.status == "success"){
@@ -103,10 +116,14 @@ export class ProfileComponent implements OnInit {
         }
       });
     }
-
-
   }
 
+  /**
+   * Verifies input form credentials in order to perform a profile
+   * information change, if successful, calls the updateUser method.
+   * 
+   * @param form User submitted form.
+   */
   onSaveProfile(form: NgForm){
     this.errorOnEmail = false;
     this.errorOnUsername = false;
@@ -156,7 +173,7 @@ export class ProfileComponent implements OnInit {
         }else{
           if (resData.Result1){
 
-            console.log("cant update this user as the email already exist")
+            console.log("Unable to update this user as the email already exist")
             this.errorOnEmail = true
             if (!resData.Result2){
               this.updateUser(username,this.email,first_name,last_name,phone)
@@ -165,7 +182,7 @@ export class ProfileComponent implements OnInit {
 
           }
           if (resData.Result2){
-            console.log("cant update this user as the username already exist")
+            console.log("Unable to update this user as the username already exist")
             this.errorOnUsername = true
             if (!resData.Result1){
               this.updateUser(this.username,email,first_name,last_name,phone)
@@ -182,6 +199,16 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Sends an http 'PUT' request with validated credentials to the 
+   * '/api/edituser' route in order to edit the requested user credentials.
+   * 
+   * @param username Desired username
+   * @param email Desired email
+   * @param first_name Desired first name
+   * @param last_name Desired last name
+   * @param phone desired Phone number
+   */
   updateUser(username:string, email:string, first_name:string, last_name:string, phone:string){
     this.HttpClient.put(
       '/api/edituser',
