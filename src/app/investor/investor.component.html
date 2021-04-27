@@ -90,7 +90,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-8">
-            <div class="bg-white text-dark rounded-lg shadow">
+            <div class="bg-white text-dark rounded-lg shadow" >
                 <div class="row p-3">
                     <div class="col-6">
                         <h4>Active Loans</h4>
@@ -111,11 +111,12 @@
                 </div>
                 <div class="row">
                     <div class="col-12 rounded-lg">
-                        <div class="list-group list-group-flush rounded-lg">
+                        <div class="list-group list-group-flush rounded-lg" style="height: 75vh; max-height: 75vh; overflow: auto; overflow-x:hidden;">
                             <a class="list-group-item list-group-item-action" *ngFor="let loan of loans">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <h4 class="p-0 m-0">{{loan.amount | currency}}</h4>
-                                    <span class="badge badge-success" *ngIf="loan.state != 6">{{ loan.apy | percent: '1.0-2' }} APY</span>
+                                    <span class="badge badge-success" *ngIf="loan.state < 5 ">{{ loan.apy | percent: '1.0-2' }} APY</span>
+                                    <span class="badge badge-danger" *ngIf="loan.state == 5">Not Available - Terminated</span>
                                     <span class="badge badge-danger" *ngIf="loan.state == 6">Not Available - Withdrawn</span>
                                 </div>
                                 <p class="m-0 d-flex">

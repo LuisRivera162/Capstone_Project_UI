@@ -99,7 +99,7 @@ export class InvestorComponent implements OnInit {
               res.forEach((investorPaid) => {
                 console.log(investorPaid.args)
                 // console.log(Number(ethers.utils.formatEther(investorPaid.args?.weis))/.0005)
-                this.current_apy += Number(ethers.utils.formatEther(investorPaid.args?.weis))/.0005
+                this.current_apy += Number(ethers.utils.formatEther(investorPaid.args?.usd))/.0005
               })
             })
 
@@ -146,6 +146,7 @@ export class InvestorComponent implements OnInit {
 
                 // console.log(this.loans)
               })
+              
             })
           })
           this.loadingData = false
