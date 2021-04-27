@@ -33,7 +33,7 @@ interface Loan {
   payment_number: number,
   monthly_repayment: number,
   rcvd_interest: number,
-  eth_address: ''
+  eth_address: string
 }
 
 interface Offer {
