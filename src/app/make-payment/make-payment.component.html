@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)">
+            <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)" autocomplete="off">
                 <div class="modal-body">
                     <div class="alert alert-danger text-center" 
                     role="alert" *ngIf="error != 'null'">
@@ -25,8 +25,8 @@
                     <div class="form-group row">
                         <label for="platform" class="col-sm-6 col-form-label">Payment Source</label>
                         <div class="col-sm-6">
-                            <input class="form-control" id="source" placeholder="{{platform[loan.platform]}}"
-                                name="source" disabled *ngIf="loan.payment_number > 0"/>
+                            <input class="form-control" id="source" value="{{platform[loan.platform]}}"
+                                name="source" disabled/>
                         </div>
                     </div>
                     <div *ngIf="loan.platform != null">
