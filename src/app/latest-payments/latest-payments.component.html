@@ -20,18 +20,127 @@
 <app-validate-payment [paymentToValidate]='paymentToValidate'></app-validate-payment>
 
 <div class="bg-white text-dark rounded-lg shadow">
-    <div class="p-3 border-bottom">
-        <h5 class="p-0 m-0">Latest Activity</h5>
+    
+    <div class="p-1">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+              type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                Latest Activity
+              </button>
+
+              <button class="nav-link" id="nav-validation-tab" data-toggle="tab" href="#nav-validation"
+              type="button" role="tab" aria-controls="nav-validation" aria-selected="true">
+              Validation Pending</button>
+
+              <button class="nav-link" id="nav-payments-tab" data-toggle="tab" href="#nav-payments"
+              type="button" role="tab" aria-controls="nav-payments" aria-selected="false">Payments</button>
+            </div>
+        </nav>
     </div>
     <!-- <div class="card-body"> -->
-    <ul class="overflow-auto list-group list-group-flush rounded-lg" style="max-height: 50vh;">
-        <a class="list-group-item list-group-item-action" *ngIf="!payments.length">
-            No recent activity available.
-        </a>
-        <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, payment.validated, payment.validation_hash, payment.payment_id)"
-            class="list-group-item list-group-item-action" *ngFor="let payment of payments;  let i = index"  
-            (click)="update_payment(i)" onmousedown="return false">
-            <div *ngIf="payment.payment_id">
+    <div class="tab-content" id="nav-tabContent">
+        <ul class="tab-pane fade show active overflow-auto list-group list-group-flush rounded-lg" style="max-height: 50vh;"
+        id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" data-toggle="tab">
+            <a class="list-group-item list-group-item-action" *ngIf="!activities.length">
+                No recent activity available.
+            </a>
+            <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, activity.validated, activity.validation_hash, activity.payment_id, activities)"
+                class="list-group-item list-group-item-action" *ngFor="let activity of activities;  let i = index"  
+                (click)="update_payment(i, activities)" onmousedown="return false">
+                <div *ngIf="activity.payment_id">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 [ngClass]="get_relative_payment(activity.receiver_id)">
+                            <div *ngIf="this.user_id == activity.receiver_id">
+                                <i class="bi bi-arrow-down-left-circle"></i> Received {{activity.amount | currency}} from {{ activity.sender_username }}
+                            </div>
+                            <div *ngIf="this.user_id != activity.receiver_id">
+                                <i class="bi bi-arrow-up-left-circle"></i> Sent {{activity.amount | currency}} to {{ activity.receiver_username }}
+                            </div>
+                        </h5>
+                        
+                        <!-- <small>
+                            <b>{{user_id == payment.receiver_id ? 'From Lender' : 'To Borrower'}}:</b>
+                            {{user_id == payment.receiver_id? payment.sender_id : payment.receiver_id}}
+                        </small> -->
+                        <!-- <p class="mb-1">
+                            <small><b>Loan ID: </b><a href="#" data-toggle="modal"
+                                    data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
+                        </p> -->
+                        <small [ngClass]="get_validation_class(activity.validated, activity.validation_hash, activity.sender_id)">
+                            {{get_validation_message(activity.validated, activity.validation_hash, activity.sender_id)}}
+                        </small>
+                    </div>
+                    
+                    <p class="mb-1">
+                        <small>{{activity.payment_date}}</small>
+                    </p>
+                </div>
+                <div *ngIf="activity.loan_id">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-success">
+                            <div *ngIf="this.user_id == activity.lender">
+                                <i class="bi bi-check2-circle"></i> Loan {{activity.loan_id}} was successfully created.
+                            </div>
+                        </h5>
+                    </div>
+                    
+                    <p class="mb-1">
+                        <small>{{activity.payment_date}}</small>
+                    </p>
+                </div>
+                <div *ngIf="activity.offer_id">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-success">
+                            <div >
+                                <i class="bi bi-check2-circle"></i> Offer {{activity.offer_id}} was successfully created.
+                            </div>
+                        </h5>
+                    </div>
+                    
+                    <p class="mb-1">
+                        <small>{{activity.payment_date}}</small>
+                    </p>
+                </div>
+            </a>
+        </ul>
+        <ul class="tab-pane fade overflow-auto list-group list-group-flush rounded-lg" style="max-height: 50vh;"
+        id="nav-validation" role="tabpanel" aria-labelledby="nav-validation-tab" data-toggle="tab">
+            <a class="list-group-item list-group-item-action" *ngIf="!toValidatePayments.length">
+                All payment validations are up to date!
+            </a>
+            <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, activity.validated, activity.validation_hash, activity.payment_id, toValidatePayments)"
+                class="list-group-item list-group-item-action" *ngFor="let activity of toValidatePayments;  let i = index"  
+                (click)="update_payment(i, toValidatePayments)" onmousedown="return false">
+                <div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 [ngClass]="get_relative_payment(activity.receiver_id)">
+                            <div *ngIf="this.user_id == activity.receiver_id">
+                                <i class="bi bi-arrow-down-left-circle"></i> Received {{activity.amount | currency}} from {{ activity.sender_username }}
+                            </div>
+                            <div *ngIf="this.user_id != activity.receiver_id">
+                                <i class="bi bi-arrow-up-left-circle"></i> Sent {{activity.amount | currency}} to {{ activity.receiver_username }}
+                            </div>
+                        </h5>
+                        <small [ngClass]="get_validation_class(activity.validated, activity.validation_hash, activity.sender_id)">
+                            {{get_validation_message(activity.validated, activity.validation_hash, activity.sender_id)}}
+                        </small>
+                    </div>
+                    
+                    <p class="mb-1">
+                        <small>{{activity.payment_date}}</small>
+                    </p>
+                </div>
+            </a>
+        </ul>
+        <ul class="tab-pane fade overflow-auto list-group list-group-flush rounded-lg" style="max-height: 50vh;"
+        id="nav-payments" role="tabpanel" aria-labelledby="nav-payments-tab" data-toggle="tab">
+            <a class="list-group-item list-group-item-action" *ngIf="!payments.length">
+                No Payments to show.
+            </a>
+            <a href="#" data-toggle="modal" [attr.data-target]="get_modal(i, payment.validated, payment.validation_hash, payment.payment_id, payments)"
+                class="list-group-item list-group-item-action" *ngFor="let payment of payments;  let i = index"  
+                (click)="update_payment(i, payments)" onmousedown="return false">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
                         <div *ngIf="this.user_id == payment.receiver_id">
@@ -41,53 +150,20 @@
                             <i class="bi bi-arrow-up-left-circle"></i> Sent {{payment.amount | currency}} to {{ payment.receiver_username }}
                         </div>
                     </h5>
-                    
-                    <!-- <small>
-                        <b>{{user_id == payment.receiver_id ? 'From Lender' : 'To Borrower'}}:</b>
-                        {{user_id == payment.receiver_id? payment.sender_id : payment.receiver_id}}
-                    </small> -->
-                    <!-- <p class="mb-1">
-                        <small><b>Loan ID: </b><a href="#" data-toggle="modal"
-                                data-target="#txReceiptModal">{{payment.eth_address}}</a></small>
-                    </p> -->
-                    <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
-                        {{get_validation_message(payment.validated, payment.validation_hash)}}
+                    <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash, payment.sender_id)">
+                        {{get_validation_message(payment.validated, payment.validation_hash, payment.sender_id)}}
                     </small>
                 </div>
                 
                 <p class="mb-1">
                     <small>{{payment.payment_date}}</small>
                 </p>
-            </div>
-            <div *ngIf="payment.loan_id">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1 text-success">
-                        <div *ngIf="this.user_id == payment.lender">
-                            <i class="bi bi-check2-circle"></i> Loan {{payment.loan_id}} was successfully created.
-                        </div>
-                    </h5>
-                </div>
-                
-                <p class="mb-1">
-                    <small>{{payment.payment_date}}</small>
-                </p>
-            </div>
-            <div *ngIf="payment.offer_id">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1 text-success">
-                        <div >
-                            <i class="bi bi-check2-circle"></i> Offer {{payment.offer_id}} was successfully created.
-                        </div>
-                    </h5>
-                </div>
-                
-                <p class="mb-1">
-                    <small>{{payment.payment_date}}</small>
-                </p>
-            </div>
-        </a>
-    </ul>
+            </a>
+        </ul>
+
+    </div>
 </div>
 <script>
     $('#txReceiptModal').on('shown.bs.modal', function () { })
+    $('#nav-profile').tab('show');
 </script>

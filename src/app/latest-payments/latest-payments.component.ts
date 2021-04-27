@@ -15,6 +15,9 @@ export class LatestPaymentsComponent implements OnInit {
 
   user_id = this.authService.user.getValue()!.id;
   payments: any[] = []; 
+  toValidatePayments: any[] = []; 
+  activities: any[] = []; 
+  
   paymentToValidate = {
     payment_id: 0,
     receiver_id: 0,
@@ -52,8 +55,15 @@ export class LatestPaymentsComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      this.payments = resData.Payments;
-      console.log(this.payments);
+      this.activities = resData.Payments;
+      this.activities.forEach(activity => {
+        if (activity.payment_id && !activity.validated && activity.validation_hash != ''){
+          this.toValidatePayments.push(activity); 
+        }
+        if (activity.payment_id){
+          this.payments.push(activity); 
+        }
+      });
     });
   }
 
@@ -65,10 +75,11 @@ export class LatestPaymentsComponent implements OnInit {
    * 
    * @param validation boolean denoting the validation of the payment. 
    * @param validation_hash validation hash of the payment if any. 
+   * @param sender_id User ID of the user that sent the payment.
    * @returns The corresponding bootstrap class to be used for the payment view. 
    */
-  get_validation_class(validation: boolean, validation_hash: string){
-    if (validation && validation_hash == ""){
+  get_validation_class(validation: boolean, validation_hash: string, sender_id: number){
+    if (validation == false && Number(this.authService.user_id) == sender_id){
       return "text-warning";
     }
     else if(validation && validation_hash != ""){
@@ -100,17 +111,18 @@ export class LatestPaymentsComponent implements OnInit {
    * @param validation Payment validated clause. 
    * @param validation_hash Payment validation hash, if any.
    * @param payment_id The payment_id of the clicked payment. 
+   * @param activities Array to be taken in consideration.
    * @returns The modal to be displayed upon click. 
    * 
    */
-  get_modal(i: number, validation: boolean, validation_hash: string, payment_id: number){
+  get_modal(i: number, validation: boolean, validation_hash: string, payment_id: number, activities: any[]){
     if (payment_id == null){
       return "";
     }
     else if (validation && validation_hash == ""){
       return "#txReceiptModal";
     }
-    else if((validation && validation_hash != "") || this.payments[i].sender_id == this.authService.user_id){
+    else if((validation && validation_hash != "") || this.activities[i].sender_id == this.authService.user_id){
       return "";
     }
     else {
@@ -125,11 +137,12 @@ export class LatestPaymentsComponent implements OnInit {
    * 
    * @param validation Payment validated clause. 
    * @param validation_hash Payment validation hash, if any.
+   * @param sender_id User ID of the user that sent the payment.
    * @returns Validation message to be displayed. 
    */
-  get_validation_message(validation: boolean, validation_hash: string){
-    if (validation && validation_hash == ""){
-      return "Validation Pending";
+  get_validation_message(validation: boolean, validation_hash: string, sender_id: number){
+    if (validation == false && Number(this.authService.user_id) == sender_id){
+      return "Waiting Validation";
     }
     else if(validation && validation_hash != ""){
       return "Validated";
@@ -147,9 +160,10 @@ export class LatestPaymentsComponent implements OnInit {
    * values of the payment. 
    * 
    * @param index Index of the payment selected by the user.
+   * @param activities Array to be taken in consideration.
    */
-  update_payment(index: number){
-    this.paymentToValidate = this.payments[index];
+  update_payment(index: number, activities: any[]){
+    this.paymentToValidate = this.activities[index];
   }
 
 }
