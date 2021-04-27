@@ -22,7 +22,8 @@ interface Loan {
   monthly_repayment: number,
   offers: any[],
   payment_number: number,
-  rcvd_interest: number
+  rcvd_interest: number,
+  eth_address: string
 }
 
 interface Offer {
@@ -76,7 +77,8 @@ export class LenderPageComponent implements OnInit {
     platform: 0,
     monthly_repayment: 0,
     est_total_interest: 0.0,
-    est_yield: 0.0
+    est_yield: 0.0,
+    eth_address: ''
   }
 
   user_id = this.authService.user.getValue()!.id;
