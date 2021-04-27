@@ -12,7 +12,8 @@ interface UserResponseData {
   'last_name': string
   'email': string
   'age': string
-  'phone': string
+  'phone': string,
+  'wallet': string
 }
 
 interface ResponseInterface {
@@ -53,6 +54,7 @@ export class ProfileComponent implements OnInit {
   lastname = ""
   age = ""
   phone = ""
+  wallet = ""
   editMode = false
   errorOnEmail = false
   errorOnUsername = false
@@ -79,6 +81,7 @@ export class ProfileComponent implements OnInit {
       this.age = resData.age
       this.phone = resData.phone
       this.email = resData.email
+      this.wallet = resData.wallet
     });
   }
 
