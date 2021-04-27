@@ -98,13 +98,13 @@
                     <div class="col-6 text-right">
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary active">
-                                <input type="radio" name="options" id="option1" checked> All Loans
+                                <input type="radio" [value]="0" [(ngModel)]="filterKey" name="options" id="option1" checked> All Loans
                             </label>
                             <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="option2"> Available
+                                <input type="radio" [value]="1" [(ngModel)]="filterKey" name="options" id="option2"> Available
                             </label>
                             <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="option3"> Fully Insured
+                                <input type="radio" [value]="2" [(ngModel)]="filterKey" name="options" id="option3"> Unavailable
                             </label>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="col-12 rounded-lg">
                         <div class="list-group list-group-flush rounded-lg" style="height: 75vh; max-height: 75vh; overflow: auto; overflow-x:hidden;">
-                            <a class="list-group-item list-group-item-action" *ngFor="let loan of loans">
+                            <a class="list-group-item list-group-item-action" *ngFor="let loan of loanFilter(loans)">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <h4 class="p-0 m-0">{{loan.amount | currency}}</h4>
                                     <span class="badge badge-success" *ngIf="loan.state < 5 ">{{ loan.apy | percent: '1.0-2' }} APY</span>

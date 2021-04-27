@@ -18,6 +18,8 @@ export class InvestorComponent implements OnInit {
   public logged_in = false;
   private factory: any;
 
+  public filterKey = 0;
+
   private loanAbi: any;
 
   public loadingData = false;
@@ -265,6 +267,13 @@ export class InvestorComponent implements OnInit {
     // console.log(est_total_interest * 0.30 / 10)
 
     return (est_total_interest * 0.30 / 10)
+  }
+
+  loanFilter(loanArray: any[]): any[] {
+    if (this.filterKey === 0) return loanArray;
+    else if (this.filterKey === 1) return loanArray.filter(i => i.state < 5);
+    
+    return loanArray.filter(i => i.state > 4);
   }
 
 }
