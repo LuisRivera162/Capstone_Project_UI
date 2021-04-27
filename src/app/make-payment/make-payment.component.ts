@@ -105,11 +105,20 @@ export class MakePaymentComponent implements OnInit {
         loan_id: this.loan.loan_id, 
         evidenceHash: this.payment.evidence
       }).subscribe((resData) => {
+
+        let loan_state = 2; 
+
+        if (this.loan.payment_number == 0) {
+          loan_state = 3; 
+          this.notificationService.insert_nofitication(this.loan.borrower, 15);
+        }
+        // this.notificationService.insert_nofitication(Number(this.authService.user_id), 4);
+
         this.HttpClient.put<any>(
           '/api/update-loan-state',
           {
             loan_id: this.loan.loan_id,
-            state: 3  
+            state: loan_state  
           }
         ).subscribe(resData => {
           this.payment.state = 1

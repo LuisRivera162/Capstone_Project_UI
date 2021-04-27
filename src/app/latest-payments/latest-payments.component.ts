@@ -64,6 +64,9 @@ export class LatestPaymentsComponent implements OnInit {
           this.payments.push(activity); 
         }
       });
+      console.log(this.activities);
+      console.log("this.toValidatePayments");
+      console.log(this.toValidatePayments);
     });
   }
 
@@ -122,7 +125,7 @@ export class LatestPaymentsComponent implements OnInit {
     else if (validation && validation_hash == ""){
       return "#txReceiptModal";
     }
-    else if((validation && validation_hash != "") || this.activities[i].sender_id == this.authService.user_id){
+    else if((validation && validation_hash != "") || activities[i].sender_id == this.authService.user_id){
       return "";
     }
     else {
@@ -163,7 +166,7 @@ export class LatestPaymentsComponent implements OnInit {
    * @param activities Array to be taken in consideration.
    */
   update_payment(index: number, activities: any[]){
-    this.paymentToValidate = this.activities[index];
+    this.paymentToValidate = activities[index];
   }
 
 }

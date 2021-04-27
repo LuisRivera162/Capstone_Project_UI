@@ -24,21 +24,23 @@ export class NotificationComponent implements OnInit {
   
   // Notification Types: 
   notificationMessage = [
-    'One of your offers was rejected by a lender.',   //0
-    'One of your loans was accepted by a Borrower!',  //1
-    'One of your offers was accepted by a Lender!',   //2
-    'Your loan term has now started!',                //3 
-    'Your payment was successfully validated!',       //4
-    'You have a new pending offer!',                  //5
-    'One of your pending offers has changed.',        //6
-    'Your loan has been closed.',                     //7
-    'A loan you made an offer to has changed!',       //8
-    'Your offer was successfully withdrawn.',         //9
-    'Your loan was successfully created.',            //10
-    'Your loan was successfully withdrawn.',          //11
-    'Your offer was successfully created.',           //12
-    'Your offer was successfully edited.',            //13
-    'A new offer on one of your loans was created.',  //14
+    'One of your offers was rejected by a lender.',           //0
+    'One of your loans was accepted by a Borrower!',          //1
+    'One of your offers was accepted by a Lender!',           //2
+    'Your loan term has now started!',                        //3 
+    'Your payment was successfully validated!',               //4
+    'You have a new pending offer!',                          //5
+    'One of your pending offers has changed.',                //6
+    'Your loan has been closed.',                             //7
+    'A loan you made an offer to has changed!',               //8
+    'Your offer was successfully withdrawn.',                 //9
+    'Your loan was successfully created.',                    //10
+    'Your loan was successfully withdrawn.',                  //11
+    'Your offer was successfully created.',                   //12
+    'Your offer was successfully edited.',                    //13
+    'A new offer on one of your loans was created.',          //14
+    'You have received a payment from your active lender.',   //15
+    'The payment was successfully validated!',                //16
   ]; 
 
   notifications: Notification[] = [];

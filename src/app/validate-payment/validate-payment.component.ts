@@ -76,7 +76,7 @@ export class ValidatePaymentComponent implements OnInit {
       return;
     }
 
-    this.validation_in_progress = 1
+    this.validation_in_progress = 1;
     
     return this.HttpClient.post(
       '/api/validate-payment',
@@ -88,13 +88,13 @@ export class ValidatePaymentComponent implements OnInit {
       ).subscribe((resData: any) => {
         if (resData.isvalid) {
           this.validationPayload.isvalid = true;
-          this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 4);
+          this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 16);
           window.location.reload();
         }
         else{
-          this.error = 'Validation failed, make sure you are entering the correct code.' 
+          this.error = 'Validation failed, make sure you are entering the correct Evidence Code.';
+          this.validation_in_progress = 0;
         }
-        // NEED TO MANAGE THIS
       });
   }
 
