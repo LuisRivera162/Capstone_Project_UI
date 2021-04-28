@@ -131,7 +131,8 @@
                                             (click)="load_loan_data(loan)" *ngIf="loan.state != 6">Invest?</a></span>
                                 </p>
 
-                                <small>{{loan.address}}</small>
+                                <small><a href="https://kovan.etherscan.io/address/{{loan.address}}" target="_blank">
+                                {{loan.address}}</a></small>
                             </a>
                             <a class="list-group-item list-group-item-action" *ngIf="!loans.length && !loadingData">
                                 No loans found...
