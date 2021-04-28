@@ -154,7 +154,6 @@ export class BorrowerPageComponent implements OnInit {
     ).subscribe((rejectedOffers: any) => {
       this.rejected_offers = rejectedOffers.rejectedOffers;
     });
-
   }
 
   /**
@@ -186,7 +185,6 @@ export class BorrowerPageComponent implements OnInit {
    */
   loadOfferInfo(index: number) {
     this.curr_offer = this.pending_offers[index];
-    console.log(this.curr_offer);
   }
 
   /**

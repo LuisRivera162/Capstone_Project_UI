@@ -69,17 +69,4 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   load_notifications(){
     this.notifications = this.notificationService.get_notifications(); 
   }
-  
-  /**
-   * 
-   * Converts given date format to the form 'YYYYMMDDHHNNSS'.
-   * 
-   * @param date Date desired to be modified.
-   * @returns Modified date in the 'YYYYMMDDHHNNSS' form.
-   */
-  dateAsYYYYMMDDHHNNSS(date: Date): string {
-    const datepipe: DatePipe = new DatePipe('en-US');
-    let formattedDate = datepipe.transform(date, 'M/d/yy - h:mm a');
-    return String(formattedDate);
-  }
 }
