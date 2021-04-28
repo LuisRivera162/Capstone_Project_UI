@@ -264,6 +264,8 @@ export class LenderPageComponent implements OnInit {
         timer(2)
         window.location.reload(); 
       });
+      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 2);
+      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 3);
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
     });
   }
