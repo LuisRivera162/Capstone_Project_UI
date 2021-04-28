@@ -19,6 +19,7 @@ export class ValidatePaymentComponent implements OnInit {
   @Input() paymentToValidate = {
     payment_id: 0,
     receiver_id: 0,
+    sender_id: 0
   }
   
   constructor(
@@ -86,9 +87,15 @@ export class ValidatePaymentComponent implements OnInit {
         evidenceHash: this.validationPayload.evidenceHash
       }
       ).subscribe((resData: any) => {
-        if (resData.isvalid) {
+        if (resData.isvalid == 1) {
           this.validationPayload.isvalid = true;
           this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 16);
+          window.location.reload();
+        }
+        else if (resData.isvalid == 2){
+          this.validationPayload.isvalid = true;
+          this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 17);
+          this.notificationService.insert_nofitication(this.paymentToValidate.sender_id, 18);
           window.location.reload();
         }
         else{

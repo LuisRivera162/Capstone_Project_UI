@@ -41,6 +41,8 @@ export class NotificationComponent implements OnInit {
     'A new offer on one of your loans was created.',          //14
     'You have received a payment from your active lender.',   //15
     'The payment was successfully validated!',                //16
+    'Your Loan term has now ended!',                          //17
+    'One of your loans was completely paid by a borrower!',   //18
   ]; 
 
   notifications: Notification[] = [];

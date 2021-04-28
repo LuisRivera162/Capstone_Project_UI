@@ -39,7 +39,7 @@
                 {{notification.message}}
               </div>
               <div class="col-sm-3 d-flex justify-content-end date-format">
-                {{this.dateAsYYYYMMDDHHNNSS(notification.created_on)}}
+                {{notification.created_on | date: 'M/d/yy - h:mm aa' : '-0'}}
               </div>
             </div>
           </a>

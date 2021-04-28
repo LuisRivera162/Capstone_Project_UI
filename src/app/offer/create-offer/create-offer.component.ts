@@ -101,6 +101,7 @@ export class CreateOfferComponent implements OnInit {
           form.reset(); 
           this.isEdit = false; 
           this.notificationService.insert_nofitication(this.lender_id, 6); 
+          this.notificationService.insert_nofitication(Number(this.user_id), 13); 
           window.location.reload(); 
       });
       return;

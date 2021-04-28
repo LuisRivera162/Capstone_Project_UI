@@ -395,7 +395,7 @@
 </div>
 
 <div style="margin-top: 30px;" *ngIf="isActiveLoansURLAddress()"></div>
-<div class="bg-white text-dark rounded-lg shadow" *ngIf="!isLoading">
+<div class="bg-white text-dark rounded-lg shadow">
     <div class="p-3 border-bottom">
         <h5 class="m-0 p-0">My Loans</h5>
     </div>
@@ -415,11 +415,15 @@
                     Submitting loan to our systems...
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
-                <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
-                <small *ngIf="loan.offers && loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
+                <small *ngIf="isLoading && this.curr_loan.loan_id == loan.loan_id" class="text-warning">
+                    Withdrawing loan...
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </small>
+                <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length && !isLoading" class="text-info">Available</small>
+                <small *ngIf="loan.offers && loan.state == 0 && loan.offers.length && !isLoading" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
                 <!-- <small *ngIf="loan.state == 1" class="text-warning">Deal Reached - Send Payment</small> -->
-                <small *ngIf="loan.state == 2 && !loan.balance" class="text-warning">Active - Send Loan</small>
-                <small *ngIf="loan.state == 2 && loan.balance" class="text-success">Active</small>
+                <small *ngIf="loan.state == 2 && !loan.balance && !isLoading" class="text-warning">Active - Send Loan</small>
+                <small *ngIf="loan.state == 2 && loan.balance && !isLoading" class="text-success">Active</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Active - Waiting Validation</small>
                 <small *ngIf="loan.state == 4" class="text-danger">Delinquent</small>
                 <small *ngIf="loan.state == 5" class="text-secondary">Terminated</small>
