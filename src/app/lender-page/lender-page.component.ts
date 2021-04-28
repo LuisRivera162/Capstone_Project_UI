@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
@@ -82,6 +82,7 @@ export class LenderPageComponent implements OnInit {
   }
 
   user_id = this.authService.user.getValue()!.id;
+  @ViewChild('createLoanModal') closebutton: any;
 
   constructor(
     private authService: AuthService,
@@ -113,8 +114,8 @@ export class LenderPageComponent implements OnInit {
         else if (loan.state == 2 || loan.state == 3) {
           this.active_loans++;
           this.active_loans_balance += loan.balance;
-          this.overall_gain += loan.rcvd_interest
         }
+        this.overall_gain += loan.rcvd_interest;
       });
       console.log(this.loans)
     });
@@ -142,7 +143,7 @@ export class LenderPageComponent implements OnInit {
    */
   onSubmit(form: NgForm) {
     if (!form.valid) {
-      this.error = "Form is not valid, make sure you fill all fields."
+      this.error = "Form is not valid, make sure you fill all fields.";
       return;
     }
 
@@ -172,6 +173,7 @@ export class LenderPageComponent implements OnInit {
     newLoan.payment_number = 0;
 
     this.loans.push(newLoan);
+    this.closebutton.nativeElement.click();
 
     return this.HttpClient.post(
       '/api/create-loan',

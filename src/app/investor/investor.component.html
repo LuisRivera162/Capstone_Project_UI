@@ -11,8 +11,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <label class="col-sm-6 col-form-label"><b>Loan ID</b></label>
-                        <div class="col-sm-6 col-form-label">
-                            {{ selected_loan.address }}
+                        <div class="col-sm-6 col-form-label" style="word-wrap: break-word;">
+                            <a href="https://kovan.etherscan.io/address/{{selected_loan.address}}" target="_blank">
+                                {{ selected_loan.address }}</a>
                         </div>
                     </div>
                     <div class="row">
@@ -130,7 +131,8 @@
                                             (click)="load_loan_data(loan)" *ngIf="loan.state != 6">Invest?</a></span>
                                 </p>
 
-                                <small>{{loan.address}}</small>
+                                <small><a href="https://kovan.etherscan.io/address/{{loan.address}}" target="_blank">
+                                {{loan.address}}</a></small>
                             </a>
                             <a class="list-group-item list-group-item-action" *ngIf="!loans.length && !loadingData">
                                 No loans found...
