@@ -128,6 +128,7 @@ export class ActiveLoansComponent implements OnInit {
    * from the database. 
    */
   withdraw() {
+    this.isLoading = true; 
     if (this.user_id) {
       this.HttpClient.post<any>(
         '/api/withdraw-loan',
@@ -139,6 +140,7 @@ export class ActiveLoansComponent implements OnInit {
         this.notificationService.insert_nofitication(Number(this.authService.user_id), 11);
         window.location.reload();
         console.log("lender withdrew loan, do something here...");
+        this.isLoading = false; 
       });
     }
   }
@@ -191,6 +193,9 @@ export class ActiveLoansComponent implements OnInit {
         state: 2    
       }
     ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 2);
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
+      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 3);
       window.location.reload(); 
     });
   }
