@@ -106,12 +106,15 @@ export class InvestorComponent implements OnInit {
             })
 
             dloan.Info().then((res: any) => {
+              
               dloan.GetInvestors().then((investors: any[]) => {
                 var apy = this.calculateInvestorApy(
                   ethers.BigNumber.from(res[2]).toNumber(),
                   ethers.BigNumber.from(res[4]).toNumber(),
                   ethers.BigNumber.from(res[5]).toNumber()
                 ) 
+
+                console.log(apy)
 
                 investors.forEach((investor) => {
                   if (investor != '0x0000000000000000000000000000000000000000') {
@@ -249,7 +252,7 @@ export class InvestorComponent implements OnInit {
   }
 
   calculateInvestorApy(amount: number, interest: number, months: number) {
-    if (interest <= 0 || months < 3) return 0
+    if (interest <= 0 || months < 1) return 0
 
     // console.log(amount, interest, months)
 
