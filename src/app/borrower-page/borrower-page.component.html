@@ -24,19 +24,19 @@
     <div class="col">
         <div class="shadow p-4 rounded-lg bg-white">
             <div class="row">
-                <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
+                <div class="col-4 text-center border-right d-flex flex-column" style="height: 20vh;">
                     <small><b>Payment Due</b></small>
                     <h1>{{ payment_due | currency}}</h1>
                     <div class="btn btn-outline-primary mt-auto p-2" data-toggle="modal"
                         data-target="#paymentScheduleModal">View Payment Schedule</div>
                 </div>
-                <div class="col-4 text-center border-right d-flex flex-column" style="height: 13vh;">
+                <div class="col-4 text-center border-right d-flex flex-column" style="height: 20vh;">
                     <small><b>Your Payment is Due On</b></small>
                     <h1>{{ payment_due_date | date: 'MMMM d, YYYY'}}</h1>
                     <div class="btn btn-primary mt-auto p-2" data-toggle="modal" data-target="#makePaymentModal">Make
                         Payment</div>
                 </div>
-                <div class="col-4 text-center d-flex flex-column" style="height: 13vh;">
+                <div class="col-4 text-center d-flex flex-column" style="height: 20vh;">
                     <small><b>Total Balance</b></small>
                     <h1 class="pb-0 mb-0">{{ currentLoan.balance | currency}}</h1>
                     <small><b>Total Interest Paid: {{ currentLoan.rcvd_interest | currency }}</b></small>
