@@ -96,12 +96,16 @@ export class InvestorComponent implements OnInit {
             var dloan = new ethers.Contract(loan, loanInfo.abi, this.signer)
 
             // this.provider.getBalance(loan).then((res: any) => { console.log(res) })
-            dloan.queryFilter(dloan.filters.PaidInvestor(null, this.signer.address)).then((res) => {
+            dloan.queryFilter(dloan.filters.PaidInvestor(null)).then((res) => {
               console.log(res)
               res.forEach((investorPaid) => {
-                console.log(investorPaid.args)
+                // console.log(investorPaid.args?.investor, this.account)
                 // console.log(Number(ethers.utils.formatEther(investorPaid.args?.weis))/.0005)
-                this.current_apy += Number(ethers.utils.formatEther(investorPaid.args?.usd))/.0005
+                if (investorPaid.args?.investor == this.account) {
+                  console.log('found investment')
+                  this.current_apy += Number(ethers.utils.formatEther(investorPaid.args?.usd))/.0005
+                }
+                
               })
             })
 
@@ -114,7 +118,7 @@ export class InvestorComponent implements OnInit {
                   ethers.BigNumber.from(res[5]).toNumber()
                 ) 
 
-                console.log(apy)
+                // console.log(apy)
 
                 investors.forEach((investor) => {
                   if (investor != '0x0000000000000000000000000000000000000000') {
@@ -130,7 +134,7 @@ export class InvestorComponent implements OnInit {
                 })
 
                 // dont add apy to global apy if loan is withdrawn (state == 6)
-                if (ethers.BigNumber.from(res[7]).toNumber() != 6) {
+                if (ethers.BigNumber.from(res[7]).toNumber() < 5) {
                   this.global_apy += apy / (ethers.BigNumber.from(res[2]).toNumber()/10)
                 }
                   
@@ -200,7 +204,7 @@ export class InvestorComponent implements OnInit {
       this.provider.waitForTransaction(tx.hash)
         .then((res: any) => {
           // show success modal
-          console.log(res)
+          // console.log(res)
           // this.waitingForMetamask = false
           this.showSuccessPage = true
           this.message = 'Successfully bought one (1) block.'
