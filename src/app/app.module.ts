@@ -12,7 +12,6 @@ import { HomeComponent } from './home/home.component';
 import { BorrowerPageComponent } from './borrower-page/borrower-page.component';
 import { LenderPageComponent } from './lender-page/lender-page.component';
 import { LoanSearchComponent } from './loan-search/loan-search.component';
-import { CreateLoanComponent } from './create-loan/create-loan.component';
 import { ActiveLoansComponent } from './active-loans/active-loans.component';
 import { EntryComponent } from './entry/entry.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -40,7 +39,6 @@ import { InvestorComponent } from './investor/investor.component';
     BorrowerPageComponent,
     LenderPageComponent,
     LoanSearchComponent,
-    CreateLoanComponent,
     ActiveLoansComponent,
     ActiveLoansComponent,
     ActiveLoansComponent,
@@ -69,7 +67,6 @@ import { InvestorComponent } from './investor/investor.component';
       {path: 'borrower', component: BorrowerPageComponent, canActivate: []},
       {path: 'lender', component: LenderPageComponent, canActivate: []},
       {path: 'search', component: LoanSearchComponent, canActivate: []},
-      {path: 'active-loans', component: ActiveLoansComponent, canActivate: []},
       {path: 'entry', component: EntryComponent, canActivate: []},
       {path: 'profile', component: ProfileComponent, canActivate: []},
       {path: 'pending-offers', component: PendingOffersComponent},
