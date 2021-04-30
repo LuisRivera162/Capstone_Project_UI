@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { NotificationComponent } from 'src/app/notification/notification.component';
 
 
 interface Offer {
@@ -34,7 +35,8 @@ export class PendingOffersComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private HttpClient: HttpClient
+    private HttpClient: HttpClient,
+    private notificationService: NotificationComponent
     ) { }
 
   /**
@@ -93,6 +95,7 @@ export class PendingOffersComponent implements OnInit {
       offer_id: this.curr_offer.offer_id
     }
   ).subscribe(resData => {
+    this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 9); 
     window.location.reload();
   });
 }

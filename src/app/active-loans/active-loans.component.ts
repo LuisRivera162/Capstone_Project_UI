@@ -264,7 +264,14 @@ export class ActiveLoansComponent implements OnInit {
    * Loads the changes made when a loan edit is confirmed by the user.
    */
   confirmLoanChanges() {
-    this.curr_loan.state = -2
+    this.curr_loan.state = -2;
+
+    if (this.edited_loan.amount < 1500 || this.edited_loan.interest < 3 || this.edited_loan.months < 1){
+      this.error = "Form is not valid, make sure all values are valid.";
+      this.curr_loan.state = 0;
+      return;
+    }
+
     this.HttpClient.put<any>(
       '/api/user-loan',
       {
@@ -278,6 +285,7 @@ export class ActiveLoansComponent implements OnInit {
       this.edited_loan.offers.forEach(offer => {
         this.notificationService.insert_nofitication(offer.borrower_id, 8);
       });
+      this.notificationService.insert_nofitication(Number(this.authService.user_id), 19);
       // window.location.reload(); 
       this.curr_loan.amount = this.edited_loan.amount
       this.curr_loan.interest = this.edited_loan.interest/100
@@ -288,8 +296,40 @@ export class ActiveLoansComponent implements OnInit {
     });
   }
 
-  send_payment(){
+  /**
+   * Method used in order to verify dismiss modal function, depending on error.
+   * @returns the modal-dimiss to dismiss into. 
+   */
+   find_dismiss_modal(){
+    if (this.error != 'null'){
+      return ''; 
+    }
 
+    return 'modal';
+  }
+
+  /**
+   * Method used in order to verify target modal function, depending on error.
+   * @returns the modal-target to re-direct into. 
+   */
+  find_target_modal(){
+    if (this.edited_loan.amount < 1500 || this.edited_loan.interest < 3 || this.edited_loan.months < 1){
+      return ''; 
+    }
+    return '#confirmLoanEditModal';
+  }
+
+  /**
+   * Verifies if the edit form is valid, if not sets error message to the 
+   * corresponding one. 
+   */
+  check_valid_form(){
+    if (this.edited_loan.amount < 1500 || this.edited_loan.interest < 3 || this.edited_loan.months < 1){
+      this.error = "Form is not valid, make sure all values are valid.";
+    }
+    else{
+      this.error = 'null';
+    }
   }
 
 }

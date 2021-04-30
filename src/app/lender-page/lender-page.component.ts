@@ -70,7 +70,7 @@ export class LenderPageComponent implements OnInit {
   loans_processing = 0;
 
   loan = {
-    amount: 1000,
+    amount: 1500,
     balance: 0,
     interest: 3,
     months: 3,
@@ -159,6 +159,11 @@ export class LenderPageComponent implements OnInit {
       wallet: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
     if (!user_data.email && !user_data.id && !user_data.wallet) {
+      return;
+    }
+
+    if (loan_amount < 1500 || interest < 3 || time_frame < 1){
+      this.error = "Form is not valid, make sure all values are valid.";
       return;
     }
 
