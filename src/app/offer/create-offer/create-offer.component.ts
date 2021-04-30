@@ -91,7 +91,7 @@ export class CreateOfferComponent implements OnInit {
       let platform = this.loan.platform;
 
       
-    if (loan_amount <= 0 || interest <= 0 || time_frame <= 0){
+    if (loan_amount < 1500 || interest < 3 || time_frame < 1){
       this.error = "Form is not valid, make sure all values are valid.";
       return;
     }
@@ -120,7 +120,7 @@ export class CreateOfferComponent implements OnInit {
       let time_frame = form.value.time_frame;
       let platform = form.value.platform;
 
-      if (loan_amount <= 1500 || interest <= 3 || time_frame <= 3){
+      if (loan_amount < 1500 || interest < 3 || time_frame < 1){
         this.error = "Form is not valid, make sure all values are valid.";
         return;
       }
@@ -167,7 +167,7 @@ export class CreateOfferComponent implements OnInit {
    * @returns the modal-target to re-direct into. 
    */
   find_target_modal(){
-    if (this.loan.amount < 1500 || this.loan.interest < 3 || this.loan.months < 3){
+    if (this.loan.amount < 1500 || this.loan.interest < 3 || this.loan.months < 1){
       return ''; 
     }
     return '#offerConfirmModal';
@@ -178,8 +178,11 @@ export class CreateOfferComponent implements OnInit {
    * corresponding one. 
    */
   check_valid_form(){
-    if (this.loan.amount < 1500 || this.loan.interest < 3 || this.loan.months < 3){
+    if (this.loan.amount < 1500 || this.loan.interest < 3 || this.loan.months < 1){
       this.error = "Form is not valid, make sure all values are valid.";
+    }
+    else{
+      this.error = 'null';
     }
   }
 
