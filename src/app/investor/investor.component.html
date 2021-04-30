@@ -90,8 +90,8 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col-8">
-            <div class="bg-white text-dark rounded-lg shadow" >
+        <div class="col-8" style="height: 60vh;">
+            <div class="text-dark rounded-lg shadow" >
                 <div class="row p-3">
                     <div class="col-6">
                         <h4>Active Loans</h4>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 rounded-lg" style="height: 60vh;">
+                    <div class="col-12 rounded-lg">
                         <div class="list-group list-group-flush rounded-lg" style="max-height: 60vh; overflow: auto; overflow-x:hidden;">
                             <a class="list-group-item list-group-item-action" *ngFor="let loan of loanFilter(loans)">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
