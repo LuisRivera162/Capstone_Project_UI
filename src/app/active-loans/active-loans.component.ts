@@ -120,6 +120,7 @@ export class ActiveLoansComponent implements OnInit {
    */
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
+    this.error = 'null';
   }
 
   /**
@@ -304,7 +305,6 @@ export class ActiveLoansComponent implements OnInit {
     if (this.error != 'null'){
       return ''; 
     }
-
     return 'modal';
   }
 
