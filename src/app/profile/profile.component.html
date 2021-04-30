@@ -1,4 +1,5 @@
-<div class="mt-4">
+
+<div class="mt-4 align-items-center">
 
   <!-- <h4 class="mb-4">
     Profile settings
@@ -23,21 +24,6 @@
         <div class="tab-content">
 
           <div class="tab-pane fade active show" id="account-general">
-
-            <div class="card-body media align-items-center">
-              <img
-                src="https://w7.pngwing.com/pngs/312/283/png-transparent-man-s-face-avatar-computer-icons-user-profile-business-user-avatar-blue-face-heroes.png"
-                alt="" class="d-block ui-w-80">
-              <div class="media-body ml-4">
-                <label class="btn btn-outline-primary">
-                  Upload new photo
-                  <input type="file" class="account-settings-fileinput">
-                </label> &nbsp;
-                <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-
-                <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
-              </div>
-            </div>
             <hr class="border-light m-0">
 
             <form #authForm="ngForm" (ngSubmit)="onSaveProfile(authForm)">
@@ -95,7 +81,7 @@
                 <hr>
                 <div class="row form-group">
                   <div class="col-sm-3" *ngIf="!editMode">
-                    <h6 class="mb-0">Ethereum Address</h6>
+                    <h6 class="mb-0">Wallet Address</h6>
                   </div>
                   <div class="col-sm-9 text-secondary" *ngIf="!editMode">
                     {{wallet}}
@@ -123,10 +109,12 @@
                   </div>
                 </div>
                 <hr>
-                <div class="btn btn-primary" *ngIf="!editMode" (click)="editMode=true">Edit Profile</div>
-                <div type="submit" (click)="onSaveProfile(authForm)" data-toggle="modal" data-target="#myModal"
-                  class="btn btn-primary" *ngIf="editMode">Save Profile</div>
-                <div class="btn btn-secondary" (click)="editMode=false" *ngIf="editMode">Discard Changes</div>
+                <div class="mx-auto d-block">
+                  <div class="btn btn-primary" *ngIf="!editMode" (click)="editMode=true">Edit Profile</div>
+                  <div type="submit" (click)="onSaveProfile(authForm)" data-toggle="modal" data-target="#myModal"
+                    class="btn btn-primary" *ngIf="editMode">Save Profile</div>
+                  <div class="btn btn-secondary mx-2" (click)="editMode=false" *ngIf="editMode">Discard Changes</div>
+                </div>
               </div>
             </form>
 
