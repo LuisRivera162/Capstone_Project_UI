@@ -86,15 +86,15 @@ export class PendingOffersComponent implements OnInit {
    * on the back-end server in order to set the offer to 
    * the 'withdrawn' state upon user request. 
    */
-     onSubmit() {
-      this.HttpClient.put<any>(
-        '/api/withdraw-offer',
-        {
-          offer_id: this.curr_offer.offer_id
-        }
-      ).subscribe(resData => {
-        window.location.reload();
-      });
+  onSubmit() {
+  this.HttpClient.put<any>(
+    '/api/withdraw-offer',
+    {
+      offer_id: this.curr_offer.offer_id
     }
+  ).subscribe(resData => {
+    window.location.reload();
+  });
+}
 
 }
