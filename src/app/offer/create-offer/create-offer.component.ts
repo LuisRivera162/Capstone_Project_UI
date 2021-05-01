@@ -142,7 +142,6 @@ export class CreateOfferComponent implements OnInit {
     }
 
     else {
-      console.log('fail');
     }
   }
 

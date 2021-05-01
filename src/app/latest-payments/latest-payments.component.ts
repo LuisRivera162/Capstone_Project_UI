@@ -64,9 +64,6 @@ export class LatestPaymentsComponent implements OnInit {
           this.payments.push(activity); 
         }
       });
-      console.log(this.activities);
-      console.log("this.toValidatePayments");
-      console.log(this.toValidatePayments);
     });
   }
 

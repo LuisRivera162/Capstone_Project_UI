@@ -117,7 +117,6 @@ export class LenderPageComponent implements OnInit {
         }
         this.overall_gain += loan.rcvd_interest;
       });
-      console.log(this.loans)
     });
 
     this.HttpClient.get<any>(

@@ -51,7 +51,6 @@ export class LoanSearchComponent implements OnInit {
       '/api/loans',
     { }).subscribe(resData => {
       this.loans = resData.Loans as Loan[];
-      console.log(this.loans)
     });
   }
 
@@ -86,7 +85,6 @@ export class LoanSearchComponent implements OnInit {
         lender_id: this.curr_loan.lender
       }
       ).subscribe(resData => {
-        console.log(resData.Status)
         if (resData.Status == 'Edited'){
           this.notificationService.insert_nofitication(Number(this.authService.user_id), 13); 
           this.notificationService.insert_nofitication(this.curr_loan.lender, 6); 

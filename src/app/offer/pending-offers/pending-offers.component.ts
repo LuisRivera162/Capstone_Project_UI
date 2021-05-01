@@ -54,7 +54,6 @@ export class PendingOffersComponent implements OnInit {
       params
     }).subscribe((resData:any) => {
       this.offers = resData.Offers; 
-      console.log(this.offers)
     });
   }
 

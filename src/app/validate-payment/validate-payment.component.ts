@@ -66,8 +66,6 @@ export class ValidatePaymentComponent implements OnInit {
     this.error = "null";
 
     let evidenceHash = form.value.evidenceHash;
-
-    console.log(this.paymentToValidate)
     
     let user_data: {
       email: string;

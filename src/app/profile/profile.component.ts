@@ -175,8 +175,6 @@ export class ProfileComponent implements OnInit {
 
         }else{
           if (resData.Result1){
-
-            console.log("Unable to update this user as the email already exist")
             this.errorOnEmail = true
             if (!resData.Result2){
               this.updateUser(username,this.email,first_name,last_name,phone)
@@ -185,7 +183,6 @@ export class ProfileComponent implements OnInit {
 
           }
           if (resData.Result2){
-            console.log("Unable to update this user as the username already exist")
             this.errorOnUsername = true
             if (!resData.Result1){
               this.updateUser(this.username,email,first_name,last_name,phone)

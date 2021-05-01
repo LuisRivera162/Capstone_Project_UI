@@ -213,11 +213,8 @@ export class BorrowerPageComponent implements OnInit {
         params
       }
     ).subscribe((resData: any) => {
-      console.log(resData)
       if (resData.Payments.length) {
         var core_transfer_date = new Date(resData.Payments[0].payment_date)
-
-        console.log(core_transfer_date.getMonth(), core_transfer_date.getDay(), core_transfer_date.getFullYear())
 
         var month = core_transfer_date.getMonth()
         var day = core_transfer_date.getDate()
@@ -261,8 +258,6 @@ export class BorrowerPageComponent implements OnInit {
 
           this.paymentTable.push(payload)
         }
-
-        console.log(this.paymentTable)
 
         for (let i = 0; i < this.paymentTable.length; i++) {
           if (this.paymentTable[i].state == 0) {

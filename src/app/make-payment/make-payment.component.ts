@@ -53,7 +53,6 @@ export class MakePaymentComponent implements OnInit {
    * Initial code ran when component is loaded. 
    */
   ngOnInit(): void {
-    console.log(this.loan.platform)
   }
 
   /**
@@ -70,16 +69,6 @@ export class MakePaymentComponent implements OnInit {
    */
   onSubmit(form: NgForm) {
 
-    // console.log(form)
-
-    // if (!form.valid) {
-    //   this.error = "Form is not valid, make sure you fill all fields."
-    //   console.log(this.error)
-    //   console.log(this.loan.platform)
-    //   console.log(this.loan)
-    //   return;
-    // }
-
     this.error = "null";
 
     let user_data: {
@@ -90,8 +79,6 @@ export class MakePaymentComponent implements OnInit {
     if (!user_data.email && !user_data.id && !user_data.wallet) {
       return;
     }
-
-    console.log( ((this.loan.payment_number == 0) ? this.loan.amount : this.loan.monthly_repayment))
 
     this.payment.state = -1
 

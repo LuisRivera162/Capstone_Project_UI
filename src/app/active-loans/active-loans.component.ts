@@ -140,7 +140,6 @@ export class ActiveLoansComponent implements OnInit {
       ).subscribe(resData => {
         this.notificationService.insert_nofitication(Number(this.authService.user_id), 11);
         window.location.reload();
-        console.log("lender withdrew loan, do something here...");
         this.isLoading = false; 
       });
     }
