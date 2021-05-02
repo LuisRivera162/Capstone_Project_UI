@@ -99,10 +99,10 @@ export class AuthComponent implements OnInit {
    * @returns Null if the form is not valid. 
    */
   onSubmit(form: NgForm){
-
     if (!form.valid){
       return;
     }
+    
     const email = form.value.email;
     const password = form.value.password;
     const age = form.value.age;

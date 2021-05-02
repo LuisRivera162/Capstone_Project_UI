@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     else if (login != 0) {
       if (this.location.path() == '/investor') {
         this.router.navigate(['/investor'])
-      } else {
+      } else if (this.location.path() != '/auth') {
         this.router.navigate(['/entry']);
       }
 
