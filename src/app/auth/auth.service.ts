@@ -59,7 +59,6 @@ export class AuthService {
         resData.lender
         );
         this.user.next(user);
-        console.log(user)
         localStorage.setItem('userData', JSON.stringify(user));
     }));
   }

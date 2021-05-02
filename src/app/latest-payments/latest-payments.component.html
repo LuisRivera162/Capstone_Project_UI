@@ -34,14 +34,14 @@
                 <h5 [ngClass]="get_relative_payment(payment.receiver_id)">
                     {{this.user_id == payment.receiver_id ? '+' : '-'}}{{payment.amount | currency}}
                 </h5>
-                <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
+                <!-- <small [ngClass]="get_validation_class(payment.validated, payment.validation_hash)">
                     {{get_validation_message(payment.validated, payment.validation_hash)}}
-                </small>
+                </small> -->
             </div>
-            <small>
+            <!-- <small>
                 <b>{{user_id == payment.receiver_id ? 'Borrower' : 'Lender'}}:</b>
                 {{payment.receiver_username}}
-            </small>
+            </small> -->
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#" data-toggle="modal"
                         data-target="#txReceiptModal">{{payment.eth_address}}</a></small>

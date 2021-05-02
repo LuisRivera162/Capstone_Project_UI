@@ -86,15 +86,11 @@ export class ProfileComponent implements OnInit {
     this.passwordChanged = false
     if (new_password != newpass_conf){
       this.passwordError = true
-      console.log("not matching")
     }else{
-      console.log("matching")
-
       this.HttpClient.put<ResponseInterface>(
         '/api/editpass',
         {user_id: user_id, email: this.email, old_password : old_password, new_password: new_password }
       ).subscribe(resData => {
-        console.log(resData.status)
         if (resData.status == "fail"){
           this.passwordError = true
         }else if (resData.status == "success"){
@@ -155,8 +151,6 @@ export class ProfileComponent implements OnInit {
 
         }else{
           if (resData.Result1){
-
-            console.log("cant update this user as the email already exist")
             this.errorOnEmail = true
             if (!resData.Result2){
               this.updateUser(username,this.email,first_name,last_name,phone)
@@ -165,7 +159,6 @@ export class ProfileComponent implements OnInit {
 
           }
           if (resData.Result2){
-            console.log("cant update this user as the username already exist")
             this.errorOnUsername = true
             if (!resData.Result1){
               this.updateUser(this.username,email,first_name,last_name,phone)

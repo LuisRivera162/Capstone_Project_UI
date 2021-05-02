@@ -57,7 +57,7 @@
                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                             data-parent="#offersAccordion">
                                 <ul class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action" 
+                                    <a class="list-group-item list-group-item-action"
                                     *ngFor="let p_offer of curr_loan.offers ; index as j">
                                         <div class="row">
                                             <div class="col-6">
@@ -69,10 +69,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <del>{{ curr_loan.interest | percent }}</del> <b> {{ p_offer.interest | percent }}</b> 
+                                                <del>{{ curr_loan.interest | percent }}</del> <b> {{ p_offer.interest | percent }}</b>
                                             </div>
                                             <div class="col-6 text-right">
-                                                
+
                                             </div>
                                         </div>
                                         <div class="row">
@@ -109,11 +109,11 @@
                         <!-- <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5> -->
                     </div>
                 </div>
-                
+
             </div>
             <div class="modal-footer" *ngIf="curr_loan.state == 0">
                 <!-- <button type="button" *ngIf="curr_loan.offers" class="btn btn-outline-warning">View Offers</button> -->
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" 
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"
                 data-toggle="modal"
                 data-target="#confirmLoanWithdrawalModal">Withdraw Loan?</button>
                 <button type="button" class="btn btn-primary">Edit Parameters</button>
@@ -121,7 +121,7 @@
             <div class="modal-footer" *ngIf="curr_loan.state == 3">
                 <button type="button" class="btn btn-outline-danger" (click)="reject()">Reject Request</button>
                 <button type="button" class="btn btn-primary" (click)="confirm()">Confirm Request</button>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -130,7 +130,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirm Loan Withdrawal</h5> 
+                <h5 class="modal-title">Confirm Loan Withdrawal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -168,7 +168,6 @@
                 </small>
                 <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
                 <small *ngIf="loan.offers && loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
-                <!-- <small *ngIf="loan.state == 1" class="text-warning">Deal Reached - Send Payment</small> -->
                 <small *ngIf="loan.state == 2 && !loan.balance" class="text-warning">Active - Send Loan</small>
                 <small *ngIf="loan.state == 2 && loan.balance" class="text-success">Active</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Active - Waiting Validation</small>
@@ -191,4 +190,3 @@
 <script>
     $('#loanDetailsModal').on('shown.bs.modal', function () { })
 </script>
-<!-- [routerLink]="['./loan-info/', loan.loan_id]" -->

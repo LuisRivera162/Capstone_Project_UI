@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 
 
 interface Offer {
@@ -18,7 +17,7 @@ interface Offer {
   rejected: boolean,
   username: string,
   eth_address: string
-};
+}
 
 @Component({
   selector: 'app-pending-offers',
@@ -32,7 +31,7 @@ export class PendingOffersComponent implements OnInit {
   curr_offer: Offer = {} as Offer;
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private HttpClient: HttpClient
     ) { }
@@ -44,7 +43,7 @@ export class PendingOffersComponent implements OnInit {
     {
       params
     }).subscribe((resData:any) => {
-      this.offers = resData.Offers; 
+      this.offers = resData.Offers;
     });
 
 
@@ -66,7 +65,7 @@ export class PendingOffersComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      window.location.reload(); 
+      window.location.reload();
     });
   }
 

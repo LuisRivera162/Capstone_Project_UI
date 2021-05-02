@@ -43,7 +43,7 @@ interface Offer {
 })
 
 export class LenderPageComponent implements OnInit {
-  
+
   available_loans = 0;
   active_loans = 0;
   active_loans_balance = 0;
@@ -89,7 +89,7 @@ export class LenderPageComponent implements OnInit {
       resData.forEach((loan: Loan) => {
         this.loans.push(loan);
 
-        
+
 
         if (loan.state == 0) {
           this.available_loans++;
@@ -100,7 +100,6 @@ export class LenderPageComponent implements OnInit {
         }
       });
 
-      console.log(this.loans)
     });
 
     this.HttpClient.get<any>(
@@ -151,23 +150,19 @@ export class LenderPageComponent implements OnInit {
     return this.HttpClient.post(
       '/api/create-loan',
       {
-        loan_amount: loan_amount, 
-        interest: interest, 
+        loan_amount: loan_amount,
+        interest: interest,
         time_frame: time_frame,
-        platform: platform, 
+        platform: platform,
         lender: user_data.id,
         lender_eth: user_data.wallet,
         monthly_repayment: this.loan.monthly_repayment,
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData: any) => {
-        if (resData.Error) {
-          // return error
-          console.log(resData.Error);
-        } else {
+        if (!resData.Error) {
           newLoan.state = 0;
           newLoan.eth_address = resData.contractAddress;
         }
-
         this.loans_processing--;
       });
   }
@@ -198,7 +193,7 @@ export class LenderPageComponent implements OnInit {
         offer_id: this.curr_offer.offer_id
       }
     ).subscribe(resData => {
-      window.location.reload(); 
+      window.location.reload();
     });
   }
 
@@ -208,11 +203,11 @@ export class LenderPageComponent implements OnInit {
       '/api/accept-offer',
       {
         offer_id: this.pending_offers[index].offer_id,
-        contractHash: this.pending_offers[index].eth_address     
+        contractHash: this.pending_offers[index].eth_address
       }
     ).subscribe(resData => {
       this.notificationService.insert_nofitication(this.pending_offers[index].borrower_id, 3);
-      window.location.reload(); 
+      window.location.reload();
     });
   }
 
