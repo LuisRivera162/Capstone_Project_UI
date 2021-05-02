@@ -51,7 +51,7 @@ export class AuthService {
       {username: username, first_name: first_name, last_name: last_name, email: email,
         password: password, conf_password: conf_password, age: age, phone: phone, lender: lender}
       ).pipe(tap(resData => {
-        if (!!resData.Error){
+        if (!resData.Error){
           const user = new User(
             resData.email,
             resData.localId,
@@ -83,7 +83,7 @@ export class AuthService {
       }
     )
     .pipe(tap(resData => {
-      if (!!resData.Error){
+      if (!resData.Error){
         const user = new User(
           resData.email,
           resData.localId,
