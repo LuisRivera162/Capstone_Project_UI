@@ -39,43 +39,7 @@ export class AuthComponent implements OnInit {
    */
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
-  }
-
-  /**
-   * 
-   * Method used in order to confirm if the credentials upon register 
-   * are valid. In the case a user email or username already exists,
-   * it is considered invalid. 
-   * 
-   * @param email User email
-   * @param password User password
-   * @param age User age
-   * @param first_name User first name
-   * @param last_name User last name
-   * @param conf_password User confirmed password
-   * @param username User username
-   * @param phone User phone
-   */
-  check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
-    const params = new HttpParams().append('email', email).append("username",username);
-    this.HttpClient.get<ResultData>(
-      '/api/check-emails-user',
-      {
-        params
-      }
-    ).subscribe(resData => {
-      this.check = ((resData.Result1) || (resData.Result2))
-      if(!this.check){
-        this.sign_up(email,password,age,first_name,last_name,conf_password,username,phone)
-      }else{
-        if (resData.Result1){
-          console.log("Cannot register this user as the email already exist")
-        }
-        if (resData.Result2) {
-          console.log("Cannot register this user as the username already exist")
-        }
-      }
-    });
+    this.error = 'null';
   }
 
   /**
@@ -103,28 +67,51 @@ export class AuthComponent implements OnInit {
     const phone = form.value.phone;
     this.isLoading = true;
 
-    if (this.isLoginMode){
-      this.check_email(email,password,age,first_name,last_name,conf_password,username,phone)
-    }
-    else{
+    if (!this.isLoginMode){
       this.authService.login(email, password).subscribe(
         resData => {
-          this.isLoading = false;
-          this.error = "null";
-          if(resData.lender){
-            this.router.navigate(['/lender']);
-          }else{
-            this.router.navigate(['/borrower']);
+          if(resData.Error){
+            this.error = resData.Error;
+          }
+          else {
+            this.isLoading = false;
+            this.error = "null";
+            if(resData.lender){
+              this.router.navigate(['/lender']);
+            }else{
+              this.router.navigate(['/borrower']);
+            }
           }
         },
         errorRes => {
-          console.log(errorRes);
           this.isLoading = false;
-          this.error = "The username or password entered is incorrect.";
+          this.error = "The email or password entered is incorrect.";
         }
       );
     }
-    form.reset();
+    else {
+      this.authService.signUp(username, first_name, last_name, email, password,
+        conf_password, age, phone, this.lender).subscribe(
+          resData => {
+            if(resData.Error){
+              this.error = resData.Error;
+            }
+            else{
+              this.isLoading = false;
+              this.error = "null";
+              if(resData.lender){
+                this.router.navigate(['/lender']);
+              }else{
+                this.router.navigate(['/borrower']);
+              }
+            }
+          },
+          errorRes => {
+            this.isLoading = false;
+            this.error = errorRes.error;
+          }
+        );
+    }
   }
 
   /**
@@ -145,40 +132,5 @@ export class AuthComponent implements OnInit {
    */
   onItemChange(target: boolean) {
     this.lender = target
-  }
-
-  /**
-   * 
-   * Method in order to sign up in the application, sends the form 
-   * credentials to the authentication service component. 
-   * 
-   * @param email User email
-   * @param password User password
-   * @param age User age
-   * @param first_name User first name
-   * @param last_name User last name
-   * @param conf_password User confirmed password
-   * @param username User username
-   * @param phone User phone
-   */
-  private sign_up(email: any, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any) {
-    this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
-      resData => {
-        if (resData.status == 'failure'){
-          return
-        }
-        this.isLoading = false;
-        this.error = "null";
-        if(this.lender){
-          this.router.navigate(['/lender']);
-        }else{
-          this.router.navigate(['/borrower']);
-        }
-      },
-      errorRes => {
-        this.isLoading = false;
-        this.error = "An error has occured.";
-      }
-    );
   }
 }

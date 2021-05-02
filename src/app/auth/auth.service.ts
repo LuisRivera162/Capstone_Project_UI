@@ -11,6 +11,7 @@ interface AuthResponseData {
   status?: string;
   wallet: string;
   lender: boolean;
+  Error: string;
 }
 
 @Injectable({
@@ -50,14 +51,16 @@ export class AuthService {
       {username: username, first_name: first_name, last_name: last_name, email: email,
         password: password, conf_password: conf_password, age: age, phone: phone, lender: lender}
       ).pipe(tap(resData => {
-        const user = new User(
-          resData.email,
-          resData.localId,
-          "0x0000000000000000000000000000000000000000",
-          resData.lender
-          );
-          this.user.next(user);
-          localStorage.setItem('userData', JSON.stringify(user));
+        if (!!resData.Error){
+          const user = new User(
+            resData.email,
+            resData.localId,
+            "0x0000000000000000000000000000000000000000",
+            resData.lender
+            );
+            this.user.next(user);
+            localStorage.setItem('userData', JSON.stringify(user));
+        }
       }));
   }
 
@@ -80,14 +83,16 @@ export class AuthService {
       }
     )
     .pipe(tap(resData => {
-      const user = new User(
-        resData.email,
-        resData.localId,
-        resData.wallet,
-        resData.lender
-        );
-        this.user.next(user);
-        localStorage.setItem('userData', JSON.stringify(user));
+      if (!!resData.Error){
+        const user = new User(
+          resData.email,
+          resData.localId,
+          resData.wallet,
+          resData.lender
+          );
+          this.user.next(user);
+          localStorage.setItem('userData', JSON.stringify(user));
+      }
     }));
   }
 

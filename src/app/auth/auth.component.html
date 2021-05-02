@@ -93,7 +93,10 @@
                   <h2 class="my-0">DecentraLoan</h2>
               </div>
               <form class="signup mx-auto" style="width: 70%;" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode">
-                  <div class="form-group mb-4 mt-0">
+                <div class="alert alert-danger center" *ngIf="error != 'null'" style="text-align: center;">
+                  <p style="margin: 0;">{{error}}</p>
+                </div>  
+                <div class="form-group mb-4 mt-0">
                     <input type="text" id="email" ngModel name="email" class="form-control" placeholder="Username or Email"
                     required>
                   </div>
@@ -133,6 +136,9 @@
                   </div>
               </form>
               <form class="signup mx-auto" style="width: 70%;" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode">
+                <div class="alert alert-danger center" *ngIf="error != 'null'" style="text-align: center;">
+                  <p style="margin: 0;">{{error}}</p>
+                </div>
                 <div class="form-group mb-4 mt-0">
                   <input type="email" id="email" ngModel email name="email" class="form-control" placeholder="Email"
                   required>
@@ -150,16 +156,22 @@
                   required>
                 </div>
                 <div class="form-group my-4 ">
-                  <input type="password" id="password" ngModel last_name name="password" class="form-control" placeholder="Password"
+                  <input type="password" id="password" ngModel password name="password" class="form-control" placeholder="Password"
                   required>
+                  <div class="my-1" *ngIf="authForm.value.conf_password != authForm.value.password" style="color: red; font-size: 12px; ">
+                      <p style="margin: 0;">Passwords do not match.</p>
+                  </div>
                 </div> 
                 <div class="form-group my-4 ">
                   <input type="password" id="conf_password" ngModel conf_password name="conf_password" class="form-control" placeholder="Confirm Password"
                   required>
+                  <div class="my-1" *ngIf="authForm.value.conf_password != authForm.value.password" style="color: red; font-size: 12px; ">
+                      <p style="margin: 0;">Passwords do not match.</p>
+                  </div>
                 </div> 
                 <div class="form-group my-4 ">
-                  <input type="text" id="phone" ngModel phone name="phone" class="form-control" placeholder="Phone"
-                  required>
+                  <input type="number" id="phone" ngModel phone name="phone" class="form-control" placeholder="Phone"
+                  required [maxlength]=10 >
                 </div>
                 <div class="form-group mt-4 ">
                   <input type="number" id="age" ngModel age name="age" class="form-control" placeholder="Age"
@@ -185,12 +197,12 @@
                 </div> 
               </form>
           </div>
-          <div class="col-md-6 mx-auto py-4 px-0 unselectable">
-            <div class="card p-0 rounded py-3 shadow" style="height: 60px;">
-              <div class="col-12 col-sm-12 text-center" *ngIf="!isLoginMode"> 
+          <div class="col-md-12 py-4 px-0 unselectable">
+            <div class="card p-0 rounded py-3 shadow text-center  mx-auto" style="height: 60px; width: 300px;">
+              <div class="col-12 col-sm-12 mx-auto" *ngIf="!isLoginMode"> 
                 Don't have an account? <span class="fake-link" (click)="onSwitchMode(true)">Sign Up</span> 
               </div>
-              <div class="col-12 col-sm-12 text-center" *ngIf="isLoginMode"> 
+              <div class="col-12 col-sm-12 mx-auto" *ngIf="isLoginMode"> 
                 Have an account? <span class="fake-link" (click)="onSwitchMode(false)">Log In</span> 
               </div>
             </div>
