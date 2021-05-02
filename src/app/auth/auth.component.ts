@@ -22,11 +22,6 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   isLoginMode = false;
   lender = false;
-  loginStyle = "440px"
-  errorOnUsername = false
-  errorOnEmail = false
-  errorOnLogin = false
-  errorOnRegister = false
 
   constructor(
     private authService: AuthService,
@@ -44,7 +39,6 @@ export class AuthComponent implements OnInit {
    */
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
-    this.loginStyle = mode ? "750px" : "440px";
   }
 
   /**
@@ -64,8 +58,6 @@ export class AuthComponent implements OnInit {
    */
   check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
     const params = new HttpParams().append('email', email).append("username",username);
-    this.errorOnEmail = false
-    this.errorOnUsername = false
     this.HttpClient.get<ResultData>(
       '/api/check-emails-user',
       {
@@ -78,11 +70,9 @@ export class AuthComponent implements OnInit {
       }else{
         if (resData.Result1){
           console.log("Cannot register this user as the email already exist")
-          this.errorOnEmail = true
         }
         if (resData.Result2) {
           console.log("Cannot register this user as the username already exist")
-          this.errorOnUsername = true
         }
       }
     });
@@ -117,7 +107,6 @@ export class AuthComponent implements OnInit {
       this.check_email(email,password,age,first_name,last_name,conf_password,username,phone)
     }
     else{
-      this.errorOnLogin = false
       this.authService.login(email, password).subscribe(
         resData => {
           this.isLoading = false;
@@ -130,7 +119,6 @@ export class AuthComponent implements OnInit {
         },
         errorRes => {
           console.log(errorRes);
-          this.errorOnLogin = true
           this.isLoading = false;
           this.error = "The username or password entered is incorrect.";
           // need to check where in the response is the message sent from the back end
@@ -175,11 +163,9 @@ export class AuthComponent implements OnInit {
    * @param phone User phone
    */
   private sign_up(email: any, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any) {
-    this.errorOnRegister = false;
     this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
       resData => {
         if (resData.status == 'failure'){
-          this.errorOnRegister = true
           return
         }
         this.isLoading = false;

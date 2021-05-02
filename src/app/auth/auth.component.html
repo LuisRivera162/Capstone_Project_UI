@@ -87,29 +87,32 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-6 mx-auto py-4 px-0">
+      <div class="col-md-6 mx-auto py-3 px-0">
           <div class="card p-0 rounded shadow">
-              <div class="card-title text-center">
-                  <h2 class="mt-5">DecentraLoan</h2>
+              <div class="card-title text-center my-4 unselectable">
+                  <h2 class="my-0">DecentraLoan</h2>
               </div>
               <form class="signup mx-auto" style="width: 70%;" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoginMode">
-                  <div class="form-group my-4 ">
-                    <input type="text" id="email" ngModel name="email" class="form-control" placeholder="Username or Email">
+                  <div class="form-group mb-4 mt-0">
+                    <input type="text" id="email" ngModel name="email" class="form-control" placeholder="Username or Email"
+                    required>
                   </div>
                   <div class="form-group my-4 ">
-                    <input type="password" id="password" ngModel name="password" class="form-control" placeholder="Password"></div> 
+                    <input type="password" id="password" ngModel name="password" class="form-control" placeholder="Password"
+                    required>
+                  </div> 
                   <div class="row">
                     <div class="col-12 text-center">
-                      <button type="submit" class="btn btn-primary w-100" value="Sign In">Login</button>
+                      <button type="submit" class="btn btn-primary w-100" value="Sign In" [disabled]="!authForm.valid">Login</button>
                     </div>
                     <div class="col-12 col-sm-12 text-center"> 
                       <hr>
                     </div>
                     <div class="col-12 col-sm-12 text-center"> 
-                        <p class="">Or</p>
+                        <p class="unselectable">Or</p>
                     </div>
                     <div class="col-12 col-sm-12 text-center"> 
-                        <p class="my-1">Login Using:</p>
+                        <p class="my-1 unselectable">Login Using:</p>
                     </div>
                   </div> 
                   <div class="row">
@@ -130,48 +133,59 @@
                   </div>
               </form>
               <form class="signup mx-auto" style="width: 70%;" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="isLoginMode">
-                <div class="form-group my-4 ">
-                  <input type="email" id="email" ngModel name="email" class="form-control" placeholder="Email">
+                <div class="form-group mb-4 mt-0">
+                  <input type="email" id="email" ngModel email name="email" class="form-control" placeholder="Email"
+                  required>
                 </div>
                 <div class="form-group my-4 ">
-                  <input type="text" id="username" ngModel name="username" class="form-control" placeholder="Username">
+                  <input type="text" id="username" ngModel username name="username" class="form-control" placeholder="Username"
+                  required>
                 </div>
                 <div class="form-group my-4 ">
-                  <input type="text" id="first_name" ngModel name="first_name" class="form-control" placeholder="First Name">
+                  <input type="text" id="first_name" ngModel first_name name="first_name" class="form-control" placeholder="First Name"
+                  required>
                 </div>
                 <div class="form-group my-4 ">
-                  <input type="text" id="last_name" ngModel name="last_name" class="form-control" placeholder="Last Name">
+                  <input type="text" id="last_name" ngModel last_name name="last_name" class="form-control" placeholder="Last Name"
+                  required>
                 </div>
                 <div class="form-group my-4 ">
-                  <input type="password" id="password" ngModel name="password" class="form-control" placeholder="Password">
+                  <input type="password" id="password" ngModel last_name name="password" class="form-control" placeholder="Password"
+                  required>
                 </div> 
                 <div class="form-group my-4 ">
-                  <input type="password" id="conf_password" ngModel name="conf_password" class="form-control" placeholder="Confirm Password">
+                  <input type="password" id="conf_password" ngModel conf_password name="conf_password" class="form-control" placeholder="Confirm Password"
+                  required>
                 </div> 
                 <div class="form-group my-4 ">
-                  <input type="text" id="phone" ngModel name="phone" class="form-control" placeholder="Phone">
+                  <input type="text" id="phone" ngModel phone name="phone" class="form-control" placeholder="Phone"
+                  required>
                 </div>
-                <div class="form-group my-4 ">
-                  <input type="number" id="age" ngModel name="age" class="form-control" placeholder="Age">
+                <div class="form-group mt-4 ">
+                  <input type="number" id="age" ngModel age name="age" class="form-control" placeholder="Age"
+                  required>
                 </div>
-                <div class="accounttype col-md-12 mx-auto p-0 text-center">
-                  <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required/>
-                  <label for="BorrowRadio" class="radio">Borrower</label>
+                <div class="accounttype col-md-12 mx-auto p-0 text-center my-0">
+                  <input type="radio" value="None" id="BorrowRadio" (change)="onItemChange(false)" name="lenderSelect" required checked/>
+                  <label for="BorrowRadio" class="radio my-0 mx-1 unselectable">Borrower</label>
                   <span class="mx-5"></span>
                   <input type="radio" value="None" id="LenderRadio" (change)="onItemChange(true)" name="lenderSelect" required/>
-                  <label for="LenderRadio" class="radio">Lender</label>
+                  <label for="LenderRadio" class="radio my-0 mx-1 unselectable">Lender</label>
                 </div>
                 <div class="row">
                   <div class="col-12 text-center">
                     <hr>
                   </div>
-                  <div class="col-12 text-center my-4">
-                    <button type="submit" class="btn btn-primary w-100" value="Sign In">Register</button>
+                  <div class="col-12 text-center mb-4">
+                    <button type="submit" class="btn btn-primary w-100" value="Sign In" 
+                    [disabled]="!authForm.valid">
+                      Register
+                    </button>
                   </div>
                 </div> 
               </form>
           </div>
-          <div class="col-md-6 mx-auto py-4 px-0">
+          <div class="col-md-6 mx-auto py-4 px-0 unselectable">
             <div class="card p-0 rounded py-3 shadow" style="height: 60px;">
               <div class="col-12 col-sm-12 text-center" *ngIf="!isLoginMode"> 
                 Don't have an account? <span class="fake-link" (click)="onSwitchMode(true)">Sign Up</span> 
