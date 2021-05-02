@@ -25,7 +25,7 @@
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
                     <div class="col-sm-6">
-                        {{curr_offer.interest * 100}}%
+                        {{curr_offer.interest | percent: '1.0-2' }}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -55,7 +55,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-create-offer [isEdit]="true" [curr_offer]="this.curr_offer"></app-create-offer>
+                <app-create-offer [isEdit]="true" [curr_offer]="this.curr_offer" [lender_id]="this.curr_offer.lender_id"></app-create-offer>
             </div>
         </div>
     </div>
@@ -85,16 +85,17 @@
 </div>
 
 <div *ngIf="getURL()" style="margin-top: 50px;"></div>
-<div class="card">
-    <div class="card-header">
-        Pending Offers
+<div style="height: 75vh;">
+<div class="bg-white text-dark rounded-lg shadow">
+    <div class="p-3 border-bottom">
+        <h5 class="p-0 m-0">Pending Offers</h5>
     </div>
-    <ul class="overflow-auto list-group list-group-flush" style="max-height: 75vh;">
+    <ul class="overflow-auto list-group list-group-flush rounded-lg" style="max-height: 75vh;">
         <a class="list-group-item list-group-item-action" *ngIf="!offers.length">
             No pending offers at this time.
         </a>
         <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#offerInfoModal"
-            *ngFor="let offer of offers;  let i = index" (click)="loadOfferInfo(i)">
+            *ngFor="let offer of offers;  let i = index" (click)="loadOfferInfo(i)" onmousedown="return false">
             <div class="d-flex w-100 justify-content-between">
                 <div class="d-flex">
                 <h5 class="mb-1 align-self-center" style="margin-right: 2px;">
@@ -102,18 +103,22 @@
                 </h5>
                 <small class="align-self-center">
                     <span class="badge badge-warning" style="margin-right: 2px;">
-                        {{offer.interest    | percent: '1.0-2'}}
+                        {{offer.interest | percent: '1.0-2'}}
                     </span>
                 </small>
                 <small class="align-self-center">
                     <span class="badge badge-info" style="margin-right: 2px;">
-                        {{offer.months }} month(s)
+                        {{offer.months}} month(s)
                     </span>
                 </small>
-
             </div>
             <small class="text-info">Waiting for Lender Response</small>
             </div>
+            <small>
+                <b>
+                    Lender: {{offer.username}}
+                </b>
+            </small>
             <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#">
                         {{offer.eth_address}}
@@ -121,9 +126,11 @@
             </p>
         </a>
     </ul>
-</div>
+</div></div>
+
 
 <script>
     $('#offerInfoModal').on('shown.bs.modal', function () { })
     $('#createOfferModal').on('shown.bs.modal', function () { })
+    $('#confirmModal').on('shown.bs.modal', function () { })
 </script>

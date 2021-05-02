@@ -16,32 +16,38 @@
                         <a href="https://kovan.etherscan.io/address/{{curr_loan.eth_address}}" target="_blank">{{curr_loan.eth_address}}</a>
                     </div>
                 </div>
-                <div class="form-group row" style="word-wrap: break-word;" *ngIf="curr_loan.borrower != '0x0000000000000000000000000000000000000000'">
+                <div class="form-group row" style="word-wrap: break-word;" *ngIf="curr_loan.borrower">
                     <label class="col-sm-6 col-form-label">Borrower</label>
-                    <div class="col-sm-6">
-                        {{curr_loan.borrower}}
+                    <div class="col-sm-6 col-form-label">
+                        {{curr_loan.borrower_username}}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Loan Amount</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-form-label">
                         {{curr_loan.amount | currency}}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-6 col-form-label">Interest</label>
-                    <div class="col-sm-6">
-                        {{curr_loan.interest/100 | percent: '1.0-2'}}
+                    <div class="col-sm-6 col-form-label">
+                        {{curr_loan.interest | percent: '1.0-2'}}
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-6 col-form-label">Repayment Time (months)</label>
-                    <div class="col-sm-6">
-                        {{curr_loan.months}}
+                    <label class="col-sm-6 col-form-label">Repayment Time</label>
+                    <div class="col-sm-6 col-form-label">
+                        {{curr_loan.months}} months
+                    </div>
+                </div>
+                <div class="form-group row" style="word-wrap: break-word;">
+                    <label class="col-sm-6 col-form-label">Payment Platform</label>
+                    <div class="col-sm-6 col-form-label">
+                        {{platform[curr_loan.platform]}}
                     </div>
                 </div>
 
-                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers.length && curr_loan.state != 2">
+                <div class="accordion" id="offersAccordion" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 2">
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
@@ -81,8 +87,21 @@
                                             </div>
                                             <div class="col-6 text-right">
                                                 <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-danger" >Reject</button>
-                                                    <button type="button" class="btn btn-success">Accept</button>
+
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" 
+                                                    data-toggle="modal"
+                                                    data-target="#confirmOfferRejectModal" 
+                                                    (click)="update_offer(j)">
+                                                        Reject
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-success" 
+                                                    (click)="update_offer(j)"
+                                                    data-dismiss="modal" 
+                                                    data-toggle="modal"
+                                                    data-target="#AcceptOfferConfirmationModal2">
+                                                        Accept
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,33 +114,44 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="btn btn-success btn-block" data-dismiss="modal" 
+                data-toggle="modal" data-target="#makePaymentModal" 
+                *ngIf="curr_loan.state == 2 && !curr_loan.balance">
+                    Send Payment
+                </div>
 
-                <div class="btn btn-success btn-block" data-dismiss="modal" data-toggle="modal" data-target="#makePaymentModal" *ngIf="curr_loan.state == 2 && !curr_loan.balance" (click)="send_payment()">Send Payment</div>
-
-                <hr>
-                <div id="calculatedEstimates">
+                <!-- <hr *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
+                <div id="calculatedEstimates" *ngIf="curr_loan.offers && curr_loan.offers.length && curr_loan.state < 3">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Monthly Payment</h5>
-                        <!-- <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5> -->
+                         <h5 class="mb-1 text-success">${{curr_loan.monthly_repayment | number: '1.0-2'}}</h5> 
                     </div>
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Est. Yield</h5>
-                        <!-- <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5> -->
+                        <h5 class="mb-1 text-success">{{curr_loan.est_total_interest | currency}} ({{curr_loan.est_total_interest / curr_loan.amount | percent: '1.0-2'}})</h5>
                     </div>
-                </div>
-
+                </div> -->
+                
             </div>
             <div class="modal-footer" *ngIf="curr_loan.state == 0">
                 <!-- <button type="button" *ngIf="curr_loan.offers" class="btn btn-outline-warning">View Offers</button> -->
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal"
                 data-toggle="modal"
                 data-target="#confirmLoanWithdrawalModal">Withdraw Loan?</button>
-                <button type="button" class="btn btn-primary">Edit Parameters</button>
-            </div>
-            <div class="modal-footer" *ngIf="curr_loan.state == 3">
-                <button type="button" class="btn btn-outline-danger" (click)="reject()">Reject Request</button>
-                <button type="button" class="btn btn-primary" (click)="confirm()">Confirm Request</button>
-            </div>
+                <button type="button" class="btn btn-primary"
+                data-dismiss="modal" 
+                data-toggle="modal"
+                data-target="#editLoanModal"
+                (click)="loadEditedLoan()">Edit Parameters</button>
+            </div>  
+            <div class="modal-footer justify-content-center" *ngIf="curr_loan.state == 3">
+
+                <!-- <button type="button" class="btn btn-outline-danger">Reject Request</button> -->
+                <!-- <button type="button" class="btn btn-primary">Confirm Request</button> -->
+                <h5 class="text-warning"><i class="bi bi-exclamation-circle"></i> Waiting for Borrower Validation</h5>
+                <p class="text-center">If the payment is not validated by the borrower in a week, the money will be returned to your account.</p>
+            </div> 
         </div>
     </div>
 </div>
@@ -149,41 +179,273 @@
     </div>
 </div>
 
-<div style="margin-top: 40px;" *ngIf="isActiveLoansURLAddress()"></div>
-<div class="card" *ngIf="!isLoading">
-    <div class="card-header">
-        My Loans
+<div class="modal fade" id="AcceptOfferConfirmationModal2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Offer Acceptance</h5> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h6>Upon approval of this offer, the money is to be sent and validated 
+                    within a week or the loan will be automatically rejected.</h6>
+                <h6>Do you wish to procede?</h6>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="accept_offer()">
+                    Confirm
+                </button>
+            </div>
+        </div>
     </div>
-    <ul class="overflow-auto list-group list-group-flush" style="max-height: 50vh;">
+</div>
+
+<div class="modal fade" id="confirmOfferRejectModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Offer Rejection</h5> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h6>Note: This action <font color="red">cannot</font> be undone.</h6>
+                <h6>Do you wish to procede?</h6>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="reject_offer()">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editLoanModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Loan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger center" *ngIf="error != 'null'" style="text-align: center;">
+                    <p style="margin: 0;">{{error}}</p>
+                </div>
+                <div class="form-group row">
+                    <label for="loan_amount" class="col-sm-6 col-form-label">Amount</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" id="loan_amount" [(ngModel)]="edited_loan.amount"
+                            (input)="recalculateEstimates(edited_loan)" name="loan_amount" required maxlength="5" step="100"
+                            max="10000" min="100" />
+                        <div class="center my-2" *ngIf="edited_loan.amount < 1500" style="color: red; text-align: center; font-size: 12px; ">
+                            <p style="margin: 0;">Loan amount must be at least $1500.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="time_frame" class="col-sm-6 col-form-label">Repayment Time (Months)</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" id="time_frame" [(ngModel)]="edited_loan.months"
+                            (input)="recalculateEstimates(edited_loan)" name="time_frame" required maxlength="5" step="1"
+                            max="36" min="1" />
+                        <div class="center my-2" *ngIf="edited_loan.months < 1" style="color: red; text-align: center; font-size: 12px; ">
+                            <p style="margin: 0;">Loan terms must be of at least 1 month.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="interest" class="col-sm-6 col-form-label">Interest Rate (%)</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" id="interest" [(ngModel)]="edited_loan.interest"
+                            (input)="recalculateEstimates(edited_loan)" name="interest" required maxlength="5" step="0.5"
+                            max="100" min="1" />
+                        <div class="center my-2" *ngIf="edited_loan.interest < 3" style="color: red; text-align: center; font-size: 12px; ">
+                            <p style="margin: 0;">Loan interests must be at least 3%.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="platform" class="col-sm-6 col-form-label">Payment Platform</label>
+                    <div class="col-sm-6">
+                        <select id="platform" class="form-control" name="platform" [(ngModel)]="edited_loan.platform">
+                            <option selected disabled value="0">Choose...</option>
+                            <option value="0">Venmo</option>
+                            <option value="1">ATH Movil</option>
+                            <option value="2">Paypal</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div id="calculatedEstimates">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Monthly Payment</h5>
+                        <h5 class="mb-1 text-success">{{monthly_repayment | currency }}</h5>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Yield</h5>
+                        <h5 class="mb-1 text-success">+{{est_total_interest | currency }}
+                            ({{est_total_interest /
+                                curr_loan.amount | percent: '1.0-2' }})</h5>
+                    </div>
+                </div>
+            </div> 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" 
+                [attr.data-dismiss]="find_dismiss_modal()"
+                data-toggle="modal" 
+                [attr.data-target]="find_target_modal()"
+                (click)="check_valid_form()"
+                >
+                    Edit Loan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmLoanEditModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Loan Changes</h5> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row my-3">
+                    <div class="col-sm-4 d-flex justify-content-left">
+                        <h5></h5>
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        <h5>Previous Value</h5>
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        <h5>New Value</h5>
+                    </div>
+                </div>
+                <div class="form-group row my-3">
+                    <div class="col-sm-4 d-flex justify-content-left">
+                    <h6>Desired Amount:</h6>
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{curr_loan.amount | currency }} 
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{edited_loan.amount | currency }} 
+                    </div>
+                </div>
+                <div class="form-group row my-3">
+                    <div class="col-sm-4 d-flex justify-content-left">
+                        <h6>Repayment Time:</h6> 
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{curr_loan.months}} month(s)
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{edited_loan.months}} month(s)
+                    </div>
+                </div>
+                <div class="form-group row my-3">
+                    <div class="col-sm-4 d-flex justify-content-left">
+                        <h6>Interest:</h6>
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{curr_loan.interest | percent: '1.0-2'}}
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{edited_loan.interest/100 | percent: '1.0-2'}}
+                    </div>
+                </div>
+                <div class="form-group row my-3">
+                    <div class="col-sm-4 d-flex justify-content-left">
+                        <h6>Payment Platform:</h6>
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{this.platform[this.curr_loan.platform]}}
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-center">
+                        {{this.platform[this.edited_loan.platform]}}
+                    </div>
+                </div>
+                <hr>
+                <div id="calculatedEstimates">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Monthly Payment</h5>
+                        <h5 class="mb-1 text-success">{{monthly_repayment | currency }}</h5>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Est. Yield</h5>
+                        <h5 class="mb-1 text-success">+{{est_total_interest | currency }}
+                            ({{est_total_interest /
+                                curr_loan.amount | percent: '1.0-2' }})</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                (click)="confirmLoanChanges()">
+                    Confirm Loan Changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 30px;" *ngIf="isActiveLoansURLAddress()"></div>
+<div class="bg-white text-dark rounded-lg shadow">
+    <div class="p-3 border-bottom">
+        <h5 class="m-0 p-0">My Loans</h5>
+    </div>
+    <ul class="overflow-auto list-group list-group-flush rounded-lg" style="max-height: 40vh;">
         <a class="list-group-item list-group-item-action" *ngIf="!loans.length">
             No loans available...
         </a>
         <a href="#" data-toggle="modal" data-target="#loanDetailsModal" class="list-group-item list-group-item-action"
-            *ngFor="let loan of loans; let i = index" (click)="loadLoanInfo(i)">
+            *ngFor="let loan of loans; let i = index" (click)="loadLoanInfo(i)" onmousedown="return false">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"> {{loan.amount | currency}}</h5>
-                <small *ngIf="loan.state == -1" class="text-warning">
-                    Submitted - Waiting for Blockchain Confirmation
+                <small *ngIf="loan.state == -2" class="text-warning">
+                    Updating loan in our systems...
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </small>
-                <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length" class="text-info">Available</small>
-                <small *ngIf="loan.offers && loan.state == 0 && loan.offers.length" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
-                <small *ngIf="loan.state == 2 && !loan.balance" class="text-warning">Active - Send Loan</small>
-                <small *ngIf="loan.state == 2 && loan.balance" class="text-success">Active</small>
+                <small *ngIf="loan.state == -1" class="text-warning">
+                    Submitting loan to our systems...
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </small>
+                <small *ngIf="isLoading && this.curr_loan.loan_id == loan.loan_id" class="text-warning">
+                    Withdrawing loan...
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </small>
+                <small *ngIf="loan.offers && loan.state == 0 && !loan.offers.length && !isLoading" class="text-info">Available</small>
+                <small *ngIf="loan.offers && loan.state == 0 && loan.offers.length && !isLoading" class="text-warning">Available - {{ loan.offers.length }} Pending Offer(s)</small>
+                <!-- <small *ngIf="loan.state == 1" class="text-warning">Deal Reached - Send Payment</small> -->
+                <small *ngIf="loan.state == 2 && !loan.balance && !isLoading" class="text-warning">Active - Send Loan</small>
+                <small *ngIf="loan.state == 2 && loan.balance && !isLoading" class="text-success">Active</small>
                 <small *ngIf="loan.state == 3" class="text-warning">Active - Waiting Validation</small>
                 <small *ngIf="loan.state == 4" class="text-danger">Delinquent</small>
                 <small *ngIf="loan.state == 5" class="text-secondary">Terminated</small>
                 <small *ngIf="loan.state == 6" class="text-secondary">Withdrawn</small>
             </div>
             <p class="mb-1">
-                <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest/100 | percent: '1.0-2'}}</span>
+                <span class="badge badge-warning" style="margin-right: 2px;">{{loan.interest | percent: '1.0-2'}}</span>
                 <span class="badge badge-info">{{loan.months}} month(s)</span>
             </p>
-            <small *ngIf="loan.borrower != '0x0000000000000000000000000000000000000000'">
-                <b>Borrower:</b><a href="#"> {{loan.borrower}}</a></small>
-            <p class="mb-1">
+            <small *ngIf="loan.borrower">
+                <b>Borrower:</b><a href="#"> {{loan.borrower_username}}</a></small>
+            <!-- <p class="mb-1">
                 <small><b>Loan ID: </b><a href="#">{{ loan.eth_address }}</a></small>
-            </p>
+            </p> -->
         </a>
     </ul>
 </div>

@@ -16,8 +16,9 @@ interface Offer {
   accepted: boolean,
   expiration_date: Date
   username: string,
-  eth_address: string
-}
+  eth_address: string,
+  platform: number
+};
 
 @Component({
   selector: 'app-create-offer',
@@ -26,18 +27,19 @@ interface Offer {
 })
 export class CreateOfferComponent implements OnInit {
   @Input() loan_id: number = -1;
-  @Input() lender_id = -1;
-  @Input() isEdit = false;
+  @Input() isEdit = false; 
   @Input() curr_offer: Offer = {} as Offer;
+  @Input() lender_id: number = -1;
 
   user_id: number | String = this.authService.user.getValue()!.id;
   error: string = "null";
+  platforms = ['Venmo', 'ATH Movil', 'PayPal']
 
   loan = {
-    amount: 500,
+    amount: 1500,
     balance: 0,
-    interest: 1,
-    months: 5,
+    interest: 3,
+    months: 3,
     platform: 0,
     monthly_repayment: 0,
     est_total_interest: 0.0,
@@ -51,11 +53,30 @@ export class CreateOfferComponent implements OnInit {
     private notificationService: NotificationComponent
   ) {}
 
+  /**
+   * A callback method that is invoked immediately after 
+   * the default change detector has checked the directive's 
+   * data-bound properties for the first time, and before any 
+   * of the view or content children have been checked. It is 
+   * invoked only once when the directive is instantiated.
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * Main submit of the component, in this case used to send
+   * and http 'POST' request to the route '/api/create-offer' 
+   * with the desired offer parameters requested from the form
+   * and provided by the user in order to create an offer. 
+   * If the user attempts to create an offer to a loan that 
+   * the user has already made an offer it will send a 'PUT' 
+   * request instead.  
+   * 
+   * @param form Form submitted by the user.
+   * @returns Null, if invalid form. void when the user edits 
+   * a loan. 
+   */
   onSubmit(form: NgForm) {
-
     if (!form.valid){
       this.error = "Form is not valid, make sure you fill all fields."
       return;
@@ -66,20 +87,28 @@ export class CreateOfferComponent implements OnInit {
       let loan_amount = form.value.loan_amount;
       let interest = form.value.interest;
       let time_frame = form.value.time_frame;
-      let platform = form.value.platform;
+      let platform = this.loan.platform;
+
+      
+    if (loan_amount < 1500 || interest < 3 || time_frame < 1){
+      this.error = "Form is not valid, make sure all values are valid.";
+      return;
+    }
 
       this.HttpClient.put(
         '/api/create-offer',
         {
-          offer_id: this.curr_offer.offer_id, loan_amount: loan_amount,
-          interest: interest, time_frame: time_frame,
-          platform: platform, borrower_id: this.user_id
+          offer_id: this.curr_offer.offer_id, loan_amount: loan_amount, 
+          interest: interest / 100, time_frame: time_frame,
+          platform: platform, borrower_id: this.user_id,
+          lender_id: this.lender_id
         }
         ).subscribe(resData => {
-          form.reset();
-          this.isEdit = false;
-          this.notificationService.insert_nofitication(this.lender_id, 7);
-          window.location.reload();
+          form.reset(); 
+          this.isEdit = false; 
+          this.notificationService.insert_nofitication(this.lender_id, 6); 
+          this.notificationService.insert_nofitication(Number(this.user_id), 13); 
+          window.location.reload(); 
       });
       return;
     }
@@ -89,19 +118,69 @@ export class CreateOfferComponent implements OnInit {
       let time_frame = form.value.time_frame;
       let platform = form.value.platform;
 
+      if (loan_amount < 1500 || interest < 3 || time_frame < 1){
+        this.error = "Form is not valid, make sure all values are valid.";
+        return;
+      }
+
       this.HttpClient.post(
         '/api/create-offer',
         {
-          loan_id: this.loan_id, loan_amount: loan_amount,
-          interest: interest, time_frame: time_frame,
+          loan_id: this.loan_id, loan_amount: loan_amount, 
+          interest: interest / 100, time_frame: time_frame,
           platform: platform, borrower_id: this.user_id,
           lender_id: this.lender_id
         }
         ).subscribe(resData => {
-          form.reset();
-          this.notificationService.insert_nofitication(this.lender_id, 6);
+          this.error = "null"; 
+          form.reset(); 
+          this.notificationService.insert_nofitication(Number(this.authService.user_id), 12);
           this.router.navigate(['/pending-offers']);
       });
     }
+
+    else {
+    }
   }
+
+  /**
+   * Method used in order to verify dismiss modal function, depending on error.
+   * @returns the modal-dimiss to dismiss into. 
+   */
+  find_dismiss_modal(){
+    if (this.error != 'null'){
+      return ''; 
+    }
+
+    if (this.isEdit){
+      return '#createOfferModal'; 
+    }
+
+    return 'modal';
+  }
+
+  /**
+   * Method used in order to verify target modal function, depending on error.
+   * @returns the modal-target to re-direct into. 
+   */
+  find_target_modal(){
+    if (this.loan.amount < 1500 || this.loan.interest < 3 || this.loan.months < 1){
+      return ''; 
+    }
+    return '#offerConfirmModal';
+  }
+
+  /**
+   * Verifies if the edit form is valid, if not sets error message to the 
+   * corresponding one. 
+   */
+  check_valid_form(){
+    if (this.loan.amount < 1500 || this.loan.interest < 3 || this.loan.months < 1){
+      this.error = "Form is not valid, make sure all values are valid.";
+    }
+    else{
+      this.error = 'null';
+    }
+  }
+
 }

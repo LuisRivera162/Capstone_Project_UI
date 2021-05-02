@@ -22,11 +22,6 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   isLoginMode = false;
   lender = false;
-  loginStyle = "440px"
-  errorOnUsername = false
-  errorOnEmail = false
-  errorOnLogin = false
-  errorOnRegister = false
 
   constructor(
     private authService: AuthService,
@@ -34,17 +29,37 @@ export class AuthComponent implements OnInit {
     private HttpClient: HttpClient
   ) {}
 
+  /**
+   * 
+   * Used in order to dynamically change the login component height due 
+   * to the amount of fields in each form. 
+   * 
+   * @param mode The mode it is in, true if in the register interface,
+   * false if in the login interface. 
+   */
   onSwitchMode(mode: boolean){
     this.isLoginMode = mode;
-    this.loginStyle = mode ? "750px" : "440px";
   }
 
+  /**
+   * 
+   * Method used in order to confirm if the credentials upon register 
+   * are valid. In the case a user email or username already exists,
+   * it is considered invalid. 
+   * 
+   * @param email User email
+   * @param password User password
+   * @param age User age
+   * @param first_name User first name
+   * @param last_name User last name
+   * @param conf_password User confirmed password
+   * @param username User username
+   * @param phone User phone
+   */
   check_email(email: string, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any){
     const params = new HttpParams().append('email', email).append("username",username);
-    this.errorOnEmail = false
-    this.errorOnUsername = false
     this.HttpClient.get<ResultData>(
-      '/api/check-emails_user',
+      '/api/check-emails-user',
       {
         params
       }
@@ -54,20 +69,30 @@ export class AuthComponent implements OnInit {
         this.sign_up(email,password,age,first_name,last_name,conf_password,username,phone)
       }else{
         if (resData.Result1){
-          this.errorOnEmail = true
+          console.log("Cannot register this user as the email already exist")
         }
         if (resData.Result2) {
-          this.errorOnUsername = true
+          console.log("Cannot register this user as the username already exist")
         }
       }
     });
   }
 
+  /**
+   * 
+   * On submit method when users sends in the login form,
+   * detects valid form, if correct sends a login 
+   * request to the authentification 
+   * service component. 
+   * 
+   * @param form User submitted form
+   * @returns Null if the form is not valid. 
+   */
   onSubmit(form: NgForm){
-
     if (!form.valid){
       return;
     }
+    
     const email = form.value.email;
     const password = form.value.password;
     const age = form.value.age;
@@ -82,7 +107,6 @@ export class AuthComponent implements OnInit {
       this.check_email(email,password,age,first_name,last_name,conf_password,username,phone)
     }
     else{
-      this.errorOnLogin = false
       this.authService.login(email, password).subscribe(
         resData => {
           this.isLoading = false;
@@ -94,28 +118,53 @@ export class AuthComponent implements OnInit {
           }
         },
         errorRes => {
-          this.errorOnLogin = true
+          console.log(errorRes);
           this.isLoading = false;
           this.error = "The username or password entered is incorrect.";
         }
       );
     }
+    form.reset();
   }
 
+  /**
+   * Initial code ran when component is loaded. 
+   * In this case, scrolls the page to the top.
+   */
   ngOnInit(): void {
     window.scrollTo(0,0)
   }
 
+  /**
+   * 
+   * Method in order to choose if a user wants to be a lender or a borrower, 
+   * within the register page. 
+   * 
+   * @param target True in order to check for lender, false for borrower.
+   * 
+   */
   onItemChange(target: boolean) {
     this.lender = target
   }
 
+  /**
+   * 
+   * Method in order to sign up in the application, sends the form 
+   * credentials to the authentication service component. 
+   * 
+   * @param email User email
+   * @param password User password
+   * @param age User age
+   * @param first_name User first name
+   * @param last_name User last name
+   * @param conf_password User confirmed password
+   * @param username User username
+   * @param phone User phone
+   */
   private sign_up(email: any, password: any, age: any, first_name: any, last_name: any, conf_password: string, username: any, phone: any) {
-    this.errorOnRegister = false;
     this.authService.signUp(username, first_name, last_name, email, password, conf_password, age, phone, this.lender).subscribe(
       resData => {
         if (resData.status == 'failure'){
-          this.errorOnRegister = true
           return
         }
         this.isLoading = false;
