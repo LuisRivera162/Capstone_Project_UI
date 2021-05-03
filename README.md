@@ -66,13 +66,13 @@ Capstone_Project_UI            # Root directory
 
 ![front_end1](images/front_end1.PNG)
 
+![front_end5](images/front_end5.PNG)
+
 ![front_end2](images/front_end2.PNG)
 
 ![front_end3](images/front_end3.PNG)
 
 ![front_end4](images/front_end4.PNG)
-
-![front_end5](images/front_end5.PNG)
 
 ![front_end6](images/front_end6.PNG)
 
@@ -81,6 +81,10 @@ Capstone_Project_UI            # Root directory
 ![front_end8](images/front_end8.PNG)
 
 ![front_end9](images/front_end9.PNG)
+
+![front_end9](images/front_end11.PNG)
+
+![front_end9](images/front_end10.PNG)
 
 ## Credits
 
