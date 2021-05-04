@@ -43,18 +43,20 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
       this.load_notifications()
     }
 
-    const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
-    this.HttpClient.get<any>(
-      '/api/get-participant',
-      {
-        params
-      }
-    ).subscribe(resData => {
-      console.log(resData);
-      if (resData.Participant) {
-        this.participant = true;
-      }
-    });
+    if(this.authService.user.getValue()){
+      const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
+      this.HttpClient.get<any>(
+        '/api/get-participant',
+        {
+          params
+        }
+      ).subscribe(resData => {
+        console.log(resData);
+        if (resData.Participant) {
+          this.participant = true;
+        }
+      });
+    }
 
   }
 
