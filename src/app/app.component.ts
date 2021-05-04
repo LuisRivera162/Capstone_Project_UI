@@ -10,12 +10,6 @@ import { Location } from '@angular/common';
 })
 
 export class AppComponent implements OnInit {
-  // @HostListener('window:beforeunload', ['$event'])
-  // beforeunloadHandler($event: any) {
-  //   $event.preventDefault();
-  //   $event.returnValue = "Unsaved modifications";
-  // }
-
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -33,7 +27,6 @@ export class AppComponent implements OnInit {
       } else if (this.location.path() != '/auth') {
         this.router.navigate(['/entry']);
       }
-
     }
   }
 
