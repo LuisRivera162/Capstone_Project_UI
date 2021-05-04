@@ -64,6 +64,10 @@ Capstone_Project_UI            # Root directory
 
 ## Preliminary Page Images: 
 
+![front_end9](images/front_end10.PNG)
+
+![front_end9](images/front_end9.PNG)
+
 ![front_end1](images/front_end1.PNG)
 
 ![front_end5](images/front_end5.PNG)
@@ -80,11 +84,7 @@ Capstone_Project_UI            # Root directory
 
 ![front_end8](images/front_end8.PNG)
 
-![front_end9](images/front_end9.PNG)
-
 ![front_end9](images/front_end11.PNG)
-
-![front_end9](images/front_end10.PNG)
 
 ## Credits
 
