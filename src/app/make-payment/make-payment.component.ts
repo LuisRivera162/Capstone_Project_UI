@@ -87,7 +87,7 @@ export class MakePaymentComponent implements OnInit {
 
     this.payment.state = -1
 
-    return this.HttpClient.post(
+    return this.HttpClient.post<any>(
       '/api/send-payment',
       {
         sender_id: user_data.id,
@@ -96,33 +96,39 @@ export class MakePaymentComponent implements OnInit {
         paymentNumber: this.loan.payment_number, 
         loan_id: this.loan.loan_id, 
         evidenceHash: this.payment.evidence
-      }).subscribe((resData) => {
+      }).subscribe(resData => {
 
-        let loan_state = 2; 
-
-        if (this.loan.payment_number == 0) {
-          loan_state = 3; 
-          this.notificationService.insert_nofitication(this.loan.borrower, 15);
-        }
-
-        this.notificationService.insert_nofitication(Number(this.authService.user_id), 20);
-        
-        if(this.authService.user.getValue()!.lender){
-          this.notificationService.insert_nofitication(this.loan.borrower, 24);
+        if (resData.Error){
+          this.error = resData.Error;
+          this.payment.state = 0;
         }
         else{
-          this.notificationService.insert_nofitication(this.loan.lender, 24);
-        }
 
-        this.HttpClient.put<any>(
-          '/api/update-loan-state',
-          {
-            loan_id: this.loan.loan_id,
-            state: loan_state  
+          let loan_state = 2; 
+          if (this.loan.payment_number == 0) {
+            loan_state = 3; 
+            this.notificationService.insert_nofitication(this.loan.borrower, 15);
           }
-        ).subscribe(resData => {
-          this.payment.state = 1
-        });
+  
+          this.notificationService.insert_nofitication(Number(this.authService.user_id), 20);
+          
+          if(this.authService.user.getValue()!.lender){
+            this.notificationService.insert_nofitication(this.loan.borrower, 24);
+          }
+          else{
+            this.notificationService.insert_nofitication(this.loan.lender, 24);
+          }
+  
+          this.HttpClient.put<any>(
+            '/api/update-loan-state',
+            {
+              loan_id: this.loan.loan_id,
+              state: loan_state  
+            }
+          ).subscribe(resData => {
+            this.payment.state = 1
+          });
+        }
       });
   }
 
