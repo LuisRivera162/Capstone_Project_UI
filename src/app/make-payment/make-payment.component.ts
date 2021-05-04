@@ -80,6 +80,11 @@ export class MakePaymentComponent implements OnInit {
       return;
     }
 
+    if (!this.payment.evidence || this.payment.evidence.length == 0){
+      this.error = "Make sure you enter your Evidence (Transaction ID Hash), before submitting.";
+      return;
+    }
+
     this.payment.state = -1
 
     return this.HttpClient.post(
@@ -99,7 +104,15 @@ export class MakePaymentComponent implements OnInit {
           loan_state = 3; 
           this.notificationService.insert_nofitication(this.loan.borrower, 15);
         }
-        // this.notificationService.insert_nofitication(Number(this.authService.user_id), 4);
+
+        this.notificationService.insert_nofitication(Number(this.authService.user_id), 20);
+        
+        if(this.authService.user.getValue()!.lender){
+          this.notificationService.insert_nofitication(this.loan.borrower, 24);
+        }
+        else{
+          this.notificationService.insert_nofitication(this.loan.lender, 24);
+        }
 
         this.HttpClient.put<any>(
           '/api/update-loan-state',

@@ -1,8 +1,8 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { NotificationComponent } from '../notification/notification.component';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -21,9 +21,12 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   } = JSON.parse(localStorage.getItem('userData') || '{}');
 
   lender = this.userData.lender;
+  participant = false;
 
   constructor(private authService: AuthService,
-              public notificationService: NotificationComponent) { }
+              public notificationService: NotificationComponent,
+              private HttpClient: HttpClient
+              ) { }
 
 
   /**
@@ -39,6 +42,20 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
     if (this.isAuthenticated){
       this.load_notifications()
     }
+
+    const params = new HttpParams().append('user_id', this.authService.user.getValue()!.id);
+    this.HttpClient.get<any>(
+      '/api/get-participant',
+      {
+        params
+      }
+    ).subscribe(resData => {
+      console.log(resData);
+      if (resData.Participant) {
+        this.participant = true;
+      }
+    });
+
   }
 
   /**

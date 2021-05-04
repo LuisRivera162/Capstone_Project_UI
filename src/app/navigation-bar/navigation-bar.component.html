@@ -7,7 +7,7 @@
   </div>
   <div class="collapse navbar-collapse d-flex flex-row-reverse">
     <ul class="navbar-nav">
-      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated && !lender">
+      <li routerLinkActive="active" class="nav-item" *ngIf="isAuthenticated && !lender && !participant">
         <a class="nav-link" routerLink="/search">Search</a>
       </li>
       <li routerLinkActive="active" class="nav-item">

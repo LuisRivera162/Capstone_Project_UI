@@ -56,7 +56,7 @@ export class LenderPageComponent implements OnInit {
   active_loans = 0;
   active_loans_balance = 0;
   pending_loans = 0;
-
+  isLoading = false;
   overall_gain = 0;
 
   error: string = "null";
@@ -145,7 +145,7 @@ export class LenderPageComponent implements OnInit {
       this.error = "Form is not valid, make sure you fill all fields.";
       return;
     }
-
+    this.isLoading = true;
     this.error = "null";
 
     let loan_amount = form.value.loan_amount;
@@ -176,7 +176,7 @@ export class LenderPageComponent implements OnInit {
     newLoan.state = -1;
     newLoan.payment_number = 0;
 
-    this.loans.push(newLoan);
+    this.loans.unshift(newLoan);
     this.closebutton.nativeElement.click();
 
     return this.HttpClient.post(
@@ -192,6 +192,7 @@ export class LenderPageComponent implements OnInit {
         est_total_interest: this.loan.est_total_interest
       }).subscribe((resData: any) => {
         this.notificationService.insert_nofitication(user_data.id, 10);
+        this.isLoading = false;
         window.location.reload();
       });
   }
@@ -250,6 +251,7 @@ export class LenderPageComponent implements OnInit {
    * informing him an offer was accepted. 
    */
   accept_offer() {
+    this.isLoading = true;
     this.offer_accept_isprocessing = -1
     this.HttpClient.put<any>(
       '/api/accept-offer',
@@ -258,6 +260,8 @@ export class LenderPageComponent implements OnInit {
         contractHash: this.curr_offer.eth_address     
       }
     ).subscribe(resData => {
+      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
+      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 21);
       this.offer_accept_isprocessing = 1.
 
       this.HttpClient.put<any>(
@@ -268,11 +272,9 @@ export class LenderPageComponent implements OnInit {
         }
       ).subscribe(resData => {
         timer(2)
+        this.isLoading = false;
         window.location.reload(); 
       });
-      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 2);
-      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 3);
-      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
     });
   }
 
