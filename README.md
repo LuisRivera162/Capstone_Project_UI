@@ -44,15 +44,15 @@ Capstone_Project_UI            # Root directory
 |-- active-loans/              # Defines the active-loans page, where users can watch their active loans.
 |-- auth/                      # Responsible for user log-in and register.
 |-- borrower-page/             # Borrower dashboard component, borrowers will be able to make payments and watch their payment schedules.
-|-- create-loan/               # Component called when a lender is trying to create a loan.
 |-- entry/                     # Entry component loaded when application booted and no user is logged in.
+|-- home/                      # Home component responsible for re-directing users to the home page, lender or borrower page.
+|-- investor/                  # Investor component responsible for the investor page, where users can invest in securing a loan.
 |-- latest-payments/           # Component responsible for showing all the latest payments made.
 |-- lender-page/               # Lender dashboard component, lenders will be able to create loans, review offers and check payments.
-|-- loan-detail/               # Component responsible for showing all the loan details from a loan.
 |-- loan-search/               # Loan search component, responsible for showing borrowers all the available loans.
 |-- make-payment/              # Component responsible for processing payments.
+|-- navigation-bar/            # Component in charge of displaying the navigation bar with all of its buttons depending on type of user. 
 |-- notification/              # Component in charge of showing all user notifications. 
-|-- notifications-actionitems/ # add usability
 |-- offer/create-offer         # Component for creating offers.
 |-- offer/pending-offers       # Pending-offers component, responsible for showing users all pending offers.
 |-- payment-schedule/          # Component responsible for preparing the user with dates based on when to pay.
@@ -63,6 +63,10 @@ Capstone_Project_UI            # Root directory
 ```
 
 ## Preliminary Page Images: 
+
+![front_end9](images/front_end10.PNG)
+
+![front_end9](images/front_end9.PNG)
 
 ![front_end1](images/front_end1.PNG)
 
@@ -80,11 +84,7 @@ Capstone_Project_UI            # Root directory
 
 ![front_end8](images/front_end8.PNG)
 
-![front_end9](images/front_end9.PNG)
-
 ![front_end9](images/front_end11.PNG)
-
-![front_end9](images/front_end10.PNG)
 
 ## Credits
 
