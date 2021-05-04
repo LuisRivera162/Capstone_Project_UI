@@ -59,7 +59,7 @@ export class ValidatePaymentComponent implements OnInit {
   onSubmit(form: NgForm) {
 
     if (!form.valid) {
-      this.error = "Make sure you enter your evidence code, before submitting."
+      this.error = "Make sure you enter your Evidence (Transaction ID Hash), before submitting."
       return;
     }
 
@@ -88,12 +88,18 @@ export class ValidatePaymentComponent implements OnInit {
         if (resData.isvalid == 1) {
           this.validationPayload.isvalid = true;
           this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 16);
+          if(this.authService.user.getValue()!.lender){
+            this.notificationService.insert_nofitication(this.paymentToValidate.sender_id, 22);
+          }
+          else{
+            this.notificationService.insert_nofitication(this.paymentToValidate.sender_id, 23);
+          }
           window.location.reload();
         }
         else if (resData.isvalid == 2){
           this.validationPayload.isvalid = true;
-          this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 17);
-          this.notificationService.insert_nofitication(this.paymentToValidate.sender_id, 18);
+          this.notificationService.insert_nofitication(this.paymentToValidate.sender_id, 17);
+          this.notificationService.insert_nofitication(this.paymentToValidate.receiver_id, 18);
           window.location.reload();
         }
         else{

@@ -198,6 +198,12 @@
                 <button type="button" class="btn btn-danger" (click)="accept_offer()">
                     Confirm
                 </button>
+                <div class="modal-footer justify-content-center" *ngIf="isLoading">
+                    <small  class="text-warning">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Processing offer acceptance, don't dismiss this form...
+                    </small>
+                </div>
             </div>
         </div>
     </div>

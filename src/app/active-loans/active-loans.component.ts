@@ -176,6 +176,7 @@ export class ActiveLoansComponent implements OnInit {
    * notification to the borrower who's offer was accepted. 
    */
   accept_offer() {
+    this.isLoading = true; 
     this.HttpClient.put<any>(
       '/api/accept-offer',
       {
@@ -184,19 +185,18 @@ export class ActiveLoansComponent implements OnInit {
       }
     ).subscribe(resData => {
       this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
-    });
+      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 21);
+      this.isLoading = false; 
 
-    this.HttpClient.put<any>(
-      '/api/update-loan-state',
-      {
-        loan_id: this.curr_offer.loan_id,
-        state: 2    
-      }
-    ).subscribe(resData => {
-      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 2);
-      this.notificationService.insert_nofitication(this.curr_offer.borrower_id, 3);
-      this.notificationService.insert_nofitication(this.curr_offer.lender_id, 3);
-      window.location.reload(); 
+      this.HttpClient.put<any>(
+        '/api/update-loan-state',
+        {
+          loan_id: this.curr_offer.loan_id,
+          state: 2    
+        }
+      ).subscribe(resData => {
+        window.location.reload(); 
+      });
     });
   }
 
