@@ -128,7 +128,6 @@ export class ActiveLoansComponent implements OnInit {
         params
       }
     ).subscribe(resData => {
-      console.log(resData);
       this.phone = resData.phone
     });
     this.error = 'null';
