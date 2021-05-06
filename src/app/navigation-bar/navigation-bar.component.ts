@@ -51,7 +51,6 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
           params
         }
       ).subscribe(resData => {
-        console.log(resData);
         if (resData.Participant) {
           this.participant = true;
         }

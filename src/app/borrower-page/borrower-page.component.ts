@@ -128,7 +128,6 @@ export class BorrowerPageComponent implements OnInit {
           params
         }
       ).subscribe(resData => {
-        console.log(resData);
         this.phone = resData.phone
       });
 
