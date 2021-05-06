@@ -23,3 +23,12 @@
     font-size: 10px;
     padding-right: 0;
 }
+
+.logo-image{
+    width: 33px;
+    height: 33px;
+    overflow: hidden;
+    margin-top: 2px;
+    margin-right: 0;
+    padding-right: 1px;
+}
