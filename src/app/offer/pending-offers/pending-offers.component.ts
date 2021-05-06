@@ -31,6 +31,7 @@ export class PendingOffersComponent implements OnInit {
 
   offers: Offer[] = []
   curr_offer: Offer = {} as Offer;
+  platforms = ['Venmo', 'ATH Movil', 'PayPal'];
 
   constructor(
     private authService: AuthService,

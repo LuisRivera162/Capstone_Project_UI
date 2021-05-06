@@ -117,6 +117,9 @@ export class LenderPageComponent implements OnInit {
         }
         this.overall_gain += loan.rcvd_interest;
       });
+      if (this.active_loans_balance < 0){
+        this.active_loans_balance = 0;
+      }
     });
 
     this.HttpClient.get<any>(

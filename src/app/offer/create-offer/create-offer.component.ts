@@ -135,7 +135,7 @@ export class CreateOfferComponent implements OnInit {
           this.error = "null"; 
           form.reset(); 
           this.notificationService.insert_nofitication(Number(this.authService.user_id), 12);
-          this.router.navigate(['/pending-offers']);
+          this.router.navigate(['/borrower']);
       });
     }
 
