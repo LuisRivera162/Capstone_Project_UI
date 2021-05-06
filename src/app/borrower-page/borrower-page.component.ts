@@ -60,6 +60,7 @@ interface UserResponseData {
 export class BorrowerPageComponent implements OnInit {
   user_id = this.authService.user.getValue()!.id;
   firstname = '';
+  phone = '';
   platforms = ['Venmo', 'ATH Movil', 'PayPal'];
 
   currentLoan: Loan = {} as Loan;
@@ -96,6 +97,7 @@ export class BorrowerPageComponent implements OnInit {
    * server. 
    */
   ngOnInit(): void {
+
     const params = new HttpParams().append('user_id', this.user_id);
 
     this.HttpClient.get<UserResponseData>(
@@ -118,6 +120,18 @@ export class BorrowerPageComponent implements OnInit {
         this.currentLoan = userLoans[0]
         this.loadPaymentSchedule()
       }
+
+      let params = new HttpParams().append('user_id', String(this.currentLoan.lender));
+      this.HttpClient.get<any>(
+        '/api/user',
+        {
+          params
+        }
+      ).subscribe(resData => {
+        console.log(resData);
+        this.phone = resData.phone
+      });
+
     });
 
     this.HttpClient.get<any>(

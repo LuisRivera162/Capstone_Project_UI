@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,6 +33,7 @@ export class MakePaymentComponent implements OnInit {
   platform = ['Venmo', 'PayPal', 'ATH Movil'];
 
   @Input() loan: Loan = {} as Loan;
+  @Input() phone: any;
 
   constructor(
     private authService: AuthService,
