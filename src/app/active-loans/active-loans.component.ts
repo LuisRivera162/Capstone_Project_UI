@@ -121,15 +121,17 @@ export class ActiveLoansComponent implements OnInit {
    */
   loadLoanInfo(index: number): void {
     this.curr_loan = this.loans[index];
-    let params = new HttpParams().append('user_id', String(this.curr_loan.borrower));
-    this.HttpClient.get<any>(
-      '/api/user',
-      {
-        params
-      }
-    ).subscribe(resData => {
-      this.phone = resData.phone
-    });
+    if (this.curr_loan.borrower){
+      let params = new HttpParams().append('user_id', String(this.curr_loan.borrower));
+      this.HttpClient.get<any>(
+        '/api/user',
+        {
+          params
+        }
+      ).subscribe(resData => {
+        this.phone = resData.phone
+      });
+    }
     this.error = 'null';
   }
 

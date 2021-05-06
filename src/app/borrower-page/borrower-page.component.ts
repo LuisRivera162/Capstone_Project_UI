@@ -121,15 +121,18 @@ export class BorrowerPageComponent implements OnInit {
         this.loadPaymentSchedule()
       }
 
-      let params = new HttpParams().append('user_id', String(this.currentLoan.lender));
-      this.HttpClient.get<any>(
-        '/api/user',
-        {
-          params
-        }
-      ).subscribe(resData => {
-        this.phone = resData.phone
-      });
+      if (this.currentLoan){
+        let params = new HttpParams().append('user_id', String(this.currentLoan.lender));
+        this.HttpClient.get<any>(
+          '/api/user',
+          {
+            params
+          }
+        ).subscribe(resData => {
+          this.phone = resData.phone
+        });
+
+      }
 
     });
 
