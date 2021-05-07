@@ -84,6 +84,8 @@ Capstone_Project_UI            # Root directory
 
 ![front_end8](images/front_end8.PNG)
 
+![front_end9](images/front_end12.PNG)
+
 ![front_end9](images/front_end11.PNG)
 
 ## Credits
